@@ -9,7 +9,7 @@ namespace dominio
     internal class DetalleVenta
     {
         public int Id { get; set; }
-        public Producto Producto { get; set; } // TODO: Clase Producto
+        //public Producto Producto { get; set; } // TODO: Clase Producto
         public int Cantidad { get; set; }
         public decimal PrecioUnitarioVenta { get; set; }
     }
