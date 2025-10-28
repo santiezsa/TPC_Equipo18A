@@ -65,18 +65,36 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="GestionClientes.aspx" />
     <Content Include="GestionProductos.aspx" />
+    <Content Include="GestionProveedores.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="RegistrarCompra.aspx" />
+    <Content Include="RegistrarVenta.aspx" />
     <Content Include="Web.config" />
     <Content Include="Default.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GestionClientes.aspx.cs">
+      <DependentUpon>GestionClientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestionClientes.aspx.designer.cs">
+      <DependentUpon>GestionClientes.aspx</DependentUpon>
+    </Compile>
     <Compile Include="GestionProductos.aspx.cs">
       <DependentUpon>GestionProductos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="GestionProductos.aspx.designer.cs">
       <DependentUpon>GestionProductos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GestionProveedores.aspx.cs">
+      <DependentUpon>GestionProveedores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestionProveedores.aspx.designer.cs">
+      <DependentUpon>GestionProveedores.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -95,6 +113,20 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RegistrarCompra.aspx.cs">
+      <DependentUpon>RegistrarCompra.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RegistrarCompra.aspx.designer.cs">
+      <DependentUpon>RegistrarCompra.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RegistrarVenta.aspx.cs">
+      <DependentUpon>RegistrarVenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RegistrarVenta.aspx.designer.cs">
+      <DependentUpon>RegistrarVenta.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
