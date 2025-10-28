@@ -17,6 +17,7 @@ namespace dominio
         public Proveedor Provedor { get; set; }
         public decimal Precio { get; set; }
         public int StockActual { get; set; }
+        public int StockMinimo { get; set; }
 
     }
 }
