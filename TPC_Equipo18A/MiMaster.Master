@@ -82,7 +82,7 @@
                         <ul class="nav flex-column">
                             <li class="nav-item">
                                 <%-- Este link lo ven todos --%>
-                                <asp:HyperLink CssClass="nav-link active" NavigateUrl="~/Default.aspx" runat="server">
+                                <asp:HyperLink CssClass="nav-link" NavigateUrl="~/Default.aspx" runat="server">
             <i class="bi bi-house-door-fill"></i> Inicio
                                 </asp:HyperLink>
                             </li>
