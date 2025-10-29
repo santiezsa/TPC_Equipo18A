@@ -15,12 +15,12 @@
         <div class="card-body">
             <div class="table-responsive">
                 <asp:GridView ID="gvClientes" runat="server"
-                    CssClass="table table-hover align-middle" AutoGenerateColumns="false" 
+                    CssClass="table table-hover align-middle" AutoGenerateColumns="false">
                     <Columns>
-                        <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
-                        <asp:BoundField HeaderText="Apellido" DataField="Apellido" />
-                        <asp:BoundField HeaderText="Email" DataField="Email" />
-                        <asp:BoundField HeaderText="Teléfono" DataField="Telefono" />
+                        <asp:BoundField HeaderText="Nombre" DataField="Nombre"/>
+                        <asp:BoundField HeaderText="Apellido" DataField="Apellido"/>
+                        <asp:BoundField HeaderText="Email" DataField="Email"/>
+                        <asp:BoundField HeaderText="Teléfono" DataField="Telefono"/>
                     </Columns>
                 </asp:GridView>
             </div>
