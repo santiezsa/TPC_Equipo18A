@@ -61,10 +61,11 @@ Activo BIT NOT NULL DEFAULT 1
 go
 
 -- Productos
+CREATE TABLE Productos(
 Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL, --autonumerico
 Codigo VARCHAR(50) UNIQUE,
 Nombre VARCHAR(150) NOT NULL,
-Descripcion TEXT(500),
+Descripcion VARCHAR(500),
 IdMarca INT FOREIGN KEY REFERENCES Marcas(Id),
 IdCategoria INT FOREIGN KEY REFERENCES Categorias(Id),
 StockActual INT NOT NULL DEFAULT 0, -- cuando se crea el producto se asume que tiene 0 unidades
