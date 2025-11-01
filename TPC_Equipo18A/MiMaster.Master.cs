@@ -13,5 +13,12 @@ namespace TPC_Equipo18A
         {
 
         }
+
+        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Response.Redirect("Login.aspx"); // para volver al login
+            // TODO: Crear Login.aspx
+        }
     }
 }
