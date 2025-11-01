@@ -48,3 +48,37 @@ Descripcion VARCHAR(50) NOT NULL
 )
 GO
 
+-- Creacion de tablas con dependencias
+
+-- Usuarios
+CREATE TABLE Usuarios(
+Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL, -- autonumerico
+Username VARCHAR(100) NOT NULL UNIQUE, -- debe ser unico
+Password VARCHAR(100) NOT NULL,
+IdPerfil INT NOT NULL FOREIGN KEY REFERENCES Perfiles(Id),
+Activo BIT NOT NULL DEFAULT 1
+)
+go
+
+-- Productos
+Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL, --autonumerico
+Codigo VARCHAR(50) UNIQUE,
+Nombre VARCHAR(150) NOT NULL,
+Descripcion TEXT(500),
+IdMarca INT FOREIGN KEY REFERENCES Marcas(Id),
+IdCategoria INT FOREIGN KEY REFERENCES Categorias(Id),
+StockActual INT NOT NULL DEFAULT 0, -- cuando se crea el producto se asume que tiene 0 unidades
+StockMinimo INT NOT NULL DEFAULT 5, -- el stock minimo del prod es 5
+PorcentajeGanancia DECIMAL(4,2) NOT NULL DEFAULT 30.00 -- porcentaje por defecto sera del 30%
+)
+go
+
+-- Tabla para conectar los productos con proveedores
+CREATE TABLE Productos_x_Proveedores(
+IdProducto INT NOT NULL FOREIGN KEY REFERENCES Productos(Id),
+IdProveedor INT NOT NULL FOREIGN KEY REFERENCES Proveedores(Id),
+PRIMARY KEY (IdProducto, IdProveedor) -- PK Compuesta
+)
+GO
+
+----------------------- PENDIENTE LAS TABLAS CORE -----------------------
