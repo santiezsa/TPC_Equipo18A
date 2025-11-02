@@ -65,7 +65,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FormularioMarca.aspx" />
     <Content Include="GestionClientes.aspx" />
+    <Content Include="GestionMarcas.aspx" />
     <Content Include="GestionProductos.aspx" />
     <Content Include="GestionProveedores.aspx" />
     <Content Include="Global.asax" />
@@ -75,12 +77,26 @@
     <Content Include="Default.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormularioMarca.aspx.cs">
+      <DependentUpon>FormularioMarca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormularioMarca.aspx.designer.cs">
+      <DependentUpon>FormularioMarca.aspx</DependentUpon>
+    </Compile>
     <Compile Include="GestionClientes.aspx.cs">
       <DependentUpon>GestionClientes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="GestionClientes.aspx.designer.cs">
       <DependentUpon>GestionClientes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GestionMarcas.aspx.cs">
+      <DependentUpon>GestionMarcas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestionMarcas.aspx.designer.cs">
+      <DependentUpon>GestionMarcas.aspx</DependentUpon>
     </Compile>
     <Compile Include="GestionProductos.aspx.cs">
       <DependentUpon>GestionProductos.aspx</DependentUpon>
