@@ -52,6 +52,8 @@ namespace negocio
                 datos.ejecutarLectura();
                 if (datos.Lector.Read())
                 {
+                    proveedor = new Proveedor();
+
                     proveedor.Id = (int)datos.Lector["Id"];
                     proveedor.Nombre = (string)datos.Lector["Nombre"];
                     proveedor.RazonSocial = (string)datos.Lector["RazonSocial"];
@@ -76,7 +78,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("INSERT INTO CLIENTES (Nombre, RazonSocial, CUIT, Email, Telefono) VALUES (@Nombre, @RazonSocial, @CUIT, @Email, @Telefono)");
+                datos.setearConsulta("INSERT INTO Proveedores (Nombre, RazonSocial, CUIT, Email, Telefono) VALUES (@Nombre, @RazonSocial, @CUIT, @Email, @Telefono)");
                 datos.setearParametro("@Nombre", nuevo.Nombre);
                 datos.setearParametro("@RazonSocial", nuevo.RazonSocial);
                 datos.setearParametro("@CUIT", nuevo.CUIT);
@@ -100,7 +102,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("UPDATE CLIENTES SET Nombre = @Nombre, RazonSocial = @RazonSocial, CUIT = @CUIT, Email = @Email, Telefono = @Telefono WHERE Id = @Id");
+                datos.setearConsulta("UPDATE Proveedores SET Nombre = @Nombre, RazonSocial = @RazonSocial, CUIT = @CUIT, Email = @Email, Telefono = @Telefono WHERE Id = @Id");
                 datos.setearParametro("@Nombre", proveedor.Nombre);
                 datos.setearParametro("@RazonSocial", proveedor.RazonSocial);
                 datos.setearParametro("@CUIT", proveedor.CUIT);

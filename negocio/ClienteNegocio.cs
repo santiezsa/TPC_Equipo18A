@@ -7,7 +7,7 @@ using dominio;
 
 namespace negocio
 {
-    internal class ClienteNegocio
+    public class ClienteNegocio
     {
         public List<Cliente> listar()
         {
@@ -50,8 +50,11 @@ namespace negocio
                 datos.setearConsulta("SELECT Id, Nombre, Apellido, Email, Telefono, Direccion FROM CLIENTES WHERE Id = @Id");
                 datos.setearParametro("@Id", id);
                 datos.ejecutarLectura();
+
                 if (datos.Lector.Read())
                 {
+                    cliente = new Cliente();
+
                     cliente.Id = (int)datos.Lector["Id"];
                     cliente.Nombre = (string)datos.Lector["Nombre"];
                     cliente.Apellido = (string)datos.Lector["Apellido"];
