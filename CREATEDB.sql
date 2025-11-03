@@ -26,7 +26,8 @@ Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL, -- campos autonumericos
 Nombre VARCHAR(100) NOT NULL,
 Apellido VARCHAR(100) NOT NULL,
 Email VARCHAR(150) UNIQUE, -- para evitar duplicados de mails
-Telefono VARCHAR(50)
+Telefono VARCHAR(50),
+Direccion VARCHAR(255)
 )
 go
 
