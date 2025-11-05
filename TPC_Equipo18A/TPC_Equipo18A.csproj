@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FormularioCategoria.aspx" />
+    <Content Include="FormularioCliente.aspx" />
     <Content Include="FormularioMarca.aspx" />
     <Content Include="GestionCategorias.aspx" />
     <Content Include="GestionClientes.aspx" />
@@ -85,6 +86,13 @@
     </Compile>
     <Compile Include="FormularioCategoria.aspx.designer.cs">
       <DependentUpon>FormularioCategoria.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormularioCliente.aspx.cs">
+      <DependentUpon>FormularioCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormularioCliente.aspx.designer.cs">
+      <DependentUpon>FormularioCliente.aspx</DependentUpon>
     </Compile>
     <Compile Include="FormularioMarca.aspx.cs">
       <DependentUpon>FormularioMarca.aspx</DependentUpon>
