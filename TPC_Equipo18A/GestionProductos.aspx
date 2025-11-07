@@ -3,10 +3,12 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
+    <div class="d-flex justify-content-between align-items-center mb-3">
         <h3>Productos</h3>
-        <p>Acá podés administrar el catálogo de productos.</p>
-
+        <%--<p>Acá podés administrar el catálogo de productos.</p>--%>
+        <asp:HyperLink NavigateUrl="~/FormularioProducto.aspx" runat="server" Text="Nuevo Producto" CssClass="btn btn-primary mb-3" />
+            </div>
+            
         <%-- TODO: Agregar formato al gridview --%>
         <asp:GridView ID="gvProductos" runat="server" CssClass="table table-hover" AutoGenerateColumns="false">
             <Columns>

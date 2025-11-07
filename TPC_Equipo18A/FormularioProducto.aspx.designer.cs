@@ -11,7 +11,7 @@ namespace TPC_Equipo18A
 {
 
 
-    public partial class FormularioMarca
+    public partial class FormularioProducto
     {
 
         /// <summary>
