@@ -24,10 +24,10 @@ namespace negocio
         public AccesoDatos()
         {
             // Con Windows Authentication
-            //conexion = new SqlConnection("server=.\\SQLEXPRESS; database=BBDD_TPC_P3; integrated security=true");
+            conexion = new SqlConnection("server=.\\SQLEXPRESS; database=BBDD_TPC_P3; integrated security=true");
 
             // Con Docker
-            conexion = new SqlConnection("server=localhost; database=BBDD_TPC_P3; user id=sa; password=BaseDeDatos#2");
+            //conexion = new SqlConnection("server=localhost; database=BBDD_TPC_P3; user id=sa; password=BaseDeDatos#2");
             comando = new SqlCommand();
         }
 

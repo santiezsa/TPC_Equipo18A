@@ -52,5 +52,39 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public Producto buscarPorId(int id)
+        {
+            Producto producto = null;
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT P.Id, P.Nombre, P.Descripcion, P.IdMarca, M.Descripcion AS MarcaDescripcion, P.IdCategoria, C.Descripcion AS CategoriaDescripcion FROM Productos AS P JOIN Marcas AS M ON P.IDMarca = M.Id JOIN Categorias AS C ON P.IdCategoria = C.Id WHERE P.Id = @Id");
+                datos.setearParametro("@Id", id);
+                datos.ejecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    producto = new Producto();
+                    producto.Id = (int)datos.Lector["Id"];
+                    producto.Nombre = (string)datos.Lector["Nombre"];
+                    producto.Descripcion = (string)datos.Lector["Descripcion"];
+                    producto.Marca = new Marca();
+                    producto.Marca.Id = (int)datos.Lector["IdMarca"];
+                    producto.Marca.Descripcion = (string)datos.Lector["MarcaDescripcion"];
+                    producto.Categoria = new Categoria();
+                    producto.Categoria.Id = (int)datos.Lector["IdCategoria"];
+                    producto.Categoria.Descripcion = (string)datos.Lector["CategoriaDescripcion"];
+                }
+                return producto;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
