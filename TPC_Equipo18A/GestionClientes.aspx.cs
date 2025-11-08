@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using dominio;
+using negocio;
 
 namespace TPC_Equipo18A
 {
@@ -11,7 +13,9 @@ namespace TPC_Equipo18A
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            ClienteNegocio negocio = new ClienteNegocio();
+            gvClientes.DataSource = negocio.listar();
+            gvClientes.DataBind();
         }
     }
 }
