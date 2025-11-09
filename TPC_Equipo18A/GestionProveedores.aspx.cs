@@ -53,12 +53,11 @@ namespace TPC_Equipo18A
                 cargarGv();
 
                 // Mensaje de exito
-                ScriptManager.RegisterStartupScript(this, GetType(), "ToastExito", "mostrarToast('Proveedor eliminado correctamente.', 'success');", true);
+                mostrarToast("Proveedor eliminado correctamente.", "success");
             }
             catch (Exception ex)
             {
-                string script = $"mostrarToast('{ex.Message}', 'danger');"; // danger = rojo
-                ScriptManager.RegisterStartupScript(this, GetType(), "ToastError", script, true);
+                mostrarToast(ex.Message, "danger");
             }
             finally
             {
