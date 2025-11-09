@@ -75,6 +75,7 @@
     <Content Include="GestionMarcas.aspx" />
     <Content Include="GestionProductos.aspx" />
     <Content Include="GestionProveedores.aspx" />
+    <Content Include="GestionUsuarios.aspx" />
     <Content Include="Global.asax" />
     <Content Include="RegistrarCompra.aspx" />
     <Content Include="RegistrarVenta.aspx" />
@@ -151,6 +152,13 @@
     </Compile>
     <Compile Include="GestionProveedores.aspx.designer.cs">
       <DependentUpon>GestionProveedores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GestionUsuarios.aspx.cs">
+      <DependentUpon>GestionUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestionUsuarios.aspx.designer.cs">
+      <DependentUpon>GestionUsuarios.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
