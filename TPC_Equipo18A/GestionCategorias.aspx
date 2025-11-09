@@ -12,12 +12,6 @@
             Text="Agregar Categoría" CssClass="btn btn-primary" />
     </div>
 
-    <%-- Panel de errores (hidden) --%>
-    <asp:Panel ID="pnlError" runat="server" Visible="false" CssClass="alert alert-danger" role="alert">
-        <strong>¡Error!</strong>
-        <asp:Literal ID="lblError" runat="server"></asp:Literal>
-    </asp:Panel>
-
     <%-- Panel de confirmacion (hidden) --%>
     <asp:Panel ID="pnlConfirmacion" runat="server" Visible="false" CssClass="alert alert-warning" role="alert">
         <h4 class="alert-heading">¿Confirmar eliminación?</h4>

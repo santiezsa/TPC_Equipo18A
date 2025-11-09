@@ -16,10 +16,15 @@ namespace TPC_Equipo18A
             if (!IsPostBack)
             {
                 // Oculto paneles cuando carga por primera vez
-                pnlError.Visible = false;
                 pnlConfirmacion.Visible = false;
                 cargarGv();
             }
+        }
+
+        private void mostrarToast(string mensaje, string tipo)
+        {
+            string script = $"mostrarToast('{mensaje}', '{tipo}');";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastJS", script, true);
         }
 
         protected void gvMarcas_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -32,7 +37,7 @@ namespace TPC_Equipo18A
                 // Obtengo la descripcion de la marca con el indice de la fila
                 int rowIndex = Convert.ToInt32(((GridViewRow)((Control)e.CommandSource).NamingContainer).RowIndex);
                 string descripcion = gvMarcas.Rows[rowIndex].Cells[1].Text;
-                
+
                 // Guardo ID en hiddenfield
                 hfIdParaEliminar.Value = id.ToString();
 
@@ -42,7 +47,6 @@ namespace TPC_Equipo18A
                 // Muestro u oculto panel de confirmacion
                 pnlGV.Visible = false;
                 pnlConfirmacion.Visible = true;
-                pnlError.Visible = false;
             }
         }
 
@@ -59,19 +63,21 @@ namespace TPC_Equipo18A
             MarcaNegocio negocio = new MarcaNegocio();
             try
             {
-                // 1. Leo el ID desde el hf
+                // Leo el ID desde el hf
                 int id = int.Parse(hfIdParaEliminar.Value);
 
-                // 2. Ejecuto la eliminacion
+                // Ejecuto la eliminacion
                 negocio.eliminar(id);
 
-                // 3. Recargo la grilla
+                // Recargo la grilla
                 cargarGv();
+
+                // Mensaje de exito
+                mostrarToast("Categoría eliminada exitosamente.", "success");
             }
             catch (Exception ex)
             {
-                lblError.Text = ex.Message;
-                pnlError.Visible = true;
+                mostrarToast(ex.Message, "danger");
             }
             finally
             {
@@ -86,7 +92,6 @@ namespace TPC_Equipo18A
             // Oculto panel de confirmacion y muestro grilla
             pnlConfirmacion.Visible = false;
             pnlGV.Visible = true;
-            pnlError.Visible = false;
         }
     }
 }
