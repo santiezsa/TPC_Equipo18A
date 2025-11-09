@@ -16,8 +16,15 @@ namespace TPC_Equipo18A
             if (!IsPostBack)
             {
                 pnlConfirmacion.Visible = false;
+                //mostrarToast("prueba","success");
                 cargarGv();
             }
+        }
+
+        private void mostrarToast(string mensaje, string tipo)
+        {
+            string script = $"mostrarToast('{mensaje}', '{tipo}');";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastJS", script, true);
         }
 
         private void cargarGv()
@@ -44,22 +51,20 @@ namespace TPC_Equipo18A
                 ProveedorNegocio negocio = new ProveedorNegocio();
                 negocio.eliminar(id);
                 cargarGv();
+
+                // Mensaje de exito
+                ScriptManager.RegisterStartupScript(this, GetType(), "ToastExito", "mostrarToast('Proveedor eliminado correctamente.', 'success');", true);
             }
             catch (Exception ex)
             {
-                mostrarToastError(ex.Message);
+                string script = $"mostrarToast('{ex.Message}', 'danger');"; // danger = rojo
+                ScriptManager.RegisterStartupScript(this, GetType(), "ToastError", script, true);
             }
             finally
             {
                 pnlConfirmacion.Visible = false;
                 pnlGV.Visible = true;
             }
-        }
-
-        private void mostrarToastError(string mensaje)
-        {
-            ltlToastMessage.Text = mensaje;
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "LaunchToast", "$('#errorToast').toast('show');", true);
         }
 
         protected void btnCancelarEliminacion_Click(object sender, EventArgs e)

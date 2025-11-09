@@ -70,19 +70,4 @@
         </div>
     </asp:Panel>
 
-    <%-- Toast --%>
-    <div style="position: fixed; top: 80px; right: 20px; z-index: 9999;">
-        <div id="errorToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
-            <div class="toast-header bg-danger text-white">
-                <strong class="mr-auto">Error</strong>
-                <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="toast-body">
-                <asp:Literal ID="ltlToastMessage" runat="server" />
-            </div>
-        </div>
-    </div>
-
 </asp:Content>
