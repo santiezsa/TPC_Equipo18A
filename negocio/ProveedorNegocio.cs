@@ -15,13 +15,12 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT Id, Nombre, RazonSocial, CUIT, Email, Telefono FROM Proveedores");
+                datos.setearConsulta("SELECT Id, RazonSocial, CUIT, Email, Telefono FROM Proveedores");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
                     Proveedor aux = new Proveedor();
                     aux.Id = (int)datos.Lector["Id"];
-                    aux.Nombre = (string)datos.Lector["Nombre"];
                     aux.RazonSocial = (string)datos.Lector["RazonSocial"];
                     aux.CUIT = (string)datos.Lector["CUIT"];
                     aux.Email = (string)datos.Lector["Email"];
@@ -47,7 +46,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT Id, Nombre, RazonSocial, CUIT, Email, Telefono FROM Proveedores WHERE Id = @Id");
+                datos.setearConsulta("SELECT Id, RazonSocial, CUIT, Email, Telefono FROM Proveedores WHERE Id = @Id");
                 datos.setearParametro("@Id", id);
                 datos.ejecutarLectura();
                 if (datos.Lector.Read())
@@ -55,7 +54,6 @@ namespace negocio
                     proveedor = new Proveedor();
 
                     proveedor.Id = (int)datos.Lector["Id"];
-                    proveedor.Nombre = (string)datos.Lector["Nombre"];
                     proveedor.RazonSocial = (string)datos.Lector["RazonSocial"];
                     proveedor.CUIT = (string)datos.Lector["CUIT"];
                     proveedor.Email = (string)datos.Lector["Email"];
@@ -78,8 +76,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("INSERT INTO Proveedores (Nombre, RazonSocial, CUIT, Email, Telefono) VALUES (@Nombre, @RazonSocial, @CUIT, @Email, @Telefono)");
-                datos.setearParametro("@Nombre", nuevo.Nombre);
+                datos.setearConsulta("INSERT INTO Proveedores ( RazonSocial, CUIT, Email, Telefono) VALUES (@RazonSocial, @CUIT, @Email, @Telefono)");
                 datos.setearParametro("@RazonSocial", nuevo.RazonSocial);
                 datos.setearParametro("@CUIT", nuevo.CUIT);
                 datos.setearParametro("@Email", nuevo.Email);
@@ -102,8 +99,8 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("UPDATE Proveedores SET Nombre = @Nombre, RazonSocial = @RazonSocial, CUIT = @CUIT, Email = @Email, Telefono = @Telefono WHERE Id = @Id");
-                datos.setearParametro("@Nombre", proveedor.Nombre);
+                datos.setearConsulta("UPDATE Proveedores SET RazonSocial = @RazonSocial, CUIT = @CUIT, Email = @Email, Telefono = @Telefono WHERE Id = @Id");
+                datos.setearParametro("@Id", proveedor.Id);
                 datos.setearParametro("@RazonSocial", proveedor.RazonSocial);
                 datos.setearParametro("@CUIT", proveedor.CUIT);
                 datos.setearParametro("@Email", proveedor.Email);

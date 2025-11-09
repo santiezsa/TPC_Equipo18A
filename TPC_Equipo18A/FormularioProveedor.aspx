@@ -31,14 +31,9 @@
                         </div>
                     </div>
 
-                    <%-- Nombre y telefono --%>
+                    <%-- Telefono --%>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label>Nombre (Fantasía/Contacto)</label>
-                            <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control"></asp:TextBox>
-                            <asp:RequiredFieldValidator ErrorMessage="El nombre es obligatorio." ControlToValidate="txtNombre" CssClass="text-danger small" Display="Dynamic" runat="server" />
-                        </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-12">
                             <label>Teléfono</label>
                             <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>

@@ -31,7 +31,6 @@ namespace TPC_Equipo18A
                         hfId.Value = seleccionado.Id.ToString();
                         txtRazonSocial.Text = seleccionado.RazonSocial;
                         txtCUIT.Text = seleccionado.CUIT;
-                        txtNombre.Text = seleccionado.Nombre;
                         txtEmail.Text = seleccionado.Email;
                         txtTelefono.Text = seleccionado.Telefono;
                     }
@@ -55,7 +54,6 @@ namespace TPC_Equipo18A
             {
                 proveedor.RazonSocial = txtRazonSocial.Text;
                 proveedor.CUIT = txtCUIT.Text;
-                proveedor.Nombre = txtNombre.Text;
                 proveedor.Email = txtEmail.Text;
                 proveedor.Telefono = txtTelefono.Text;
 
