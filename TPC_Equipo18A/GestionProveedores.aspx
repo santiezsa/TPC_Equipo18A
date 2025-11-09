@@ -18,7 +18,9 @@
                     AutoGenerateColumns="false" 
                     EmptyDataText="No hay proveedores registrados.">
                     <Columns>
+                        <asp:BoundField HeaderText="Nombre" DataField="Nombre"/>
                         <asp:BoundField HeaderText="Razón Social" DataField="RazonSocial"/>
+                        <asp:BoundField HeaderText="CUIT" DataField="CUIT"/>
                         <asp:BoundField HeaderText="Email" DataField="Email"/>
                         <asp:BoundField HeaderText="Teléfono" DataField="Telefono"/>
                         <asp:BoundField HeaderText="Dirección" DataField="DireccionCompleta"/>
