@@ -25,20 +25,18 @@
         </div>
     </asp:Panel>
 
-    <%-- TODO: Agregar OnRowCommand --%>
     <%-- Panel de la GV --%>
     <asp:Panel ID="pnlGV" runat="server">
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <asp:GridView ID="gvProductos" runat="server" CssClass="table table-hover  align-middle text-center" DataKeyNames="Id" GridLines="None" AutoGenerateColumns="false" EmptyDataText="No hay productos que mostrar.">
+                    <asp:GridView ID="gvProductos" runat="server" CssClass="table table-hover align-middle text-center" OnRowCommand="gvProductos_RowCommand" DataKeyNames="Id" GridLines="None" AutoGenerateColumns="false" EmptyDataText="No hay productos que mostrar.">
                         <Columns>
                             <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
                             <asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
                             <asp:BoundField HeaderText="Marca" DataField="Marca.Descripcion" />
                             <asp:BoundField HeaderText="Categoría" DataField="Categoria.Descripcion" />
                             <asp:BoundField HeaderText="Stock" DataField="StockActual" />
-                            <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
 
                             <%-- Columna de Acciones --%>
                             <asp:TemplateField HeaderText="Acciones">
