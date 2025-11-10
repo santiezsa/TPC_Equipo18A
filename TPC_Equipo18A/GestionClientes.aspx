@@ -28,14 +28,15 @@
 
     <%-- Panel de la GV --%>
     <asp:Panel ID="pnlGV" runat="server">
-        <div class="card">
+        <div class="card shadow-sm border-0">
             <div class="card-body">
                 <div class="table-responsive">
                     <asp:GridView ID="gvClientes" runat="server"
-                        CssClass="table table-hover align-middle"
+                        CssClass="table table-hover align-middle text-center"
                         AutoGenerateColumns="false"
                         DataKeyNames="Id"
                         OnRowCommand="gvClientes_RowCommand"
+                        GridLines="None"
                         EmptyDataText="No hay clientes registrados.">
                         <Columns>
                             <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
@@ -50,7 +51,7 @@
                                     <%-- Editar - Le pasa el ID al form --%>
                                     <asp:HyperLink runat="server"
                                         NavigateUrl='<%# "~/FormularioCliente.aspx?id=" + Eval("Id") %>'
-                                        CssClass="btn btn-light">
+                                        CssClass="btn btn-sm btn-outline-primary me-2">
                                         <i class="bi bi-pencil"></i> Editar
                                     </asp:HyperLink>
 
@@ -59,7 +60,7 @@
                                         CommandName="Eliminar"
                                         CommandArgument='<%# Eval("Id") %>'
                                         Text="Eliminar"
-                                        CssClass="btn btn-danger" />
+                                        CssClass="btn btn-sm btn-outline-danger" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
