@@ -65,11 +65,13 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Error.aspx" />
     <Content Include="FormularioCategoria.aspx" />
     <Content Include="FormularioProducto.aspx" />
     <Content Include="FormularioCliente.aspx" />
     <Content Include="FormularioMarca.aspx" />
     <Content Include="FormularioProveedor.aspx" />
+    <Content Include="FormularioUsuario.aspx" />
     <Content Include="GestionCategorias.aspx" />
     <Content Include="GestionClientes.aspx" />
     <Content Include="GestionMarcas.aspx" />
@@ -83,6 +85,13 @@
     <Content Include="Default.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FormularioCategoria.aspx.cs">
       <DependentUpon>FormularioCategoria.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -117,6 +126,13 @@
     </Compile>
     <Compile Include="FormularioProveedor.aspx.designer.cs">
       <DependentUpon>FormularioProveedor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormularioUsuario.aspx.cs">
+      <DependentUpon>FormularioUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormularioUsuario.aspx.designer.cs">
+      <DependentUpon>FormularioUsuario.aspx</DependentUpon>
     </Compile>
     <Compile Include="GestionCategorias.aspx.cs">
       <DependentUpon>GestionCategorias.aspx</DependentUpon>

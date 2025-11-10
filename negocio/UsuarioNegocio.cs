@@ -15,7 +15,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT Id, Username, Password, IdPerfil, Activo FROM USUARIOS");
+                datos.setearConsulta("SELECT Id, Username, Password, IdPerfil, Activo FROM USUARIOS WHERE Activo = 1");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
