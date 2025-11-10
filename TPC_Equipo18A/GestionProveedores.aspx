@@ -34,10 +34,11 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <asp:GridView ID="gvProveedores" runat="server"
-                        CssClass="table table-hover align-middle"
+                        CssClass="table table-hover align-middle text-center"
                         AutoGenerateColumns="false"
                         DataKeyNames="Id"
                         OnRowCommand="gvProveedores_RowCommand"
+                        GridLines ="None"
                         EmptyDataText="No hay proveedores registrados.">
                         <Columns>
                             <asp:BoundField HeaderText="Razón Social" DataField="RazonSocial" />
