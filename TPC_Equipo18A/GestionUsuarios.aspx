@@ -43,7 +43,7 @@
                             <asp:BoundField HeaderText="ID" DataField="Id" />
                             <asp:BoundField HeaderText="Username" DataField="Username" />
                             <asp:BoundField HeaderText="Perfil" DataField="Perfil" />
-                            <asp:CheckBoxField HeaderText="Activo" DataField="Activo" />
+<%--                            <asp:CheckBoxField HeaderText="Activo" DataField="Activo" />--%>
 
                             <%-- Columna de Acciones --%>
                             <asp:TemplateField HeaderText="Acciones">
