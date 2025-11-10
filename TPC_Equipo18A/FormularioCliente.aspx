@@ -52,9 +52,9 @@
                         </div>
                     </div>
 
-                    <%-- Buttons: ARGREGAR: OnClick="btnGuardar_Click" --%> 
+                    <%-- Buttons --%> 
                     <div class="form-group">
-                        <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-success"/>
+                        <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-success" OnClick="btnGuardar_Click"/>
                         <asp:HyperLink NavigateUrl="~/GestionClientes.aspx" runat="server" Text="Cancelar" CssClass="btn btn-secondary" />
                     </div>
                 </div>

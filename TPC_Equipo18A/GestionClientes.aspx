@@ -49,7 +49,7 @@
                                 <ItemTemplate>
                                     <%-- Editar - Le pasa el ID al form --%>
                                     <asp:HyperLink runat="server"
-                                        NavigateUrl='<%# "~/FormularioClientes.aspx?id=" + Eval("Id") %>'
+                                        NavigateUrl='<%# "~/FormularioCliente.aspx?id=" + Eval("Id") %>'
                                         CssClass="btn btn-light">
                                         <i class="bi bi-pencil"></i> Editar
                                     </asp:HyperLink>
