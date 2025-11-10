@@ -33,10 +33,12 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <asp:GridView ID="gvCategorias" runat="server"
-                        CssClass="table table-hover align-middle"
+                        CssClass="table table-hover align-middle text-center"
                         AutoGenerateColumns="false"
                         DataKeyNames="Id"
-                        OnRowCommand="gvCategorias_RowCommand">
+                        OnRowCommand="gvCategorias_RowCommand"
+                        GridLines ="None"
+                        EmptyDataText="No hay categorias registradas.">
                         <Columns>
                             <asp:BoundField HeaderText="ID" DataField="Id" />
                             <asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
