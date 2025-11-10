@@ -15,14 +15,16 @@ namespace TPC_Equipo18A
         {
             if (!IsPostBack)
             {
-                ProductoNegocio negocio = new ProductoNegocio();
-
-                List<Producto> listaProductos = negocio.listar();
-
-                gvProductos.DataSource = listaProductos;
-                gvProductos.DataBind();
+                CargarGrid();
             }
+        }
 
+        private void CargarGrid()
+        {
+            ProductoNegocio negocio = new ProductoNegocio();
+            List<Producto> listaProductos = negocio.listar();
+            gvProductos.DataSource = listaProductos;
+            gvProductos.DataBind();
         }
     }
 }
