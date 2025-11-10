@@ -50,7 +50,7 @@
                                     <%-- Editar - Le pasa el ID al form --%>
                                     <asp:HyperLink runat="server"
                                         NavigateUrl='<%# "~/FormularioClientes.aspx?id=" + Eval("Id") %>'
-                                        CssClass="btn btn-sm btn-outline-primary mr-2">
+                                        CssClass="btn btn-light">
                                         <i class="bi bi-pencil"></i> Editar
                                     </asp:HyperLink>
 
@@ -59,7 +59,7 @@
                                         CommandName="Eliminar"
                                         CommandArgument='<%# Eval("Id") %>'
                                         Text="Eliminar"
-                                        CssClass="btn btn-sm btn-outline-danger" />
+                                        CssClass="btn btn-danger" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>

@@ -1,22 +1,67 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="FormularioCliente.aspx.cs" Inherits="TPC_Equipo18A.FormularioCliente" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-        <h3>
-        <asp:Label ID="lblTitulo" runat="server" Text="Agregar Cliente"></asp:Label></h3>
+    <asp:HiddenField ID="hfId" runat="server" />
+    <h3>
+        <asp:Label ID="lblTitulo" runat="server" Text="Agregar Cliente"></asp:Label>
+
+    </h3>
     <hr />
 
-        <div class="row">
+    <div class="row">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <div class="form-group">
-                        <%-- Completar inputs --%>
+                    <%-- Nombre y apellido --%>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Nombre</label>
+                            <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:RequiredFieldValidator ErrorMessage="El nombre es obligatorio." ControlToValidate="txtNombre" CssClass="text-danger small" Display="Dynamic" runat="server"></asp:RequiredFieldValidator>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Apellido</label>
+                            <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:RequiredFieldValidator ErrorMessage="El apellido es obligatorio." ControlToValidate="txtApellido" CssClass="text-danger small" Display="Dynamic" runat="server"></asp:RequiredFieldValidator>
+                        </div>
                     </div>
-                    <asp:HyperLink NavigateUrl="~/GestionClientes.aspx" runat="server"
-                        Text="Cancelar" CssClass="btn btn-secondary" />
+
+                    <%-- Email y Telefono --%>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Email</label>
+                            <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:RequiredFieldValidator ErrorMessage="El email es obligatorio." ControlToValidate="txtEmail" CssClass="text-danger small" Display="Dynamic" runat="server"></asp:RequiredFieldValidator>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Teléfono</label>
+                            <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:RequiredFieldValidator ErrorMessage="El telefono es obligatorio." ControlToValidate="txtTelefono" CssClass="text-danger small" Display="Dynamic" runat="server"></asp:RequiredFieldValidator>
+
+                        </div>
+                    </div>
+
+                    <%-- Direccion --%>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label>Dirección</label>
+                            <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:RequiredFieldValidator ErrorMessage="La dirección es obligatoria." ControlToValidate="txtDireccion" CssClass="text-danger small" Display="Dynamic" runat="server"></asp:RequiredFieldValidator>
+                        </div>
+                    </div>
+
+                    <%-- Buttons: ARGREGAR: OnClick="btnGuardar_Click" --%> 
+                    <div class="form-group">
+                        <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-success"/>
+                        <asp:HyperLink NavigateUrl="~/GestionClientes.aspx" runat="server" Text="Cancelar" CssClass="btn btn-secondary" />
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </asp:Content>
+
+
+
