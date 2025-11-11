@@ -11,7 +11,7 @@
         <asp:HyperLink NavigateUrl="~/FormularioProveedor.aspx" runat="server"
             Text="Agregar Proveedor" CssClass="btn btn-primary" />
     </div>
-        <p>Administre sus proveedores registrados en el sistema.</p>
+    <p>Administre sus proveedores registrados en el sistema.</p>
 
     <%-- Panel de confirmacion (hidden) --%>
     <asp:Panel ID="pnlConfirmacion" runat="server" Visible="false" CssClass="alert alert-warning" role="alert">
@@ -38,7 +38,7 @@
                         AutoGenerateColumns="false"
                         DataKeyNames="Id"
                         OnRowCommand="gvProveedores_RowCommand"
-                        GridLines ="None"
+                        GridLines="None"
                         EmptyDataText="No hay proveedores registrados.">
                         <Columns>
                             <asp:BoundField HeaderText="Razón Social" DataField="RazonSocial" />

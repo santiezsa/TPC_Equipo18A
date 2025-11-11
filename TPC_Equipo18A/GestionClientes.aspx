@@ -7,7 +7,8 @@
 
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3>Clientes</h3>
-        <asp:Button ID="btnNuevoCliente" runat="server" Text="Nuevo Cliente" CssClass="btn btn-primary" />
+        <asp:HyperLink NavigateUrl="~/FormularioCliente.aspx" runat="server"
+            Text="Agregar Cliente" CssClass="btn btn-primary" />
     </div>
     <p>Administre sus clientes registrados en el sistema.</p>
 
