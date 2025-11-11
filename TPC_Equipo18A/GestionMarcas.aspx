@@ -32,9 +32,10 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <asp:GridView ID="gvMarcas" runat="server"
-                        CssClass="table table-hover align-middle"
+                        CssClass="table table-hover align-middle text-center"
                         AutoGenerateColumns="false"
                         DataKeyNames="Id"
+                        GridLines="None"
                         OnRowCommand="gvMarcas_RowCommand">
                         <Columns>
                             <asp:BoundField HeaderText="ID" DataField="Id" />
