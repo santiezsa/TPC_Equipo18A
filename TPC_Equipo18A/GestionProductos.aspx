@@ -32,11 +32,14 @@
                 <div class="table-responsive">
                     <asp:GridView ID="gvProductos" runat="server" CssClass="table table-hover align-middle text-center" OnRowCommand="gvProductos_RowCommand" DataKeyNames="Id" GridLines="None" AutoGenerateColumns="false" EmptyDataText="No hay productos que mostrar.">
                         <Columns>
+                            <asp:BoundField HeaderText="Codigo" DataField="Codigo" />
                             <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
                             <asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
                             <asp:BoundField HeaderText="Marca" DataField="Marca.Descripcion" />
                             <asp:BoundField HeaderText="Categoría" DataField="Categoria.Descripcion" />
+                            <asp:BoundField HeaderText="Precio" DataField="Precio" DataFormatString="{0:C}" />
                             <asp:BoundField HeaderText="Stock" DataField="StockActual" />
+                            
 
                             <%-- Columna de Acciones --%>
                             <asp:TemplateField HeaderText="Acciones">

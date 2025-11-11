@@ -79,7 +79,7 @@ namespace TPC_Equipo18A
                 // Guardo ID
                 hfIdParaEliminar.Value = id.ToString();
                 // Muestro panel de confirmacion
-                lblConfirmarTexto.Text = $"¿Está seguro que desea eliminar al proveedor <strong>'{nombre}'</strong>?";
+                lblConfirmarTexto.Text = $"¿Está seguro que desea eliminar el producto <strong>'{nombre}'</strong>?";
 
                 // Muestro u oculto paneles
                 pnlGV.Visible = false;
