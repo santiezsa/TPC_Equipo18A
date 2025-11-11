@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using dominio;
 
 namespace negocio
+
+//MODIFICAR LA BASE DE DATOS DE PRODUCTOS (CODIGO Y PRECIO)
+
 {
     public class ProductoNegocio
     {
