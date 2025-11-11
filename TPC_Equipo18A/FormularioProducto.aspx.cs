@@ -37,12 +37,15 @@ namespace TPC_Equipo18A
                     int id = int.Parse(Request.QueryString["Id"]);
                     Producto productoSeleccionado = productoNegocio.buscarPorId(id);
 
+                    hfId.Value = productoSeleccionado.Id.ToString();
                     txtCodigo.Text = productoSeleccionado.Codigo;
                     txtNombre.Text = productoSeleccionado.Nombre;
                     txtDescripcion.Text = productoSeleccionado.Descripcion;
                     txtStockActual.Text = productoSeleccionado.StockActual.ToString();
                     ddlMarca.SelectedValue = productoSeleccionado.Marca.Id.ToString();
                     ddlCategoria.SelectedValue = productoSeleccionado.Categoria.Id.ToString();
+                    txtStockMinimo.Text = productoSeleccionado.StockMinimo.ToString();
+                    txtPorcentajeGanancia.Text = productoSeleccionado.PorcentajeGanancia.ToString();
                 }
             }
         }
@@ -59,18 +62,21 @@ namespace TPC_Equipo18A
                 producto.Marca = new Marca { Id = int.Parse(ddlMarca.SelectedValue) };
                 producto.Categoria = new Categoria { Id = int.Parse(ddlCategoria.SelectedValue) };
 
-                if (!decimal.TryParse(txtPrecio.Text, out decimal precio) ||
-                    !int.TryParse(txtStockActual.Text, out int stock))
+                if (!decimal.TryParse(txtPorcentajeGanancia.Text, out decimal porcentaje) ||
+                                    !int.TryParse(txtStockActual.Text, out int stock) ||
+                                    !int.TryParse(txtStockMinimo.Text, out int stockMinimo))
                 {
-                    //Validación fallida
+                    mostrarToast("Error en formato de campos numéricos (Porcentaje, Stock).", "danger");
                     return;
                 }
 
-                producto.Precio = precio;
+                producto.PorcentajeGanancia = porcentaje;
                 producto.StockActual = stock;
+                producto.StockMinimo = stockMinimo;
+
                 if (Request.QueryString["Id"] != null)
                 {
-                    producto.Id = int.Parse(Request.QueryString["Id"]);
+                    producto.Id = int.Parse(hfId.Value);
                     productoNegocio.modificar(producto);
                 }
                 else
@@ -84,6 +90,12 @@ namespace TPC_Equipo18A
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void mostrarToast(string mensaje, string tipo)
+        {
+            string script = $"mostrarToast('{mensaje}', '{tipo}');";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastJS", script, true);
         }
     }
 }
