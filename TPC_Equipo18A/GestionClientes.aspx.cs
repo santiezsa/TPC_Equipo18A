@@ -84,11 +84,12 @@ namespace TPC_Equipo18A
                 // Nombre del cliente a eliminar
                 int rowIndex = Convert.ToInt32(((GridViewRow)((Control)e.CommandSource).NamingContainer).RowIndex);
                 string nombre = gvClientes.Rows[rowIndex].Cells[0].Text;
+                string apellido = gvClientes.Rows[rowIndex].Cells[1].Text;
 
                 // Guardo ID
                 hfIdParaEliminar.Value = id.ToString();
                 // Muestro panel de confirmacion
-                lblConfirmarTexto.Text = $"¿Está seguro que desea eliminar el cliente <strong>'{nombre}'</strong>?";
+                lblConfirmarTexto.Text = $"¿Está seguro que desea eliminar el cliente <strong>'{nombre} {apellido}'</strong>?";
 
                 // Muestro u oculto paneles
                 pnlGV.Visible = false;

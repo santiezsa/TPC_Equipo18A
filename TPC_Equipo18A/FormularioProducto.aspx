@@ -42,13 +42,6 @@
                     </div>
 
                     <div class="form-group col-md-6">
-                        <label>Precio</label>
-                        <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control"></asp:TextBox>
-                        <asp:RequiredFieldValidator ErrorMessage="El precio es obligatorio" ControlToValidate="txtPrecio" CssClass="text-danger" Display="Dynamic" runat="server" />
-                        <asp:RegularExpressionValidator ErrorMessage="El precio debe ser un número válido" ControlToValidate="txtPrecio" ValidationExpression="^\d+(\.\d{1,2})?$" CssClass="text-danger" Display="Dynamic" runat="server" />
-                    </div>
-
-                    <div class="form-group col-md-6">
                         <label>Stock Actual</label>
                         <asp:TextBox ID="txtStockActual" runat="server" CssClass="form-control"></asp:TextBox>
                         <asp:RequiredFieldValidator ErrorMessage="El stock actual es obligatorio" ControlToValidate="txtStockActual" CssClass="text-danger" Display="Dynamic" runat="server" />

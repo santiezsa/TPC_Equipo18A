@@ -74,7 +74,7 @@ namespace TPC_Equipo18A
 
                 // Nombre del producto a eliminar
                 int rowIndex = Convert.ToInt32(((GridViewRow)((Control)e.CommandSource).NamingContainer).RowIndex);
-                string nombre = gvProductos.Rows[rowIndex].Cells[0].Text;
+                string nombre = gvProductos.Rows[rowIndex].Cells[1].Text;
 
                 // Guardo ID
                 hfIdParaEliminar.Value = id.ToString();

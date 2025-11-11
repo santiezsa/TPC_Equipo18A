@@ -20,7 +20,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT P.Id, P.Codigo, P.Nombre, P.Descripcion, P.Precio, P.PorcentajeGanancia, P.StockActual, P.StockMinimo, P.IdMarca, M.Descripcion AS MarcaDescripcion, P.IdCategoria, C.Descripcion AS CategoriaDescripcion FROM Productos AS P JOIN Marcas AS M ON P.IdMarca = M.Id JOIN Categorias AS C ON P.IdCategoria = C.Id");
+                datos.setearConsulta("SELECT P.Id, P.Codigo, P.Nombre, P.Descripcion, P.PorcentajeGanancia, P.StockActual, P.StockMinimo, P.IdMarca, M.Descripcion AS MarcaDescripcion, P.IdCategoria, C.Descripcion AS CategoriaDescripcion FROM Productos AS P JOIN Marcas AS M ON P.IdMarca = M.Id JOIN Categorias AS C ON P.IdCategoria = C.Id");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -31,7 +31,6 @@ namespace negocio
                     aux.Codigo = (string)datos.Lector["Codigo"];
                     aux.Nombre = (string)datos.Lector["Nombre"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
-                    aux.Precio = (decimal)datos.Lector["Precio"];
                     aux.PorcentajeGanancia = (decimal)datos.Lector["PorcentajeGanancia"];
                     aux.StockActual = (int)datos.Lector["StockActual"];
                     aux.StockMinimo = (int)datos.Lector["StockMinimo"];
@@ -67,7 +66,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT P.Id, P.Codigo, P.Nombre, P.Descripcion, P.Precio, P.PorcentajeGanancia, P.StockActual, P.StockMinimo, P.IdMarca, M.Descripcion AS MarcaDescripcion, P.IdCategoria, C.Descripcion AS CategoriaDescripcion FROM Productos AS P JOIN Marcas AS M ON P.IdMarca = M.Id JOIN Categorias AS C ON P.IdCategoria = C.Id WHERE P.Id = @Id");
+                datos.setearConsulta("SELECT P.Id, P.Codigo, P.Nombre, P.Descripcion, P.PorcentajeGanancia, P.StockActual, P.StockMinimo, P.IdMarca, M.Descripcion AS MarcaDescripcion, P.IdCategoria, C.Descripcion AS CategoriaDescripcion FROM Productos AS P JOIN Marcas AS M ON P.IdMarca = M.Id JOIN Categorias AS C ON P.IdCategoria = C.Id WHERE P.Id = @Id");
                 datos.setearParametro("@Id", id);
                 datos.ejecutarLectura();
                 if (datos.Lector.Read())
@@ -77,7 +76,6 @@ namespace negocio
                     producto.Codigo = (string)datos.Lector["Codigo"];
                     producto.Nombre = (string)datos.Lector["Nombre"];
                     producto.Descripcion = (string)datos.Lector["Descripcion"];
-                    producto.Precio = (decimal)datos.Lector["Precio"];
                     producto.PorcentajeGanancia = (decimal)datos.Lector["PorcentajeGanancia"];
                     producto.StockActual = (int)datos.Lector["StockActual"];
                     producto.StockMinimo = (int)datos.Lector["StockMinimo"];
@@ -107,11 +105,10 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("INSERT INTO Productos (Codigo, Nombre, Descripcion, Precio, PorcentajeGanancia, StockActual, StockMinimo, IdMarca, IdCategoria) VALUES (@Codigo, @Nombre, @Descripcion, @Precio, @PorcentajeGanancia, @StockActual, @StockMinimo, @IdMarca, @IdCategoria)");
+                datos.setearConsulta("INSERT INTO Productos (Codigo, Nombre, Descripcion, PorcentajeGanancia, StockActual, StockMinimo, IdMarca, IdCategoria) VALUES (@Codigo, @Nombre, @Descripcion, @PorcentajeGanancia, @StockActual, @StockMinimo, @IdMarca, @IdCategoria)");
                 datos.setearParametro("@Codigo", nuevo.Codigo);
                 datos.setearParametro("@Nombre", nuevo.Nombre);
                 datos.setearParametro("@Descripcion", nuevo.Descripcion);
-                datos.setearParametro("@Precio", nuevo.Precio);
                 datos.setearParametro("@PorcentajeGanancia", nuevo.PorcentajeGanancia);
                 datos.setearParametro("@StockActual", nuevo.StockActual);
                 datos.setearParametro("@StockMinimo", nuevo.StockMinimo);
@@ -134,11 +131,10 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("UPDATE Productos SET Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, Precio = @Precio, PorcentajeGanancia = @PorcentajeGanancia, StockActual = @StockActual, StockMinimo = @StockMinimo, IdMarca = @IdMarca, IdCategoria = @IdCategoria WHERE Id = @Id");
+                datos.setearConsulta("UPDATE Productos SET Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, PorcentajeGanancia = @PorcentajeGanancia, StockActual = @StockActual, StockMinimo = @StockMinimo, IdMarca = @IdMarca, IdCategoria = @IdCategoria WHERE Id = @Id");
                 datos.setearParametro("@Codigo", producto.Codigo);
                 datos.setearParametro("@Nombre", producto.Nombre);
                 datos.setearParametro("@Descripcion", producto.Descripcion);
-                datos.setearParametro("@Precio", producto.Precio);
                 datos.setearParametro("@PorcentajeGanancia", producto.PorcentajeGanancia);
                 datos.setearParametro("@StockActual", producto.StockActual);
                 datos.setearParametro("@StockMinimo", producto.StockMinimo);
@@ -182,7 +178,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT P.Id, P.Nombre, P.Descripcion, P.IdMarca, M.Descripcion AS MarcaDescripcion, P.IdCategoria, C.Descripcion AS CategoriaDescripcion\r\nFROM Productos AS P\r\nJOIN Marcas AS M ON P.IDMarca = M.Id\r\nJOIN Categorias AS C ON P.IdCategoria = C.Id\r\nWHERE P.Nombre LIKE @Nombre");
+                datos.setearConsulta("SELECT P.Id, P.Codigo, P.Nombre, P.Descripcion, P.PorcentajeGanancia, P.StockActual, P.StockMinimo, P.IdMarca, M.Descripcion AS MarcaDescripcion, P.IdCategoria, C.Descripcion AS CategoriaDescripcion FROM Productos AS P JOIN Marcas AS M ON P.IdMarca = M.Id JOIN Categorias AS C ON P.IdCategoria = C.Id WHERE P.Nombre LIKE @Nombre");
                 datos.setearParametro("@Nombre", "%" + nombre + "%");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
@@ -192,10 +188,15 @@ namespace negocio
                     aux.Id = (int)datos.Lector["Id"];
                     aux.Nombre = (string)datos.Lector["Nombre"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
+                    aux.PorcentajeGanancia = (decimal)datos.Lector["PorcentajeGanancia"];
+                    aux.StockActual = (int)datos.Lector["StockActual"];
+                    aux.StockMinimo = (int)datos.Lector["StockMinimo"];
+
                     // Datos de marca
                     aux.Marca = new Marca();
                     aux.Marca.Id = (int)datos.Lector["IdMarca"];
                     aux.Marca.Descripcion = (string)datos.Lector["MarcaDescripcion"];
+
                     // Datos de categoria
                     aux.Categoria = new Categoria();
                     aux.Categoria.Id = (int)datos.Lector["IdCategoria"];

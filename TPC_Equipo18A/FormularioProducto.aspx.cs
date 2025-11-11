@@ -22,11 +22,13 @@ namespace TPC_Equipo18A
                 ddlMarca.DataTextField = "Descripcion";
                 ddlMarca.DataValueField = "Id";
                 ddlMarca.DataBind();
+                ddlMarca.Items.Insert(0, new ListItem("Seleccione una Marca", ""));
 
                 ddlCategoria.DataSource = categoriaNegocio.listar();
                 ddlCategoria.DataTextField = "Descripcion";
                 ddlCategoria.DataValueField = "Id";
                 ddlCategoria.DataBind();
+                ddlCategoria.Items.Insert(0, new ListItem("Seleccione una Categoría", ""));
 
                 if (Request.QueryString["Id"] != null)
                 {
@@ -38,7 +40,6 @@ namespace TPC_Equipo18A
                     txtCodigo.Text = productoSeleccionado.Codigo;
                     txtNombre.Text = productoSeleccionado.Nombre;
                     txtDescripcion.Text = productoSeleccionado.Descripcion;
-                    txtPrecio.Text = productoSeleccionado.Precio.ToString("0.00");
                     txtStockActual.Text = productoSeleccionado.StockActual.ToString();
                     ddlMarca.SelectedValue = productoSeleccionado.Marca.Id.ToString();
                     ddlCategoria.SelectedValue = productoSeleccionado.Categoria.Id.ToString();
