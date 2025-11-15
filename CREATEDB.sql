@@ -9,14 +9,16 @@ go
 -- Categorias
 CREATE TABLE Categorias(
 Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL, -- campos autonumericos
-Descripcion VARCHAR(100) NOT NULL
+Descripcion VARCHAR(100) NOT NULL,
+Activo BIT NOT NULL DEFAULT 1
 )
 go
 
 -- Marcas
 CREATE TABLE Marcas(
 Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL, -- campos autonumericos
-Descripcion VARCHAR(100) NOT NULL
+Descripcion VARCHAR(100) NOT NULL,
+Activo BIT NOT NULL DEFAULT 1
 )
 GO
 
@@ -27,7 +29,8 @@ Nombre VARCHAR(100) NOT NULL,
 Apellido VARCHAR(100) NOT NULL,
 Email VARCHAR(150) UNIQUE, -- para evitar duplicados de mails
 Telefono VARCHAR(50),
-Direccion VARCHAR(255)
+Direccion VARCHAR(255),
+Activo BIT NOT NULL DEFAULT 1
 )
 go
 
@@ -38,14 +41,16 @@ Nombre VARCHAR(100),
 RazonSocial VARCHAR(200) NOT NULL,
 CUIT VARCHAR(13) NOT NULL UNIQUE, -- no puede haber dos clientes con mismo CUIT
 Email VARCHAR(150),
-Telefono VARCHAR(50)
+Telefono VARCHAR(50),
+Activo BIT NOT NULL DEFAULT 1
 )
 go
 
 -- Perfiles
 CREATE TABLE Perfiles(
 Id INT PRIMARY KEY NOT NULL,
-Descripcion VARCHAR(50) NOT NULL
+Descripcion VARCHAR(50) NOT NULL,
+Activo BIT NOT NULL DEFAULT 1
 )
 GO
 
@@ -57,7 +62,7 @@ Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL, -- autonumerico
 Username VARCHAR(100) NOT NULL UNIQUE, -- debe ser unico
 Password VARCHAR(100) NOT NULL,
 IdPerfil INT NOT NULL FOREIGN KEY REFERENCES Perfiles(Id),
-Activo BIT NOT NULL DEFAULT 1
+Activo BIT NOT NULL DEFAULT 1,
 )
 go
 
@@ -71,7 +76,8 @@ IdMarca INT FOREIGN KEY REFERENCES Marcas(Id),
 IdCategoria INT FOREIGN KEY REFERENCES Categorias(Id),
 StockActual INT NOT NULL DEFAULT 0, -- cuando se crea el producto se asume que tiene 0 unidades
 StockMinimo INT NOT NULL DEFAULT 5, -- el stock minimo del prod es 5
-PorcentajeGanancia DECIMAL(4,2) NOT NULL DEFAULT 30.00 -- porcentaje por defecto sera del 30%
+PorcentajeGanancia DECIMAL(4,2) NOT NULL DEFAULT 30.00, -- porcentaje por defecto sera del 30%
+Activo BIT NOT NULL DEFAULT 1
 )
 go
 
