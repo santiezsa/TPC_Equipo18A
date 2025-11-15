@@ -76,7 +76,7 @@ IdMarca INT FOREIGN KEY REFERENCES Marcas(Id),
 IdCategoria INT FOREIGN KEY REFERENCES Categorias(Id),
 StockActual INT NOT NULL DEFAULT 0, -- cuando se crea el producto se asume que tiene 0 unidades
 StockMinimo INT NOT NULL DEFAULT 5, -- el stock minimo del prod es 5
-PorcentajeGanancia DECIMAL(4,2) NOT NULL DEFAULT 30.00, -- porcentaje por defecto sera del 30%
+PorcentajeGanancia DECIMAL(5,2) NOT NULL DEFAULT 30.00, -- porcentaje por defecto sera del 30%
 Activo BIT NOT NULL DEFAULT 1
 )
 go
@@ -90,3 +90,47 @@ PRIMARY KEY (IdProducto, IdProveedor) -- PK Compuesta
 GO
 
 ----------------------- PENDIENTE LAS TABLAS CORE -----------------------
+CREATE TABLE Compras(
+Id INT PRIMARY KEY IDENTITY(1,1),
+IdProveedor INT NOT NULL FOREIGN KEY REFERENCES Proveedores(Id),
+IdUsuario INT NOT NULL FOREIGN KEY REFERENCES Usuarios(Id), -- para registrar que usuario efectuo la compra
+Fecha DATETIME NOT NULL DEFAULT GETDATE(),
+Total DECIMAL (18,2) NOT NULL,
+Activo BIT NOT NULL DEFAULT 1 -- para poder anular compra
+)
+go
+
+CREATE TABLE DetalleCompra(
+Id INT PRIMARY KEY IDENTITY(1,1),
+IdCompra INT NOT NULL FOREIGN KEY REFERENCES Compras(Id),
+IdProducto INT NOT NULL FOREIGN KEY REFERENCES Productos(Id),
+Cantidad INT NOT NULL,
+PrecioUnitario DECIMAL(18,2) NOT NULL
+)
+go
+
+CREATE TABLE Ventas(
+Id INT PRIMARY KEY IDENTITY(1,1),
+NumeroFactura VARCHAR(50) NOT NULL UNIQUE,
+IdCliente INT NOT NULL FOREIGN KEY REFERENCES Clientes(Id),
+IdUsuario INT NOT NULL FOREIGN KEY REFERENCES Usuarios(Id), -- para registrar que usuario efectuo la venta
+Fecha DATETIME NOT NULL DEFAULT GETDATE(),
+Total DECIMAL(18,2) NOT NULL,
+Activo BIT NOT NULL DEFAULT 1
+)
+GO
+
+CREATE TABLE DetalleVenta(
+Id INT PRIMARY KEY IDENTITY(1,1),
+IdVenta INT NOT NULL FOREIGN KEY REFERENCES Ventas(Id),
+IdProducto INT NOT NULL FOREIGN KEY REFERENCES Productos(Id),
+Cantidad INT NOT NULL,
+PrecioUnitario DECIMAL (18,2) NOT NULL
+)
+go
+
+
+----------------------- INSERT DE DATOS PARA PERFILES Y USUARIOS -----------------------
+INSERT INTO Perfiles(Id, Descripcion) VALUES (1, 'Administrador'), (2, 'Vendedor')
+
+INSERT INTO Usuarios(Username, Password, IdPerfil) VALUES ('admin', 'Aa123456', 1)
