@@ -89,6 +89,8 @@ PRIMARY KEY (IdProducto, IdProveedor) -- PK Compuesta
 )
 GO
 
+
+
 ----------------------- PENDIENTE LAS TABLAS CORE -----------------------
 CREATE TABLE Compras(
 Id INT PRIMARY KEY IDENTITY(1,1),
@@ -128,6 +130,17 @@ Cantidad INT NOT NULL,
 PrecioUnitario DECIMAL (18,2) NOT NULL
 )
 go
+
+CREATE TABLE MovimientosStock (
+Id INT PRIMARY KEY IDENTITY(1,1),
+IdProducto INT NOT NULL FOREIGN KEY REFERENCES Productos(Id),
+IdUsuario INT NOT NULL FOREIGN KEY REFERENCES Usuarios(Id),
+Fecha DATETIME NOT NULL DEFAULT GETDATE(),
+Cantidad INT NOT NULL,
+EsIngreso BIT NOT NULL, -- 1. ingreso = positivo 2. egreso = rotura/robo
+Motivo VARCHAR(200) NOT NULL
+)
+GO
 
 
 ----------------------- INSERT DE DATOS PARA PERFILES Y USUARIOS -----------------------
