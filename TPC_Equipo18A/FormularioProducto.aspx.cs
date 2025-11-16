@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -52,38 +53,47 @@ namespace TPC_Equipo18A
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            Page.Validate();
-            if (Page.IsValid)
+            try
             {
-                Producto producto = new Producto();
-                producto.Codigo = txtCodigo.Text;
-                producto.Nombre = txtNombre.Text;
-                producto.Descripcion = txtDescripcion.Text;
-                producto.Marca = new Marca { Id = int.Parse(ddlMarca.SelectedValue) };
-                producto.Categoria = new Categoria { Id = int.Parse(ddlCategoria.SelectedValue) };
-
-                if (!decimal.TryParse(txtPorcentajeGanancia.Text, out decimal porcentaje) ||
-                                    !int.TryParse(txtStockActual.Text, out int stock) ||
-                                    !int.TryParse(txtStockMinimo.Text, out int stockMinimo))
+                Page.Validate();
+                if (Page.IsValid)
                 {
-                    mostrarToast("Error en formato de campos numéricos (Porcentaje, Stock).", "danger");
-                    return;
+                    Producto producto = new Producto();
+                    producto.Codigo = txtCodigo.Text;
+                    producto.Nombre = txtNombre.Text;
+                    producto.Descripcion = txtDescripcion.Text;
+                    producto.Marca = new Marca { Id = int.Parse(ddlMarca.SelectedValue) };
+                    producto.Categoria = new Categoria { Id = int.Parse(ddlCategoria.SelectedValue) };
+
+                    if (!decimal.TryParse(txtPorcentajeGanancia.Text, out decimal porcentaje) ||
+                                        !int.TryParse(txtStockActual.Text, out int stock) ||
+                                        !int.TryParse(txtStockMinimo.Text, out int stockMinimo))
+                    {
+                        mostrarToast("Error en formato de campos numéricos (Porcentaje, Stock).", "danger");
+                        return;
+                    }
+
+                    producto.PorcentajeGanancia = porcentaje;
+                    producto.StockActual = stock;
+                    producto.StockMinimo = stockMinimo;
+
+                    if (Request.QueryString["Id"] != null)
+                    {
+                        producto.Id = int.Parse(hfId.Value);
+                        productoNegocio.modificar(producto);
+                    }
+                    else
+                    {
+                        productoNegocio.agregar(producto);
+                    }
+                    Response.Redirect("GestionProductos.aspx");
                 }
 
-                producto.PorcentajeGanancia = porcentaje;
-                producto.StockActual = stock;
-                producto.StockMinimo = stockMinimo;
 
-                if (Request.QueryString["Id"] != null)
-                {
-                    producto.Id = int.Parse(hfId.Value);
-                    productoNegocio.modificar(producto);
-                }
-                else
-                {
-                    productoNegocio.agregar(producto);
-                }
-                Response.Redirect("GestionProductos.aspx");
+            }
+            catch (Exception ex)
+            {
+                mostrarToast("Error al guardar el producto: " + ex.Message, "danger");
             }
         }
 

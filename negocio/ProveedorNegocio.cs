@@ -25,7 +25,7 @@ namespace negocio
                     aux.CUIT = (string)datos.Lector["CUIT"];
                     aux.Email = (string)datos.Lector["Email"];
                     aux.Telefono = (string)datos.Lector["Telefono"];
-                    proveedor.Activo = (bool)datos.Lector["Activo"];
+                    aux.Activo = (bool)datos.Lector["Activo"];
                     lista.Add(aux);
                 }
                 return lista;
