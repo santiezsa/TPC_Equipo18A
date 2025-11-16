@@ -132,5 +132,42 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public Usuario loguear(Usuario usuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                // Busco usuario que coincida con el username y password y activo = 1
+                datos.setearConsulta("SELECT Id, IdPerfil, Username, Activo FROM Usuarios WHERE Username = @user AND Password = @pass AND Activo = 1");
+                datos.setearParametro("@user", usuario.Username);
+                datos.setearParametro("@pass", usuario.Password);
+
+                datos.ejecutarLectura();
+
+                // Si el lector encuentra una fila, login exitoso
+                if (datos.Lector.Read())
+                {
+                    Usuario usuarioLogueado = new Usuario();
+                    usuarioLogueado.Id = (int)datos.Lector["Id"];
+                    usuarioLogueado.Username = (string)datos.Lector["Username"];
+                    usuarioLogueado.Perfil = (Perfil)(int)datos.Lector["IdPerfil"];
+                    usuarioLogueado.Activo = (bool)datos.Lector["Activo"];
+                    return usuarioLogueado;
+                }
+                else
+                {
+                    return null; // Login fallido
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
