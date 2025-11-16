@@ -20,7 +20,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT P.Id, P.Codigo, P.Nombre, P.Descripcion, P.PorcentajeGanancia, P.StockActual, P.StockMinimo, P.IdMarca, M.Descripcion AS MarcaDescripcion, P.IdCategoria, C.Descripcion AS CategoriaDescripcion FROM Productos AS P JOIN Marcas AS M ON P.IdMarca = M.Id JOIN Categorias AS C ON P.IdCategoria = C.Id");
+                datos.setearConsulta("SELECT P.Id, P.Codigo, P.Nombre, P.Descripcion, P.PorcentajeGanancia, P.StockActual, P.StockMinimo, P.IdMarca, M.Descripcion AS MarcaDescripcion, P.IdCategoria, C.Descripcion AS CategoriaDescripcion FROM Productos AS P JOIN Marcas AS M ON P.IdMarca = M.Id JOIN Categorias AS C ON P.IdCategoria = C.Id WHERE P.Activo = 1");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -34,6 +34,7 @@ namespace negocio
                     aux.PorcentajeGanancia = (decimal)datos.Lector["PorcentajeGanancia"];
                     aux.StockActual = (int)datos.Lector["StockActual"];
                     aux.StockMinimo = (int)datos.Lector["StockMinimo"];
+                    aux.Activo = (bool)datos.Lector["Activo"];
 
                     // Datos de marca
                     aux.Marca = new Marca();
@@ -79,6 +80,7 @@ namespace negocio
                     producto.PorcentajeGanancia = (decimal)datos.Lector["PorcentajeGanancia"];
                     producto.StockActual = (int)datos.Lector["StockActual"];
                     producto.StockMinimo = (int)datos.Lector["StockMinimo"];
+                    producto.Activo = (bool)datos.Lector["Activo"];
 
                     producto.Marca = new Marca();
                     producto.Marca.Id = (int)datos.Lector["IdMarca"];
@@ -87,8 +89,10 @@ namespace negocio
                     producto.Categoria = new Categoria();
                     producto.Categoria.Id = (int)datos.Lector["IdCategoria"];
                     producto.Categoria.Descripcion = (string)datos.Lector["CategoriaDescripcion"];
+
+                    return producto;
                 }
-                return producto;
+                return null;
             }
             catch (Exception ex)
             {
@@ -105,7 +109,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("INSERT INTO Productos (Codigo, Nombre, Descripcion, PorcentajeGanancia, StockActual, StockMinimo, IdMarca, IdCategoria) VALUES (@Codigo, @Nombre, @Descripcion, @PorcentajeGanancia, @StockActual, @StockMinimo, @IdMarca, @IdCategoria)");
+                datos.setearConsulta("INSERT INTO Productos (Codigo, Nombre, Descripcion, PorcentajeGanancia, StockActual, StockMinimo, IdMarca, IdCategoria) VALUES (@Codigo, @Nombre, @Descripcion, @PorcentajeGanancia, @StockActual, @StockMinimo, @IdMarca, @IdCategoria, 1)");
                 datos.setearParametro("@Codigo", nuevo.Codigo);
                 datos.setearParametro("@Nombre", nuevo.Nombre);
                 datos.setearParametro("@Descripcion", nuevo.Descripcion);
@@ -158,7 +162,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("DELETE FROM Productos WHERE Id = @Id");
+                datos.setearConsulta("DELETE Productos SET Activo = 0 WHERE Id = @Id");
                 datos.setearParametro("@Id", id);
                 datos.ejecutarAccion();
             }

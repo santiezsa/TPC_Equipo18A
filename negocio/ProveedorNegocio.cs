@@ -15,7 +15,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT Id, RazonSocial, CUIT, Email, Telefono FROM Proveedores");
+                datos.setearConsulta("SELECT Id, RazonSocial, CUIT, Email, Telefono, Activo FROM Proveedores WHERE Activo = 1");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -25,6 +25,7 @@ namespace negocio
                     aux.CUIT = (string)datos.Lector["CUIT"];
                     aux.Email = (string)datos.Lector["Email"];
                     aux.Telefono = (string)datos.Lector["Telefono"];
+                    proveedor.Activo = (bool)datos.Lector["Activo"];
                     lista.Add(aux);
                 }
                 return lista;
@@ -46,7 +47,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT Id, RazonSocial, CUIT, Email, Telefono FROM Proveedores WHERE Id = @Id");
+                datos.setearConsulta("SELECT Id, RazonSocial, CUIT, Email, Telefono, Activo FROM Proveedores WHERE Id = @Id");
                 datos.setearParametro("@Id", id);
                 datos.ejecutarLectura();
                 if (datos.Lector.Read())
@@ -58,6 +59,7 @@ namespace negocio
                     proveedor.CUIT = (string)datos.Lector["CUIT"];
                     proveedor.Email = (string)datos.Lector["Email"];
                     proveedor.Telefono = (string)datos.Lector["Telefono"];
+                    proveedor.Activo = (bool)datos.Lector["Activo"];
                 }
                 return proveedor;
             }
@@ -76,7 +78,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("INSERT INTO Proveedores ( RazonSocial, CUIT, Email, Telefono) VALUES (@RazonSocial, @CUIT, @Email, @Telefono)");
+                datos.setearConsulta("INSERT INTO Proveedores (RazonSocial, CUIT, Email, Telefono, Activo) VALUES (@RazonSocial, @CUIT, @Email, @Telefono, 1)");
                 datos.setearParametro("@RazonSocial", nuevo.RazonSocial);
                 datos.setearParametro("@CUIT", nuevo.CUIT);
                 datos.setearParametro("@Email", nuevo.Email);
@@ -122,7 +124,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("DELETE FROM Proveedores WHERE Id = @Id");
+                datos.setearConsulta("UPDATE Proveedores SET Activo = 0 WHERE Id = @Id");
                 datos.setearParametro("@Id", id);
                 datos.ejecutarAccion();
             }

@@ -15,13 +15,14 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT Id, Descripcion FROM CATEGORIAS");
+                datos.setearConsulta("SELECT Id, Descripcion, Activo FROM CATEGORIAS WHERE Activo = 1");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
                     Categoria aux = new Categoria();
                     aux.Id = (int)datos.Lector["Id"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
+                    aux.Activo = (bool)datos.Lector["Activo"];
                     lista.Add(aux);
                 }
                 return lista;
@@ -42,7 +43,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT Id, Descripcion FROM CATEGORIAS WHERE Id = @Id");
+                datos.setearConsulta("SELECT Id, Descripcion, Activo FROM CATEGORIAS WHERE Id = @Id");
                 datos.setearParametro("@Id", id);
                 datos.ejecutarLectura();
                 if (datos.Lector.Read())
@@ -50,6 +51,7 @@ namespace negocio
                     categoria = new Categoria();
                     categoria.Id = (int)datos.Lector["Id"];
                     categoria.Descripcion = (string)datos.Lector["Descripcion"];
+                    categoria.Activo = (bool)datos.Lector["Activo"];
                 }
                 return categoria;
             }
@@ -68,7 +70,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("INSERT INTO CATEGORIAS (Descripcion) VALUES (@Descripcion)");
+                datos.setearConsulta("INSERT INTO CATEGORIAS (Descripcion, Activo) VALUES (@Descripcion, 1)");
                 datos.setearParametro("@Descripcion", nueva.Descripcion);
                 datos.ejecutarAccion();
             }
@@ -107,7 +109,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("DELETE FROM CATEGORIAS WHERE Id = @Id");
+                datos.setearConsulta("UPDATE Categorias SET Activo = 0 WHERE Id = @Id");
                 datos.setearParametro("@Id", id);
                 datos.ejecutarAccion();
             }

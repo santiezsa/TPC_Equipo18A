@@ -15,7 +15,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT Id, Nombre, Apellido, Email, Telefono, Direccion FROM CLIENTES");
+                datos.setearConsulta("SELECT Id, Nombre, Apellido, Email, Telefono, Direccion, Activo FROM CLIENTES WHERE Activo = 1");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -26,6 +26,7 @@ namespace negocio
                     aux.Email = (string)datos.Lector["Email"];
                     aux.Telefono = (string)datos.Lector["Telefono"];
                     aux.Direccion = (string)datos.Lector["Direccion"];
+                    aux.Activo = (bool)datos.Lector["Activo"];
                     lista.Add(aux);
                 }
                 return lista;
@@ -47,7 +48,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT Id, Nombre, Apellido, Email, Telefono, Direccion FROM CLIENTES WHERE Id = @Id");
+                datos.setearConsulta("SELECT Id, Nombre, Apellido, Email, Telefono, Direccion, Activo FROM CLIENTES WHERE Id = @Id");
                 datos.setearParametro("@Id", id);
                 datos.ejecutarLectura();
 
@@ -61,6 +62,7 @@ namespace negocio
                     cliente.Email = (string)datos.Lector["Email"];
                     cliente.Telefono = (string)datos.Lector["Telefono"];
                     cliente.Direccion = (string)datos.Lector["Direccion"];
+                    cliente.Activo = (bool)datos.Lector["Activo"];
                 }
                 return cliente;
             }
@@ -79,7 +81,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("INSERT INTO CLIENTES (Nombre, Apellido, Email, Telefono, Direccion) VALUES (@Nombre, @Apellido, @Email, @Telefono, @Direccion)");
+                datos.setearConsulta("INSERT INTO CLIENTES (Nombre, Apellido, Email, Telefono, Direccion, Activo) VALUES (@Nombre, @Apellido, @Email, @Telefono, @Direccion, 1)");
                 datos.setearParametro("@Nombre", nuevo.Nombre);
                 datos.setearParametro("@Apellido", nuevo.Apellido);
                 datos.setearParametro("@Email", nuevo.Email);
@@ -127,7 +129,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("DELETE FROM Clientes WHERE Id = @Id");
+                datos.setearConsulta("UPDATE Clientes SET Activo = 0 WHERE Id = @Id");
                 datos.setearParametro("@Id", id);
                 datos.ejecutarAccion();
             }
