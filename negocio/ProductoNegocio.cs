@@ -219,5 +219,85 @@ namespace negocio
             }
         }
 
+        public List<Proveedor> listarProveedoresPorProducto(int idProducto)
+        {
+            List<Proveedor> lista = new List<Proveedor>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                // Uno tabla intermedia con la de proveedores para sacar los datos
+                string consulta = "SELECT P.Id, P.RazonSocial, P.CUIT, P.Email " +
+                                  "FROM Proveedores AS P " +
+                                  "INNER JOIN Productos_x_Proveedores AS PxP ON P.Id = PxP.IdProveedor " +
+                                  "WHERE PxP.IdProducto = @IdProducto AND P.Activo = 1";
+
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@IdProducto", idProducto);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Proveedor aux = new Proveedor();
+                    aux.Id = (int)datos.Lector["Id"];
+                    aux.RazonSocial = (string)datos.Lector["RazonSocial"];
+                    aux.CUIT = (string)datos.Lector["CUIT"];
+                    aux.Email = (string)datos.Lector["Email"];
+                    lista.Add(aux);
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void vincularProveedor(int idProducto, int idProveedor)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                // Valido si ya existe para no duplicar
+                datos.setearConsulta("INSERT INTO Productos_x_Proveedores (IdProducto, IdProveedor) VALUES (@IdProducto, @IdProveedor)");
+                datos.setearParametro("@IdProducto", idProducto);
+                datos.setearParametro("@IdProveedor", idProveedor);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
+        public void desvincularProveedor(int idProducto, int idProveedor)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("DELETE FROM Productos_x_Proveedores WHERE IdProducto = @IdProducto AND IdProveedor = @IdProveedor");
+                datos.setearParametro("@IdProducto", idProducto);
+                datos.setearParametro("@IdProveedor", idProveedor);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+
+            }
+        }
     }
 }
