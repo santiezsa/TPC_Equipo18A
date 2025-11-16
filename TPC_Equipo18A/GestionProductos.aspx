@@ -37,8 +37,8 @@
                             <asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
                             <asp:BoundField HeaderText="Marca" DataField="Marca.Descripcion" />
                             <asp:BoundField HeaderText="Categoría" DataField="Categoria.Descripcion" />
-                            <asp:BoundField HeaderText="Stock" DataField="StockActual" />
-                            
+<%--                            <asp:BoundField HeaderText="Stock" DataField="StockActual" />--%>
+
 
                             <%-- Columna de Acciones --%>
                             <asp:TemplateField HeaderText="Acciones">
@@ -56,6 +56,22 @@
                                         CommandArgument='<%# Eval("Id") %>'
                                         Text="Eliminar"
                                         CssClass="btn btn-sm btn-outline-danger" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <%--  --%>
+                            <asp:TemplateField HeaderText="Stock">
+                                <ItemTemplate>
+                                    <%-- Muestra el stock actual --%>
+                                    <asp:Label Text='<%# Eval("StockActual") %>' runat="server" />
+
+                                    <%-- Btn de acceso al ajuste de stock --%>
+                                    <asp:HyperLink runat="server"
+                                        NavigateUrl='<%# "~/AjusteStock.aspx?id=" + Eval("Id") %>'
+                                        CssClass="btn btn-sm btn-outline-warning ms-2"
+                                        ToolTip="Ajustar Stock">
+                                        <i class="bi bi-arrow-left-right"></i>
+                                    </asp:HyperLink>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>

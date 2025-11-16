@@ -65,6 +65,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AjusteStock.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="FormularioCategoria.aspx" />
     <Content Include="FormularioProducto.aspx" />
@@ -85,6 +86,13 @@
     <Content Include="Default.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AjusteStock.aspx.cs">
+      <DependentUpon>AjusteStock.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AjusteStock.aspx.designer.cs">
+      <DependentUpon>AjusteStock.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Error.aspx.cs">
       <DependentUpon>Error.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
