@@ -11,4 +11,5 @@ namespace dominio
         Administrador = 1,
         Vendedor = 2,
     }
+
 }

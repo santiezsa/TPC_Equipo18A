@@ -14,6 +14,12 @@ namespace dominio
         public Usuario Vendedor { get; set; }
         public DateTime Fecha { get; set; }
         public decimal Total { get; set; }
+        public bool Activo { get; set; }
         public List<DetalleVenta> Detalles { get; set; } 
+
+        public Venta() 
+        {
+            Detalles = new List<DetalleVenta>();
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace dominio
         public string CUIT { get; set; }
         public string Email { get; set; }
         public string Telefono { get; set; }
+        public bool Activo { get; set; }
     }
 }

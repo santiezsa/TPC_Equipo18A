@@ -18,6 +18,7 @@ namespace dominio
         public decimal PorcentajeGanancia { get; set; }
         public int StockActual { get; set; }
         public int StockMinimo { get; set; }
+        public bool Activo { get; set; }
 
     }
 }
