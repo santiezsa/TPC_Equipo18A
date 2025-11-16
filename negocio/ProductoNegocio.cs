@@ -8,8 +8,6 @@ using dominio;
 
 namespace negocio
 
-//MODIFICAR LA BASE DE DATOS DE PRODUCTOS (CODIGO Y PRECIO)
-
 {
     public class ProductoNegocio
     {
@@ -297,6 +295,39 @@ namespace negocio
             {
                 datos.cerrarConexion();
 
+            }
+        }
+
+        public void ajustarStock(int idProducto, int cantidad, string motivo, int idUsuario, bool esIngreso)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string operador = esIngreso ? "+" : "-"; // ingreso sumo , egreso resto
+
+                datos.setearConsulta($"UPDATE Productos SET StockActual = StockActual {operador} @Cantidad WHERE Id = @Id");
+                datos.setearParametro("@Cantidad", cantidad);
+                datos.setearParametro("@Id", idProducto);
+                datos.ejecutarAccion();
+
+                datos.cerrarConexion();
+                datos = new AccesoDatos();
+
+                datos.setearConsulta("INSERT INTO MovimientosStock (IdProducto, IdUsuario, Fecha, Cantidad, EsIngreso, Motivo) VALUES (@IdProducto, @IdUsuario, GETDATE(), @Cantidad, @EsIngreso, @Motivo)");
+                datos.setearParametro("@IdProducto", idProducto);
+                datos.setearParametro("@IdUsuario", idUsuario);
+                datos.setearParametro("@Cantidad", cantidad);
+                datos.setearParametro("@EsIngreso", esIngreso);
+                datos.setearParametro("@Motivo", motivo);
+                datos.ejecutarAccion();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
         }
     }
