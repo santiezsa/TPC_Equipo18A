@@ -80,6 +80,7 @@
     <Content Include="GestionProveedores.aspx" />
     <Content Include="GestionUsuarios.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="img\fondo-login.jpg" />
     <Content Include="Login.aspx" />
     <Content Include="RegistrarCompra.aspx" />
     <Content Include="RegistrarVenta.aspx" />
