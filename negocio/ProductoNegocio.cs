@@ -160,7 +160,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("DELETE Productos SET Activo = 0 WHERE Id = @Id");
+                datos.setearConsulta("UPDATE Productos SET Activo = 0 WHERE Id = @Id");
                 datos.setearParametro("@Id", id);
                 datos.ejecutarAccion();
             }
