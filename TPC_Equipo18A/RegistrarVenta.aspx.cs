@@ -16,19 +16,27 @@ namespace TPC_Equipo18A
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                ddlProductoVenta.DataSource = productoNegocio.listar();
-                ddlProductoVenta.DataTextField = "Nombre";
-                ddlProductoVenta.DataValueField = "Id";
-                ddlProductoVenta.DataBind();
-                ddlProductoVenta.Items.Insert(0, new ListItem("Seleccione un Producto", ""));
+                if (!IsPostBack)
+                {
+                    ddlProductoVenta.DataSource = productoNegocio.listar();
+                    ddlProductoVenta.DataTextField = "Nombre";
+                    ddlProductoVenta.DataValueField = "Id";
+                    ddlProductoVenta.DataBind();
+                    ddlProductoVenta.Items.Insert(0, new ListItem("Seleccione un Producto", ""));
 
-                ddlClienteVenta.DataSource = clienteNegocio.listar();
-                ddlClienteVenta.DataTextField = "NombreCompleto";
-                ddlClienteVenta.DataValueField = "Id";
-                ddlClienteVenta.DataBind();
-                ddlClienteVenta.Items.Insert(0, new ListItem("Seleccione un Cliente", ""));
+                    ddlClienteVenta.DataSource = clienteNegocio.listar();
+                    ddlClienteVenta.DataTextField = "NombreCompleto";
+                    ddlClienteVenta.DataValueField = "Id";
+                    ddlClienteVenta.DataBind();
+                    ddlClienteVenta.Items.Insert(0, new ListItem("Seleccione un Cliente", ""));
+                }
+            }
+            catch (Exception ex)
+            {
+                Session["error"] = ex.Message;
+                Response.Redirect("Error.aspx");
             }
         }
     }
