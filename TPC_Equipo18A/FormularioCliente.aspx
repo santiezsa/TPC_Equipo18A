@@ -14,7 +14,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <%-- Nombre y apellido --%>
+                    <%-- Nombre, apellido y documento --%>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Nombre</label>
@@ -25,6 +25,11 @@
                             <label>Apellido</label>
                             <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control"></asp:TextBox>
                             <asp:RequiredFieldValidator ErrorMessage="El apellido es obligatorio." ControlToValidate="txtApellido" CssClass="text-danger small" Display="Dynamic" runat="server"></asp:RequiredFieldValidator>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Documento</label>
+                            <asp:TextBox ID="txtDocumento" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:RequiredFieldValidator ErrorMessage="El documento es obligatorio." ControlToValidate="txtDocumento" CssClass="text-danger small" Display="Dynamic" runat="server"></asp:RequiredFieldValidator>
                         </div>
                     </div>
 

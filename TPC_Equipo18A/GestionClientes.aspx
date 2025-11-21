@@ -42,6 +42,7 @@
                         <Columns>
                             <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
                             <asp:BoundField HeaderText="Apellido" DataField="Apellido" />
+                             <asp:BoundField HeaderText="Documento" DataField="Documento" />
                             <asp:BoundField HeaderText="Email" DataField="Email" />
                             <asp:BoundField HeaderText="Teléfono" DataField="Telefono" />
                             <asp:BoundField HeaderText="Dirección" DataField="Direccion" />

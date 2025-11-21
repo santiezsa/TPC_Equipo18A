@@ -31,6 +31,7 @@ namespace TPC_Equipo18A
                         hfId.Value = seleccionado.Id.ToString();
                         txtNombre.Text = seleccionado.Nombre;
                         txtApellido.Text = seleccionado.Apellido;
+                        txtDocumento.Text = seleccionado.Documento;
                         txtEmail.Text = seleccionado.Email;
                         txtTelefono.Text = seleccionado.Telefono;
                         txtDireccion.Text = seleccionado.Direccion;
@@ -56,6 +57,7 @@ namespace TPC_Equipo18A
             {
                 cliente.Nombre = txtNombre.Text;
                 cliente.Apellido = txtApellido.Text;
+                cliente.Documento = txtDocumento.Text;
                 cliente.Email = txtEmail.Text;
                 cliente.Telefono = txtTelefono.Text;
                 cliente.Direccion = txtDireccion.Text;

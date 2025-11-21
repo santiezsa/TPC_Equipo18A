@@ -15,7 +15,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT Id, Nombre, Apellido, Email, Telefono, Direccion, Activo FROM CLIENTES WHERE Activo = 1");
+                datos.setearConsulta("SELECT Id, Nombre, Apellido, Documento, Email, Telefono, Direccion, Activo FROM CLIENTES WHERE Activo = 1");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -23,6 +23,7 @@ namespace negocio
                     aux.Id = (int)datos.Lector["Id"];
                     aux.Nombre = (string)datos.Lector["Nombre"];
                     aux.Apellido = (string)datos.Lector["Apellido"];
+                    aux.Documento = (string)datos.Lector["Documento"];
                     aux.Email = (string)datos.Lector["Email"];
                     aux.Telefono = (string)datos.Lector["Telefono"];
                     aux.Direccion = (string)datos.Lector["Direccion"];
@@ -48,7 +49,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT Id, Nombre, Apellido, Email, Telefono, Direccion, Activo FROM CLIENTES WHERE Id = @Id");
+                datos.setearConsulta("SELECT Id, Nombre, Apellido, Documento, Email, Telefono, Direccion, Activo FROM CLIENTES WHERE Id = @Id");
                 datos.setearParametro("@Id", id);
                 datos.ejecutarLectura();
 
@@ -59,6 +60,7 @@ namespace negocio
                     cliente.Id = (int)datos.Lector["Id"];
                     cliente.Nombre = (string)datos.Lector["Nombre"];
                     cliente.Apellido = (string)datos.Lector["Apellido"];
+                    cliente.Documento = (string)datos.Lector["Documento"];
                     cliente.Email = (string)datos.Lector["Email"];
                     cliente.Telefono = (string)datos.Lector["Telefono"];
                     cliente.Direccion = (string)datos.Lector["Direccion"];
@@ -81,9 +83,10 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("INSERT INTO CLIENTES (Nombre, Apellido, Email, Telefono, Direccion, Activo) VALUES (@Nombre, @Apellido, @Email, @Telefono, @Direccion, 1)");
+                datos.setearConsulta("INSERT INTO CLIENTES (Nombre, Apellido, Documento, Email, Telefono, Direccion, Activo) VALUES (@Nombre, @Apellido, @Documento, @Email, @Telefono, @Direccion, 1)");
                 datos.setearParametro("@Nombre", nuevo.Nombre);
                 datos.setearParametro("@Apellido", nuevo.Apellido);
+                datos.setearParametro("@Documento", nuevo.Documento);
                 datos.setearParametro("@Email", nuevo.Email);
                 datos.setearParametro("@Telefono", nuevo.Telefono);
                 datos.setearParametro("@Direccion", nuevo.Direccion);
@@ -105,9 +108,10 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("UPDATE CLIENTES SET Nombre = @Nombre, Apellido = @Apellido, Email = @Email, Telefono = @Telefono, Direccion = @Direccion WHERE Id = @Id");
+                datos.setearConsulta("UPDATE CLIENTES SET Nombre = @Nombre, Apellido = @Apellido, Documento = @Documento, Email = @Email, Telefono = @Telefono, Direccion = @Direccion WHERE Id = @Id");
                 datos.setearParametro("@Nombre", cliente.Nombre);
                 datos.setearParametro("@Apellido", cliente.Apellido);
+                datos.setearParametro("@Documento", cliente.Documento);
                 datos.setearParametro("@Email", cliente.Email);
                 datos.setearParametro("@Telefono", cliente.Telefono);
                 datos.setearParametro("@Direccion", cliente.Direccion);
