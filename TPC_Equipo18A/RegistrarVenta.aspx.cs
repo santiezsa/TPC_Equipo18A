@@ -35,7 +35,7 @@ namespace TPC_Equipo18A
             }
             catch (Exception ex)
             {
-                mostrarToast("Error al cargar formulario: " + ex.Message, "danger"); //Chequear mensaje
+                mostrarToast("Error al cargar formulario: " + ex.Message, "danger");
             }
         }
 
@@ -54,62 +54,64 @@ namespace TPC_Equipo18A
         }
         private void cargarDetalle()
         {
-            var detalle = DetalleActual;
+            List<DetalleVenta> detalle = DetalleActual;
 
             gvDetalleVenta.DataSource = detalle;
             gvDetalleVenta.DataBind();
 
             // Calcular total
             decimal total = 0;
-            foreach (var item in detalle)
+            foreach (DetalleVenta item in detalle)
                 total += item.Subtotal;
 
-            lblTotalVenta.Text = total.ToString("C2"); // Formato moneda
+            lblTotalVenta.Text = total.ToString("C2");
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
-            // Validaciones simples
-            if (ddlProductoVenta.SelectedIndex <= 0)
-                return;
-
-            if (!int.TryParse(txtCantidadVenta.Text, out int cantidad) || cantidad <= 0)
-                return;
-
-            int idProducto = int.Parse(ddlProductoVenta.SelectedValue);
-
-            ProductoNegocio productoNegocio = new ProductoNegocio();
-
-            // 1) Traer producto (para mostrar nombre en el detalle)
-            Producto producto = productoNegocio.buscarPorId(idProducto);
-
-            // 2) Calcular precio de venta según última compra + % ganancia
-            decimal precioVenta = productoNegocio.ObtenerPrecioVenta(idProducto);
-
-            // 3) Obtener la lista actual de detalle (por Session o lo que uses)
-            List<DetalleVenta> detalle = DetalleActual;
-
-            // 4) Si el producto ya está en el detalle, sumo cantidad
-            DetalleVenta existente = detalle.Find(d => d.Producto.Id == idProducto);
-
-            if (existente != null)
+            try
             {
-                existente.Cantidad += cantidad;
-            }
-            else
-            {
-                DetalleVenta nuevo = new DetalleVenta
+                if (ddlProductoVenta.SelectedIndex <= 0)
+                    return;
+
+                if (!int.TryParse(txtCantidadVenta.Text, out int cantidad) || cantidad <= 0)
+                    return;
+
+                int idProducto = int.Parse(ddlProductoVenta.SelectedValue);
+
+                ProductoNegocio productoNegocio = new ProductoNegocio();
+
+                Producto producto = productoNegocio.buscarPorId(idProducto);
+
+                decimal precioVenta = productoNegocio.ObtenerPrecioVenta(idProducto);
+
+                List<DetalleVenta> detalle = DetalleActual;
+
+                DetalleVenta existente = detalle.Find(d => d.Producto.Id == idProducto);
+
+                if (existente != null)
                 {
-                    Producto = producto,
-                    Cantidad = cantidad,
-                    PrecioUnitario = precioVenta
-                };
+                    existente.Cantidad += cantidad;
+                }
+                else
+                {
+                    DetalleVenta nuevo = new DetalleVenta
+                    {
+                        Producto = producto,
+                        Cantidad = cantidad,
+                        PrecioUnitario = precioVenta
+                    };
 
-                detalle.Add(nuevo);
+                    detalle.Add(nuevo);
+                }
+
+                DetalleActual = detalle; // guardar de nuevo en Session
+                cargarDetalle();
+            } 
+            catch (Exception ex)
+            {
+                mostrarToast("Error al agregar producto: " + ex.Message, "danger");
             }
-
-            DetalleActual = detalle; // guardar de nuevo en Session
-            cargarDetalle();
         }
 
         private void mostrarToast(string mensaje, string tipo)
