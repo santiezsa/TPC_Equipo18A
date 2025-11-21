@@ -35,9 +35,33 @@ namespace TPC_Equipo18A
             }
             catch (Exception ex)
             {
-                Session["error"] = ex.Message;
-                Response.Redirect("Error.aspx");
+                mostrarToast("Error al cargar formulario: " + ex.Message, "danger"); //Chequear mensaje
             }
+        }
+
+        private List<DetalleVenta> DetalleActual
+        {
+            get
+            {
+                if (Session["DetalleVenta"] == null)
+                    Session["DetalleVenta"] = new List<DetalleVenta>();
+                return (List<DetalleVenta>)Session["DetalleVenta"];
+            }
+            set
+            {
+                Session["DetalleVenta"] = value;
+            }
+        }
+
+        protected void btnAgregar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mostrarToast(string mensaje, string tipo)
+        {
+            string script = $"mostrarToast('{mensaje}', '{tipo}');";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastJS", script, true);
         }
     }
 } 
