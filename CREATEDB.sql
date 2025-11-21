@@ -27,6 +27,7 @@ CREATE TABLE Clientes(
 Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL, -- campos autonumericos
 Nombre VARCHAR(100) NOT NULL,
 Apellido VARCHAR(100) NOT NULL,
+Documento VARCHAR(20) NOT NULL DEFAULT '',
 Email VARCHAR(150) UNIQUE, -- para evitar duplicados de mails
 Telefono VARCHAR(50),
 Direccion VARCHAR(255),
