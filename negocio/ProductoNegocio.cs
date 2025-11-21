@@ -330,5 +330,43 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public decimal ObtenerPrecioVenta(int idProducto)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta(@"
+                    SELECT TOP 1 dc.PrecioUnitario AS PrecioCompra, p.PorcentajeGanancia
+                    FROM DetalleCompra dc
+                    INNER JOIN Compras c ON c.Id = dc.IdCompra
+                    INNER JOIN Productos p ON p.Id = dc.IdProducto
+                    WHERE dc.IdProducto = @idProducto
+                    ORDER BY c.Fecha DESC");
+
+                datos.setearParametro("@idProducto", idProducto);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    decimal precioCompra = (decimal)datos.Lector["PrecioCompra"];
+                    decimal porcentaje = (decimal)datos.Lector["PorcentajeGanancia"];
+
+                    // si PorcentajeGanancia = 30 -> 30%
+                    decimal precioVenta = precioCompra * (1 + (porcentaje / 100m));
+                    return precioVenta;
+                }
+                else
+                {
+                    // no hay compras cargadas para ese producto
+                    throw new Exception("No hay compras registradas para este producto.");
+                }
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
