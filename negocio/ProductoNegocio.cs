@@ -321,7 +321,7 @@ namespace negocio
                 datos.setearParametro("@Motivo", motivo);
                 datos.ejecutarAccion();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -362,6 +362,32 @@ namespace negocio
                     // no hay compras cargadas para ese producto
                     throw new Exception("No hay compras registradas para este producto.");
                 }
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public bool existeRelacion(int idProducto, int idProveedor)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                // Contamos cuántas filas existen con esa combinación exacta
+                datos.setearConsulta("SELECT COUNT(*) FROM Productos_x_Proveedores WHERE IdProducto = @IdProd AND IdProveedor = @IdProv");
+                datos.setearParametro("@IdProd", idProducto);
+                datos.setearParametro("@IdProv", idProveedor);
+
+                // ejecutarLecturaScalar devuelve un object, lo casteamos a int
+                int cantidad = (int)datos.ejecutarLecturaScalar();
+
+                // Si la cantidad es mayor a 0, significa que YA EXISTE
+                return cantidad > 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
             finally
             {
