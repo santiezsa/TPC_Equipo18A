@@ -97,7 +97,6 @@ namespace TPC_Equipo18A
                     }
 
                     producto.PorcentajeGanancia = porcentaje;
-                    producto.StockMinimo = 0;
 
                     if (Request.QueryString["Id"] != null)
                     {
