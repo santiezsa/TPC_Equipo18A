@@ -107,12 +107,11 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("INSERT INTO Productos (Codigo, Nombre, Descripcion, PorcentajeGanancia, StockActual, StockMinimo, IdMarca, IdCategoria, Activo) VALUES (@Codigo, @Nombre, @Descripcion, @PorcentajeGanancia, @StockActual, @StockMinimo, @IdMarca, @IdCategoria, 1)");
+                datos.setearConsulta("INSERT INTO Productos (Codigo, Nombre, Descripcion, PorcentajeGanancia, StockActual, StockMinimo, IdMarca, IdCategoria, Activo) VALUES (@Codigo, @Nombre, @Descripcion, @PorcentajeGanancia, 0, @StockMinimo, @IdMarca, @IdCategoria, 1)");
                 datos.setearParametro("@Codigo", nuevo.Codigo);
                 datos.setearParametro("@Nombre", nuevo.Nombre);
                 datos.setearParametro("@Descripcion", nuevo.Descripcion);
                 datos.setearParametro("@PorcentajeGanancia", nuevo.PorcentajeGanancia);
-                datos.setearParametro("@StockActual", nuevo.StockActual);
                 datos.setearParametro("@StockMinimo", nuevo.StockMinimo);
                 datos.setearParametro("@IdMarca", nuevo.Marca.Id);
                 datos.setearParametro("@IdCategoria", nuevo.Categoria.Id);
@@ -133,12 +132,11 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("UPDATE Productos SET Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, PorcentajeGanancia = @PorcentajeGanancia, StockActual = @StockActual, StockMinimo = @StockMinimo, IdMarca = @IdMarca, IdCategoria = @IdCategoria WHERE Id = @Id");
+                datos.setearConsulta("UPDATE Productos SET Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, PorcentajeGanancia = @PorcentajeGanancia, StockMinimo = @StockMinimo, IdMarca = @IdMarca, IdCategoria = @IdCategoria WHERE Id = @Id");
                 datos.setearParametro("@Codigo", producto.Codigo);
                 datos.setearParametro("@Nombre", producto.Nombre);
                 datos.setearParametro("@Descripcion", producto.Descripcion);
                 datos.setearParametro("@PorcentajeGanancia", producto.PorcentajeGanancia);
-                datos.setearParametro("@StockActual", producto.StockActual);
                 datos.setearParametro("@StockMinimo", producto.StockMinimo);
                 datos.setearParametro("@IdMarca", producto.Marca.Id);
                 datos.setearParametro("@IdCategoria", producto.Categoria.Id);

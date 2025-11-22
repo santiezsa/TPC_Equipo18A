@@ -53,15 +53,7 @@
                         <asp:RequiredFieldValidator ErrorMessage="Requerido" ControlToValidate="txtDescripcion" CssClass="text-danger small" Display="Dynamic" runat="server" />
                     </div>
 
-                    <%-- Stocks y ganancia --%>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label>Stock Actual</label>
-                            <asp:TextBox ID="txtStockActual" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
-                            <asp:RequiredFieldValidator ErrorMessage="Requerido" ControlToValidate="txtStockActual" CssClass="text-danger small" Display="Dynamic" runat="server" />
-                            <asp:RegularExpressionValidator ErrorMessage="Solo enteros" ControlToValidate="txtStockActual" ValidationExpression="^\d+$" CssClass="text-danger small" Display="Dynamic" runat="server" />
-                        </div>
-
+                    <%-- Stock minimo y ganancia --%>
                         <div class="form-group col-md-4">
                             <label>Stock Mínimo</label>
                             <asp:TextBox ID="txtStockMinimo" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>

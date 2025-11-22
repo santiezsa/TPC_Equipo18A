@@ -53,7 +53,6 @@ namespace TPC_Equipo18A
                         txtCodigo.Text = productoSeleccionado.Codigo;
                         txtNombre.Text = productoSeleccionado.Nombre;
                         txtDescripcion.Text = productoSeleccionado.Descripcion;
-                        txtStockActual.Text = productoSeleccionado.StockActual.ToString();
                         ddlMarca.SelectedValue = productoSeleccionado.Marca.Id.ToString();
                         ddlCategoria.SelectedValue = productoSeleccionado.Categoria.Id.ToString();
                         txtStockMinimo.Text = productoSeleccionado.StockMinimo.ToString();
@@ -91,7 +90,6 @@ namespace TPC_Equipo18A
 
                     // Validación numérica
                     if (!decimal.TryParse(txtPorcentajeGanancia.Text, out decimal porcentaje) ||
-                        !int.TryParse(txtStockActual.Text, out int stock) ||
                         !int.TryParse(txtStockMinimo.Text, out int stockMinimo))
                     {
                         mostrarToast("Error en formato de campos numéricos.", "danger");
@@ -99,8 +97,7 @@ namespace TPC_Equipo18A
                     }
 
                     producto.PorcentajeGanancia = porcentaje;
-                    producto.StockActual = stock;
-                    producto.StockMinimo = stockMinimo;
+                    producto.StockMinimo = 0;
 
                     if (Request.QueryString["Id"] != null)
                     {
