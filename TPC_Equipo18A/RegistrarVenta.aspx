@@ -21,7 +21,7 @@
                             <asp:TextBox ID="txtCantidadVenta" runat="server" CssClass="form-control" TextMode="Number" Text="1"></asp:TextBox>
                         </div>
                         <div class="form-group col-md-3 d-flex align-items-end">
-                            <asp:Button ID="btnAgregarProductoVenta" runat="server" Text="Agregar" OnClick="btnAgregar_Click" CssClass="btn btn-secondary btn-block" />
+                            <asp:Button ID="btnAgregarProductoVenta" runat="server" Text="Agregar" OnClick="btnAgregarProductoVenta_Click" CssClass="btn btn-secondary btn-block" />
                         </div>
                     </div>
                 </div>

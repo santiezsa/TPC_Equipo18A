@@ -11,7 +11,7 @@ namespace dominio
         public int Id { get; set; }
         public string NumeroFactura { get; set; }
         public Cliente Cliente { get; set; }
-        public Usuario Vendedor { get; set; }
+        public Usuario Usuario { get; set; }
         public DateTime Fecha { get; set; }
         public decimal Total { get; set; }
         public bool Activo { get; set; }

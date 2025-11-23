@@ -67,7 +67,7 @@ namespace TPC_Equipo18A
             lblTotalVenta.Text = total.ToString("C2");
         }
 
-        protected void btnAgregar_Click(object sender, EventArgs e)
+        protected void btnAgregarProductoVenta_Click(object sender, EventArgs e)
         {
             try
             {
@@ -118,7 +118,7 @@ namespace TPC_Equipo18A
         {
             try
             {
-                if(ddlClienteVenta.SelectedIndex <= 0)
+                if (ddlClienteVenta.SelectedIndex <= 0)
                 {
                     mostrarToast("Debe seleccionarun cliente.", "warning");
                     return;
@@ -137,15 +137,36 @@ namespace TPC_Equipo18A
                 venta.Activo = true;
                 venta.Detalles = DetalleActual;
 
+                if (Session["usuario"] == null)
+                {
+                    mostrarToast("Su sesión expiró. Vuelva a iniciar sesión.", "warning");
+                    return;
+                }
+                venta.Usuario = (Usuario)Session["usuario"]; ; 
+
                 // Calculo total
-                decimal total = 0;
+                venta.Total = venta.Detalles.Sum(importe => importe.Subtotal);
 
-                foreach (DetalleVenta item in venta.Detalles)
-                    total += item.Subtotal;
+                // Registro venta en la base
+                VentaNegocio ventaNegocio = new VentaNegocio(); 
+                ventaNegocio.registrar(venta);
 
-                venta.Total = total;
+                mostrarToast("Pasa registrar venta, intenta registrar venta", "info");
 
-                // ToDo:  Crear clase VentaNegocio
+                // Limpio carrito
+                Session["DetalleVenta"] = null;
+                DetalleActual.Clear();
+
+                // Refrescar grilla y total
+                gvDetalleVenta.DataSource = null;
+                gvDetalleVenta.DataBind();
+                lblTotalVenta.Text = "$0.00";
+
+                // Limpiar cliente seleccionado
+                ddlClienteVenta.SelectedIndex = 0;
+
+                mostrarToast("Venta registrada correctamente.", "success");
+                
 
             } catch(Exception ex)
             {

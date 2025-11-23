@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace negocio
 {
-    internal class VentaNegocio
+    public class VentaNegocio
     {
         public void registrar(Venta venta)
         {
@@ -30,14 +30,15 @@ namespace negocio
                     venta.NumeroFactura = GenerarNumeroFactura();
 
                 // 3) Insertar VENTA y recuperar Id
+                datos.limpiarParametros();
                 datos.setearConsulta(@"
-                    INSERT INTO Ventas (NumeroFactura, IdCliente, IdVendedor, Fecha, Total, Activo)
+                    INSERT INTO Ventas (NumeroFactura, IdCliente, IdUsuario, Fecha, Total, Activo)
                     OUTPUT INSERTED.Id
-                    VALUES (@nro, @idCliente, @idVendedor, @fecha, @total, 1)");
+                    VALUES (@nro, @idCliente, @idUsuario, @fecha, @total, 1)");
 
                 datos.setearParametro("@nro", venta.NumeroFactura);
                 datos.setearParametro("@idCliente", venta.Cliente.Id);
-                datos.setearParametro("@idVendedor", venta.Vendedor.Id); 
+                datos.setearParametro("@idUsuario", venta.Usuario.Id); 
                 datos.setearParametro("@fecha", venta.Fecha);
                 datos.setearParametro("@total", venta.Total);
 
@@ -62,7 +63,7 @@ namespace negocio
                     datos.ejecutarAccion();
 
                     // stock
-                    productoNegocio.ajustarStock(detalle.Producto.Id, detalle.Cantidad, "Venta", venta.Vendedor.Id, false);
+                    productoNegocio.ajustarStock(detalle.Producto.Id, detalle.Cantidad, "Venta", venta.Usuario.Id, false);
                 }
             }
             finally
