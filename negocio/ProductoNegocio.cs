@@ -392,5 +392,31 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public bool HayStockDisponible(int idProducto, int cantidadSolicitada, out int stockActual)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            stockActual = 0;
+
+            try
+            {
+                datos.setearConsulta("SELECT StockActual FROM Productos WHERE Id = @id");
+                datos.setearParametro("@id", idProducto);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    stockActual = (int)datos.Lector["StockActual"];
+                    return stockActual >= cantidadSolicitada;
+                }
+
+                return false; 
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }

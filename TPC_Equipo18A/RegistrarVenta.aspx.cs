@@ -74,7 +74,7 @@ namespace TPC_Equipo18A
                 if (ddlProductoVenta.SelectedIndex <= 0)
                     return;
 
-                if (!int.TryParse(txtCantidadVenta.Text, out int cantidad) || cantidad <= 0)
+                if (!int.TryParse(txtCantidadVenta.Text, out int cantidadNueva) || cantidadNueva <= 0)
                     return;
 
                 int idProducto = int.Parse(ddlProductoVenta.SelectedValue);
@@ -89,16 +89,26 @@ namespace TPC_Equipo18A
 
                 DetalleVenta existente = detalle.Find(d => d.Producto.Id == idProducto);
 
+                int cantidadTotalSolicitada = cantidadNueva + (existente?.Cantidad ?? 0);
+
+                // Validar stock
+                int stockActual;
+                if (!productoNegocio.HayStockDisponible(idProducto, cantidadTotalSolicitada, out stockActual))
+                {
+                    mostrarToast($"No hay stock suficiente. Disponible: {stockActual}.", "warning");
+                    return;
+                }
+
                 if (existente != null)
                 {
-                    existente.Cantidad += cantidad;
+                    existente.Cantidad += cantidadNueva;
                 }
                 else
                 {
                     DetalleVenta nuevo = new DetalleVenta
                     {
                         Producto = producto,
-                        Cantidad = cantidad,
+                        Cantidad = cantidadNueva,
                         PrecioUnitario = precioVenta
                     };
 
