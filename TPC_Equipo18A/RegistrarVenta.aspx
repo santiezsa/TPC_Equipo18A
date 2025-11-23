@@ -34,9 +34,10 @@
                 <div class="card-body" style="padding: 0;">
                     <div class="table-responsive">
                         <asp:GridView ID="gvDetalleVenta" runat="server" 
-                            CssClass="table table-hover align-middle mb-0" 
+                            CssClass="table table-hover align-middle text-center" 
                             AutoGenerateColumns="false" 
                             ShowHeaderWhenEmpty="true" 
+                            GridLines="None"
                             EmptyDataText="Agregue productos al carrito.">
                             <Columns>
                                 <asp:BoundField HeaderText="Producto" DataField="Producto.Nombre" />
@@ -65,7 +66,7 @@
             <div class="card">
                 <div class="card-body text-right">
                     <h4 class="mb-3">Total: <asp:Label ID="lblTotalVenta" runat="server" Text="$0.00" CssClass="font-weight-bold"></asp:Label></h4>
-                    <asp:Button ID="btnConfirmarVenta" runat="server" Text="Confirmar Venta" CssClass="btn btn-success btn-lg btn-block" />
+                    <asp:Button ID="btnConfirmarVenta" runat="server" Text="Confirmar Venta" OnClick="btnConfirmarVenta_Click" CssClass="btn btn-success btn-lg btn-block" />
                 </div>
             </div>
         </div>

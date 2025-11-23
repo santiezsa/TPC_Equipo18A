@@ -114,6 +114,46 @@ namespace TPC_Equipo18A
             }
         }
 
+        protected void btnConfirmarVenta_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if(ddlClienteVenta.SelectedIndex <= 0)
+                {
+                    mostrarToast("Debe seleccionarun cliente.", "warning");
+                    return;
+                }
+
+                if (DetalleActual.Count == 0)
+                {
+                    mostrarToast("Debe agregar productos a la venta.", "warning");
+                    return;
+                }
+
+                Venta venta = new Venta();
+                venta.Cliente = new Cliente();
+                venta.Cliente.Id = int.Parse(ddlClienteVenta.SelectedValue);
+                venta.Fecha = DateTime.Now;
+                venta.Activo = true;
+                venta.Detalles = DetalleActual;
+
+                // Calculo total
+                decimal total = 0;
+
+                foreach (DetalleVenta item in venta.Detalles)
+                    total += item.Subtotal;
+
+                venta.Total = total;
+
+                // ToDo:  Crear clase VentaNegocio
+
+            } catch(Exception ex)
+            {
+                mostrarToast("Error al registrar venta: " + ex.Message, "danger");
+                return;
+            }
+        }
+
         private void mostrarToast(string mensaje, string tipo)
         {
             string script = $"mostrarToast('{mensaje}', '{tipo}');";
