@@ -151,8 +151,6 @@ namespace TPC_Equipo18A
                 VentaNegocio ventaNegocio = new VentaNegocio(); 
                 ventaNegocio.registrar(venta);
 
-                mostrarToast("Pasa registrar venta, intenta registrar venta", "info");
-
                 // Limpio carrito
                 Session["DetalleVenta"] = null;
                 DetalleActual.Clear();
@@ -162,8 +160,10 @@ namespace TPC_Equipo18A
                 gvDetalleVenta.DataBind();
                 lblTotalVenta.Text = "$0.00";
 
-                // Limpiar cliente seleccionado
+                // Limpiar campos
                 ddlClienteVenta.SelectedIndex = 0;
+                ddlProductoVenta.SelectedIndex = 0; 
+                txtCantidadVenta.Text = "1";
 
                 mostrarToast("Venta registrada correctamente.", "success");
                 
