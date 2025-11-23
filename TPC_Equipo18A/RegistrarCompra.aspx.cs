@@ -13,6 +13,11 @@ namespace TPC_Equipo18A
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["mensajeExito"] != null)
+            {
+                mostrarToast(Session["mensajeExito"].ToString(), "success");
+                Session["mensajeExito"] = null;
+            }
             if (!IsPostBack)
             {
                 cargarCombos();
@@ -102,7 +107,7 @@ namespace TPC_Equipo18A
         {
             List<DetalleCompra> lista = (List<DetalleCompra>)Session["listaCompra"];
 
-            if(lista == null)
+            if (lista == null)
             {
                 lista = new List<DetalleCompra>();
             }
@@ -153,7 +158,8 @@ namespace TPC_Equipo18A
 
                 // Limpio y aviso
                 Session["listaCompra"] = null; // Carrito vaciado
-                mostrarToast("¡Compra registrada exitosamente!", "success");
+                Session["mensajeExito"] = "Compra registrada exitosamente.";
+                Response.Redirect("RegistrarCompra.aspx", false);
 
                 // Limpio pantalla
                 ddlProveedor.SelectedIndex = 0;
