@@ -35,6 +35,7 @@
                     <div class="table-responsive">
                         <asp:GridView ID="gvDetalleVenta" runat="server" 
                             CssClass="table table-hover align-middle text-center" 
+                            OnRowCommand="gvDetalleVenta_RowCommand"
                             AutoGenerateColumns="false" 
                             ShowHeaderWhenEmpty="true" 
                             GridLines="None"
@@ -44,6 +45,11 @@
                                 <asp:BoundField HeaderText="Cantidad" DataField="Cantidad" />
                                 <asp:BoundField HeaderText="Precio Unit." DataField="PrecioUnitario" DataFormatString="{0:C}" />
                                 <asp:BoundField HeaderText="Subtotal" DataField="Subtotal" DataFormatString="{0:C}" />
+                                <asp:TemplateField>
+                                    <ItemTemplate>
+                                        <asp:Button runat="server" CommandName="Eliminar" CommandArgument='<%# Container.DataItemIndex %>' Text="🗑" CssClass="btn btn-sm btn-danger" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                             </Columns>
                         </asp:GridView>
                     </div>

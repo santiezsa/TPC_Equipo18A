@@ -66,6 +66,24 @@ namespace TPC_Equipo18A
 
             lblTotalVenta.Text = total.ToString("C2");
         }
+        protected void gvDetalleVenta_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Eliminar")
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+
+                // Traigo la lista actual desde Session
+                List<DetalleVenta> detalle = DetalleActual;
+
+                if (index >= 0 && index < detalle.Count)
+                {
+                    detalle.RemoveAt(index);  
+                    DetalleActual = detalle;     
+                    cargarDetalle();           
+                }
+            }
+        }
+
 
         protected void btnAgregarProductoVenta_Click(object sender, EventArgs e)
         {
