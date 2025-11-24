@@ -27,7 +27,8 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <asp:GridView ID="gvVentas" runat="server"
-                        CssClass="table table-hover align-middle"
+                        CssClass="table table-hover align-middle text-center" 
+                        GridLines="None"
                         AutoGenerateColumns="false"
                         DataKeyNames="Id"
                         OnRowCommand="gvVentas_RowCommand"
