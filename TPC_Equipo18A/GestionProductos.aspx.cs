@@ -91,5 +91,41 @@ namespace TPC_Equipo18A
             string script = $"mostrarToast('{mensaje}', '{tipo}');";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastJS", script, true);
         }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            filtrar();
+        }
+
+        protected void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            filtrar();
+        }
+
+        private void filtrar()
+        {
+            ProductoNegocio negocio = new ProductoNegocio();
+            try
+            {
+                string filtro = txtFiltro.Text;
+
+                // Si el campo del filtro esta vacio cargo todo normal
+                if (string.IsNullOrEmpty(filtro) || filtro.Length < 2)
+                {
+                    gvProductos.DataSource = negocio.listar();
+                }
+                else
+                {
+                    // Si hay texto filtro
+                    gvProductos.DataSource = negocio.filtrar(filtro);
+                }
+
+                gvProductos.DataBind();
+            }
+            catch (Exception ex)
+            {
+                mostrarToast("Error al buscar: " + ex.Message, "danger");
+            }
+        }
     }
 }

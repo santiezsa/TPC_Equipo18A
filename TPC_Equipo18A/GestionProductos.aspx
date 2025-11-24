@@ -3,10 +3,27 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3>Productos</h3>
-        <%--<p>Acá podés administrar el catálogo de productos.</p>--%>
-        <asp:HyperLink NavigateUrl="~/FormularioProducto.aspx" runat="server" Text="Nuevo Producto" CssClass="btn btn-primary mb-3" />
+
+    <%-- Titulo, btn y buscador para filtrar --%>
+    <div class="row align-items-center mb-4">
+        <div class="col-auto">
+            <h3 class="mb-0">Productos</h3>
+        </div>
+        <div class="col-auto">
+            <asp:HyperLink NavigateUrl="~/FormularioProducto.aspx" runat="server"
+                CssClass="btn btn-success" ToolTip="Crear nuevo producto">
+                <i class="bi bi-plus-lg"></i> Nuevo
+            </asp:HyperLink>
+        </div>
+        <div class="col">
+            <div class="input-group">
+                <asp:TextBox ID="txtFiltro" runat="server" CssClass="form-control"
+                    placeholder="Buscar por nombre, marca o código..." AutoPostBack="true" OnTextChanged="txtFiltro_TextChanged"></asp:TextBox>
+                <div class="input-group-append">
+                    <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-primary" OnClick="btnBuscar_Click" />
+                </div>
+            </div>
+        </div>
     </div>
     <p>Vea y administre los productos registrados</p>
 
@@ -37,7 +54,7 @@
                             <asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
                             <asp:BoundField HeaderText="Marca" DataField="Marca.Descripcion" />
                             <asp:BoundField HeaderText="Categoría" DataField="Categoria.Descripcion" />
-<%--                            <asp:BoundField HeaderText="Stock" DataField="StockActual" />--%>
+                            <%--                            <asp:BoundField HeaderText="Stock" DataField="StockActual" />--%>
 
 
                             <%-- Columna de Acciones --%>
