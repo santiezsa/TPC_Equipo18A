@@ -129,5 +129,52 @@ namespace negocio
             }
         }
 
+        public void anular(int idVenta, int idUsuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                // 1 Traigo items de la venta para devolver stock
+                List<DetalleVenta> detalles = new List<DetalleVenta>();
+
+                // Obtengo detalles (id prod y cantidad)
+                datos.setearConsulta("SELECT IdProducto, Cantidad FROM DetalleVenta WHERE IdVenta = @IdVenta");
+                datos.setearParametro("@IdVenta", idVenta);
+                datos.ejecutarLectura();
+
+                while(datos.Lector.Read())
+                {
+                    DetalleVenta detalle = new DetalleVenta();
+                    detalle.Producto = new Producto { Id = (int)datos.Lector["IdProducto"] };
+                    detalle.Cantidad = (int)datos.Lector["Cantidad"];
+                    detalles.Add(detalle);
+                }
+                datos.cerrarConexion();
+
+                // 2 Devuelvo stock
+                ProductoNegocio productoNegocio = new ProductoNegocio();
+                foreach(var item in detalles)
+                {
+                    // Actualizo stock con cantidad positiva para sumar
+                    productoNegocio.ajustarStock(item.Producto.Id, item.Cantidad, "Anulación Venta #" + idVenta, idUsuario, true);
+                }
+
+                // 3 Anulo la venta
+                datos = new AccesoDatos();
+                datos.setearConsulta("UPDATE Ventas SET Activo = 0 WHERE Id = @Id");
+                datos.setearParametro("@Id", idVenta);
+                datos.ejecutarAccion();
+
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
     }
 }
