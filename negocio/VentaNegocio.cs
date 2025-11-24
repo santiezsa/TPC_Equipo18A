@@ -13,9 +13,22 @@ namespace negocio
         public void registrar(Venta venta)
         {
             AccesoDatos datos = new AccesoDatos();
+            ProductoNegocio productoNegocio = new ProductoNegocio();
+
             try
             {
-                // 1) Si el total vino en 0, lo calculamos desde los detalles
+                // Valido stock antes de insertar venta
+                foreach (DetalleVenta det in venta.Detalles)
+                {
+                    int stockActual;
+                    if (!productoNegocio.HayStockDisponible(det.Producto.Id, det.Cantidad, out stockActual))
+                    {
+                        throw new Exception(
+                            $"No hay stock suficiente para el producto {det.Producto.Nombre}. Disponible: {stockActual}, solicitado: {det.Cantidad}."
+                        );
+                    }
+                }
+                // Si el total vino en 0, lo calculamos desde los detalles
                 if (venta.Total == 0 && venta.Detalles != null)
                 {
                     decimal total = 0;
@@ -25,7 +38,7 @@ namespace negocio
                     venta.Total = total;
                 }
 
-                // 2) Generar número de factura (ToDo: mejorar)
+                // Generar número de factura (ToDo: mejorar)
                 if (string.IsNullOrEmpty(venta.NumeroFactura))
                     venta.NumeroFactura = GenerarNumeroFactura();
 
@@ -46,8 +59,6 @@ namespace negocio
                 venta.Id = idVenta;
 
                 // 4) Insertar DETALLES y actualizar stock
-                ProductoNegocio productoNegocio = new ProductoNegocio();
-
                 foreach (DetalleVenta detalle in venta.Detalles)
                 {
                     datos.limpiarParametros();

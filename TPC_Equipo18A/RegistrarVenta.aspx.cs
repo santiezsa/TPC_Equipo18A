@@ -181,7 +181,6 @@ namespace TPC_Equipo18A
             } catch(Exception ex)
             {
                 mostrarToast("Error al registrar venta: " + ex.Message, "danger");
-                return;
             }
         }
 
