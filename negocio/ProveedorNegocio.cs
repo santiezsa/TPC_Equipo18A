@@ -144,7 +144,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                string consulta = "SELECT Id, RazonSocial, CUIT, Email, Telefono, Nombre, Activo \r\nFROM Proveedores WHERE Activo = 1 AND (RazonSocial LIKE @filtro OR CUIT LIKE @filtro OR Email LIKE @filtro)";
+                string consulta = "SELECT Id, RazonSocial, CUIT, Email, Telefono, Activo \r\nFROM Proveedores WHERE Activo = 1 AND (RazonSocial LIKE @filtro OR CUIT LIKE @filtro OR Email LIKE @filtro)";
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@filtro", "%" + criterio + "%");
                 datos.ejecutarLectura();
@@ -157,7 +157,6 @@ namespace negocio
                     aux.CUIT = (string)datos.Lector["CUIT"];
                     aux.Email = (string)datos.Lector["Email"];
                     aux.Telefono = (string)datos.Lector["Telefono"];
-                    if (!(datos.Lector["Nombre"] is DBNull)) aux.Nombre = (string)datos.Lector["Nombre"];
                     aux.Activo = (bool)datos.Lector["Activo"];
                     lista.Add(aux);
                 }
