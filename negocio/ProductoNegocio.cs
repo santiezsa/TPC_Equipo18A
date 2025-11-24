@@ -445,5 +445,70 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public List<Producto> filtrar(string criterio)
+        {
+            List<Producto> lista = new List<Producto>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                // Busco coincidencia en nombre o descripcion del producto
+                string consulta = @"SELECT 
+                                    P.Id, 
+                                    P.Codigo, 
+                                    P.Nombre, 
+                                    P.Descripcion, 
+                                    P.PorcentajeGanancia,                  
+                                    P.StockActual, 
+                                    P.StockMinimo, 
+                                    P.IdMarca, 
+                                    M.Descripcion AS MarcaDescripcion, 
+                                    P.IdCategoria, 
+                                    C.Descripcion AS CategoriaDescripcion, 
+                                    P.Activo 
+                                    FROM Productos AS P 
+                                    JOIN Marcas AS M ON P.IdMarca = M.Id 
+                                    JOIN Categorias AS C ON P.IdCategoria = C.Id 
+                                    WHERE P.Activo = 1 AND (P.Nombre LIKE @filtro OR M.Descripcion LIKE @filtro OR P.Codigo LIKE @filtro)";
+
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@filtro", "%" + criterio + "%");
+
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Producto aux = new Producto();
+                    aux.Id = (int)datos.Lector["Id"];
+                    aux.Codigo = (string)datos.Lector["Codigo"];
+                    aux.Nombre = (string)datos.Lector["Nombre"];
+                    aux.Descripcion = (string)datos.Lector["Descripcion"];
+                    aux.PorcentajeGanancia = (decimal)datos.Lector["PorcentajeGanancia"];
+                    aux.StockActual = (int)datos.Lector["StockActual"];
+                    aux.StockMinimo = (int)datos.Lector["StockMinimo"];
+                    aux.Activo = (bool)datos.Lector["Activo"];
+
+                    aux.Marca = new Marca();
+                    aux.Marca.Id = (int)datos.Lector["IdMarca"];
+                    aux.Marca.Descripcion = (string)datos.Lector["MarcaDescripcion"];
+
+                    aux.Categoria = new Categoria();
+                    aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
+                    aux.Categoria.Descripcion = (string)datos.Lector["CategoriaDescripcion"];
+
+                    lista.Add(aux);
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
     }
 }
