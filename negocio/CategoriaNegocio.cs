@@ -122,6 +122,29 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public List<Categoria> filtrar(string criterio)
+        {
+            List<Categoria> lista = new List<Categoria>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT Id, Descripcion, Activo FROM Categorias WHERE Activo = 1 AND Descripcion LIKE @filtro");
+                datos.setearParametro("@filtro", "%" + criterio + "%");
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Categoria aux = new Categoria();
+                    aux.Id = (int)datos.Lector["Id"];
+                    aux.Descripcion = (string)datos.Lector["Descripcion"];
+                    aux.Activo = (bool)datos.Lector["Activo"];
+                    lista.Add(aux);
+                }
+                return lista;
+            }
+            catch (Exception ex) { throw ex; }
+            finally { datos.cerrarConexion(); }
+        }
     }
 
 }
