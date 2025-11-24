@@ -38,6 +38,10 @@ namespace TPC_Equipo18A
                     ddlClienteVenta.DataValueField = "Id";
                     ddlClienteVenta.DataBind();
                     ddlClienteVenta.Items.Insert(0, new ListItem("Seleccione un Cliente", ""));
+
+                    // Si hay detalle en Session, lo muestro al volver a la página
+                    if (DetalleActual.Count > 0)
+                        cargarDetalle();
                 }
             }
             catch (Exception ex)
