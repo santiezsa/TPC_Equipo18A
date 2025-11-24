@@ -5,13 +5,24 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3>Proveedores</h3>
-        <%-- Boton para ir al form (vacio) --%>
-        <asp:HyperLink NavigateUrl="~/FormularioProveedor.aspx" runat="server"
-            Text="Agregar Proveedor" CssClass="btn btn-primary" />
+    <div class="row align-items-center mb-4">
+        <div class="col-auto">
+            <h3 class="mb-0">Proveedores</h3>
+        </div>
+        <div class="col-auto">
+            <asp:HyperLink NavigateUrl="~/FormularioProveedor.aspx" runat="server" CssClass="btn btn-success" ToolTip="Agregar Proveedor">
+            <i class="bi bi-plus-lg"></i> Nuevo
+            </asp:HyperLink>
+        </div>
+        <div class="col">
+            <div class="input-group">
+                <asp:TextBox ID="txtFiltro" runat="server" CssClass="form-control" placeholder="Buscar por razón social, CUIT..." AutoPostBack="true" OnTextChanged="txtFiltro_TextChanged"></asp:TextBox>
+                <div class="input-group-append">
+                    <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-primary" OnClick="btnBuscar_Click" />
+                </div>
+            </div>
+        </div>
     </div>
-    <p>Administre sus proveedores registrados en el sistema.</p>
 
     <%-- Panel de confirmacion (hidden) --%>
     <asp:Panel ID="pnlConfirmacion" runat="server" Visible="false" CssClass="alert alert-warning" role="alert">
