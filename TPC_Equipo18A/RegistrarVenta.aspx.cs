@@ -18,6 +18,13 @@ namespace TPC_Equipo18A
         {
             try
             {
+                // Si vengo de un redirect después de registrar la venta
+                if (Session["mensajeExito"] != null)
+                {
+                    mostrarToast(Session["mensajeExito"].ToString(), "success");
+                    Session["mensajeExito"] = null;
+                }
+
                 if (!IsPostBack)
                 {
                     ddlProductoVenta.DataSource = productoNegocio.listar();
@@ -52,6 +59,7 @@ namespace TPC_Equipo18A
                 Session["DetalleVenta"] = value;
             }
         }
+        
         private void cargarDetalle()
         {
             List<DetalleVenta> detalle = DetalleActual;
@@ -66,6 +74,7 @@ namespace TPC_Equipo18A
 
             lblTotalVenta.Text = total.ToString("C2");
         }
+        
         protected void gvDetalleVenta_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "Eliminar")
@@ -83,8 +92,7 @@ namespace TPC_Equipo18A
                 }
             }
         }
-
-
+        
         protected void btnAgregarProductoVenta_Click(object sender, EventArgs e)
         {
             try
@@ -181,20 +189,11 @@ namespace TPC_Equipo18A
 
                 // Limpio carrito
                 Session["DetalleVenta"] = null;
-                DetalleActual.Clear();
 
-                // Refrescar grilla y total
-                gvDetalleVenta.DataSource = null;
-                gvDetalleVenta.DataBind();
-                lblTotalVenta.Text = "$0.00";
-
-                // Limpiar campos
-                ddlClienteVenta.SelectedIndex = 0;
-                ddlProductoVenta.SelectedIndex = 0; 
-                txtCantidadVenta.Text = "1";
-
-                mostrarToast("Venta registrada correctamente.", "success");
-                
+                // Seteo mensaje de éxito y redirijo
+                Session["mensajeExito"] = "Venta registrada correctamente.";
+                Response.Redirect("RegistrarVenta.aspx", false);
+                return;
 
             } catch(Exception ex)
             {
