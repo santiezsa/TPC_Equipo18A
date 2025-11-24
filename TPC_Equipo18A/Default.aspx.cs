@@ -15,6 +15,7 @@ namespace TPC_Equipo18A
             if (!IsPostBack)
             {
                 cargarStockBajo();
+                cargarVentasRecientes();
             }
         }
 
@@ -25,6 +26,14 @@ namespace TPC_Equipo18A
 
             rptStockBajo.DataSource = lista;
             rptStockBajo.DataBind();
+        }
+        private void cargarVentasRecientes()
+        {
+            VentaNegocio negocio = new VentaNegocio();
+            var ventas = negocio.ListarUltimasVentas(5);
+
+            repVentasRecientes.DataSource = ventas;
+            repVentasRecientes.DataBind();
         }
     }
 }

@@ -98,7 +98,6 @@
             <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title">Alerta de Stock Bajo</h5>
-
                     <ul class="list-group list-group-flush">
                         <asp:Repeater ID="rptStockBajo" runat="server">
                             <ItemTemplate>
@@ -122,44 +121,41 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Ventas Recientes</h5>
+
                     <div class="table-responsive">
-                        <table class="table table-hover align-middle">
+                        <table class="table table-hover align-middle text-center">
                             <thead>
                                 <tr>
                                     <th>ID VENTA</th>
                                     <th>CLIENTE</th>
                                     <th>FECHA</th>
-                                    <th class="text-right">MONTO</th>
+                                    <th class="text-center">MONTO</th>
                                 </tr>
                             </thead>
+
                             <tbody>
-                                <tr>
-                                    <td><strong>#INV-1203</strong></td>
-                                    <td>Laura Morales</td>
-                                    <td>2024-05-23</td>
-                                    <td class="text-right">$450.00</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>#INV-1202</strong></td>
-                                    <td>Carlos Pérez</td>
-                                    <td>2024-05-22</td>
-                                    <td class="text-right">$1,200.50</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>#INV-1201</strong></td>
-                                    <td>Ana Gómez</td>
-                                    <td>2024-05-21</td>
-                                    <td class="text-right">$85.90</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>#INV-1200</strong></td>
-                                    <td>Roberto Fernández</td>
-                                    <td>2024-05-20</td>
-                                    <td class="text-right">$320.00</td>
-                                </tr>
+                                <asp:Repeater ID="repVentasRecientes" runat="server">
+                                    <ItemTemplate>
+                                        <tr>
+                                            <td>
+                                                <strong>#INV-<%# Eval("Id") %></strong>
+                                            </td>
+                                            <td>
+                                                <%# Eval("Cliente.NombreCompleto") %>
+                                            </td>
+                                            <td>
+                                                <%# Eval("Fecha", "{0:yyyy-MM-dd}") %>
+                                            </td>
+                                            <td class="text-center">
+                                                <%# String.Format("{0:C2}", Eval("Total")) %>
+                                            </td>
+                                        </tr>
+                                    </ItemTemplate>
+                                </asp:Repeater>
                             </tbody>
                         </table>
                     </div>
+
                 </div>
             </div>
         </div>

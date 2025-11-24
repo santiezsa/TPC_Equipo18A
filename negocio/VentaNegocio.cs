@@ -188,5 +188,52 @@ namespace negocio
             }
         }
 
+        public List<Venta> ListarUltimasVentas(int cantidad)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            List<Venta> lista = new List<Venta>();
+
+            try
+            {
+                datos.setearConsulta(@"
+                    SELECT TOP (@cant)
+                            V.Id,
+                            V.Fecha,
+                            V.Total,
+                            C.Id AS IdCliente,
+                            C.Nombre,
+                            C.Apellido,
+                            C.Documento
+                    FROM Ventas V
+                    INNER JOIN Clientes C ON V.IdCliente = C.Id
+                    ORDER BY V.Fecha DESC");
+
+                datos.setearParametro("@cant", cantidad);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Venta venta = new Venta();
+                    venta.Id = (int)datos.Lector["Id"];
+                    venta.Fecha = (DateTime)datos.Lector["Fecha"];
+                    venta.Total = (decimal)datos.Lector["Total"];
+
+                    venta.Cliente = new Cliente();
+                    venta.Cliente.Id = (int)datos.Lector["IdCliente"];
+                    venta.Cliente.Nombre = datos.Lector["Nombre"].ToString();
+                    venta.Cliente.Apellido = datos.Lector["Apellido"].ToString();
+                    venta.Cliente.Documento = datos.Lector["Documento"].ToString();
+
+                    lista.Add(venta);
+                }
+
+                return lista;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }
