@@ -38,7 +38,7 @@ namespace negocio
 
                 datos.setearParametro("@nro", venta.NumeroFactura);
                 datos.setearParametro("@idCliente", venta.Cliente.Id);
-                datos.setearParametro("@idUsuario", venta.Usuario.Id); 
+                datos.setearParametro("@idUsuario", venta.Usuario.Id);
                 datos.setearParametro("@fecha", venta.Fecha);
                 datos.setearParametro("@total", venta.Total);
 
@@ -76,6 +76,57 @@ namespace negocio
         private string GenerarNumeroFactura()
         {
             return "FAC-" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+        }
+
+        public List<Venta> listar()
+        {
+            List<Venta> lista = new List<Venta>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                // Traigo datos para mostrar nombres
+                datos.setearConsulta(@"SELECT V.Id, V.NumeroFactura, V.Fecha, V.Total, V.Activo,
+                   C.Id AS IdCliente, C.Nombre, C.Apellido, 
+                   U.Id AS IdUsuario, U.Username
+                    FROM Ventas V
+                    INNER JOIN Clientes C ON V.IdCliente = C.Id
+                    INNER JOIN Usuarios U ON V.IdUsuario = U.Id
+                    ORDER BY V.Fecha DESC");
+
+                datos.ejecutarLectura();
+                while(datos.Lector.Read())
+                {
+                    Venta aux = new Venta();
+                    aux.Id = (int)datos.Lector["Id"];
+                    aux.NumeroFactura = (string)datos.Lector["NumeroFactura"];
+                    aux.Fecha = (DateTime)datos.Lector["Fecha"];
+                    aux.Total = (decimal)datos.Lector["Total"];
+                    aux.Activo = (bool)datos.Lector["Activo"];
+
+                    // Cliente
+                    aux.Cliente = new Cliente();
+                    aux.Cliente.Id = (int)datos.Lector["IdCliente"];
+                    aux.Cliente.Nombre = (string)datos.Lector["Nombre"];
+                    aux.Cliente.Apellido = (string)datos.Lector["Apellido"];
+
+                    // Vendedor
+                    aux.Usuario = new Usuario();
+                    aux.Usuario.Id = (int)datos.Lector["IdUsuario"];
+                    aux.Usuario.Username = (string)datos.Lector["Username"];
+
+                    lista.Add(aux);
+                }
+                return lista;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
 
     }
