@@ -5,12 +5,24 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3>Clientes</h3>
-        <asp:HyperLink NavigateUrl="~/FormularioCliente.aspx" runat="server"
-            Text="Agregar Cliente" CssClass="btn btn-primary" />
+    <div class="row align-items-center mb-4">
+        <div class="col-auto">
+            <h3 class="mb-0">Clientes</h3>
+        </div>
+        <div class="col-auto">
+            <asp:HyperLink NavigateUrl="~/FormularioCliente.aspx" runat="server" CssClass="btn btn-success" ToolTip="Agregar Cliente">
+            <i class="bi bi-plus-lg"></i> Nuevo
+            </asp:HyperLink>
+        </div>
+        <div class="col">
+            <div class="input-group">
+                <asp:TextBox ID="txtFiltro" runat="server" CssClass="form-control" placeholder="Buscar por nombre, apellido o email..." AutoPostBack="true" OnTextChanged="txtFiltro_TextChanged"></asp:TextBox>
+                <div class="input-group-append">
+                    <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-primary" OnClick="btnBuscar_Click" />
+                </div>
+            </div>
+        </div>
     </div>
-    <p>Administre sus clientes registrados en el sistema.</p>
 
     <%-- Panel de confirmacion (hidden) --%>
     <asp:Panel ID="pnlConfirmacion" runat="server" Visible="false" CssClass="alert alert-warning" role="alert">
@@ -42,7 +54,7 @@
                         <Columns>
                             <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
                             <asp:BoundField HeaderText="Apellido" DataField="Apellido" />
-                             <asp:BoundField HeaderText="Documento" DataField="Documento" />
+                            <asp:BoundField HeaderText="Documento" DataField="Documento" />
                             <asp:BoundField HeaderText="Email" DataField="Email" />
                             <asp:BoundField HeaderText="Teléfono" DataField="Telefono" />
                             <asp:BoundField HeaderText="Dirección" DataField="Direccion" />
