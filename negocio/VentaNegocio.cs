@@ -143,7 +143,7 @@ namespace negocio
                 datos.setearParametro("@IdVenta", idVenta);
                 datos.ejecutarLectura();
 
-                while(datos.Lector.Read())
+                while (datos.Lector.Read())
                 {
                     DetalleVenta detalle = new DetalleVenta();
                     detalle.Producto = new Producto { Id = (int)datos.Lector["IdProducto"] };
@@ -154,7 +154,7 @@ namespace negocio
 
                 // 2 Devuelvo stock
                 ProductoNegocio productoNegocio = new ProductoNegocio();
-                foreach(var item in detalles)
+                foreach (var item in detalles)
                 {
                     // Actualizo stock con cantidad positiva para sumar
                     productoNegocio.ajustarStock(item.Producto.Id, item.Cantidad, "Anulación Venta #" + idVenta, idUsuario, true);
@@ -167,7 +167,7 @@ namespace negocio
                 datos.ejecutarAccion();
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -175,6 +175,7 @@ namespace negocio
             {
                 datos.cerrarConexion();
             }
+        }
 
     }
 }

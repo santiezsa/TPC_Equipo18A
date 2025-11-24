@@ -79,6 +79,7 @@
     <Content Include="GestionProductos.aspx" />
     <Content Include="GestionProveedores.aspx" />
     <Content Include="GestionUsuarios.aspx" />
+    <Content Include="GestionVentas.aspx" />
     <Content Include="Global.asax" />
     <Content Include="img\fondo-login.jpg" />
     <Content Include="Login.aspx" />
@@ -185,6 +186,13 @@
     </Compile>
     <Compile Include="GestionUsuarios.aspx.designer.cs">
       <DependentUpon>GestionUsuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GestionVentas.aspx.cs">
+      <DependentUpon>GestionVentas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestionVentas.aspx.designer.cs">
+      <DependentUpon>GestionVentas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

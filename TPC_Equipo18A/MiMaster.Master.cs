@@ -18,7 +18,6 @@ namespace TPC_Equipo18A
         {
             Session.Clear();
             Response.Redirect("Login.aspx"); // para volver al login
-            // TODO: Crear Login.aspx
         }
     }
 }
