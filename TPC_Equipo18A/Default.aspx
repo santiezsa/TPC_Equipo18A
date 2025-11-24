@@ -94,48 +94,29 @@
                 </div>
             </div>
         </div>
-
         <div class="col-lg-4 mb-4">
             <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title">Alerta de Stock Bajo</h5>
+
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            Teclado Mecánico RGB
-                            <span class="text-danger font-weight-bold">
-                                <i class="bi bi-dot"></i> 3 Unidades
-                            </span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            Monitor Ultrawide 34"
-                            <span class="text-danger font-weight-bold">
-                                <i class="bi bi-dot"></i> 5 Unidades
-                            </span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            Mouse Inalámbrico Pro
-                            <span class="text-danger font-weight-bold">
-                                <i class="bi bi-dot"></i> 8 Unidades
-                            </span>
-                        </li>
-                         <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            Silla Ergonómica
-                            <span class="text-warning font-weight-bold">
-                                <i class="bi bi-dot"></i> 10 Unidades
-                            </span>
-                        </li>
-                         <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            Webcam 4K
-                            <span class="text-warning font-weight-bold">
-                                <i class="bi bi-dot"></i> 12 Unidades
-                            </span>
-                        </li>
+                        <asp:Repeater ID="rptStockBajo" runat="server">
+                            <ItemTemplate>
+                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                    <%# Eval("Nombre") %>
+
+                                    <span class='<%# (int)Eval("StockActual") <= 5 ? "text-danger font-weight-bold" : "text-warning font-weight-bold" %>'>
+                                        <i class="bi bi-dot"></i>
+                                        <%# Eval("StockActual") %> Unidades
+                                    </span>
+                                </li>
+                            </ItemTemplate>
+                        </asp:Repeater>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-12">
             <div class="card">

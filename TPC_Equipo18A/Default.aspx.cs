@@ -1,4 +1,5 @@
-﻿using System;
+﻿using negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,19 @@ namespace TPC_Equipo18A
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                cargarStockBajo();
+            }
+        }
 
+        private void cargarStockBajo()
+        {
+            ProductoNegocio productoNegocio = new ProductoNegocio();
+            var lista = productoNegocio.listarStockBajo();
+
+            rptStockBajo.DataSource = lista;
+            rptStockBajo.DataBind();
         }
     }
 }

@@ -274,7 +274,6 @@ namespace negocio
             }
         }
 
-
         public void desvincularProveedor(int idProducto, int idProveedor)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -418,5 +417,33 @@ namespace negocio
             }
         }
 
+        public List<Producto> listarStockBajo(int limite = 15)
+        {
+            List<Producto> lista = new List<Producto>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT Id, Nombre, StockActual FROM Productos WHERE StockActual <= @limite ORDER BY StockActual ASC");
+                datos.setearParametro("@limite", limite);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Producto producto = new Producto();
+                    producto.Id = (int)datos.Lector["Id"];
+                    producto.Nombre = (string)datos.Lector["Nombre"];
+                    producto.StockActual = (int)datos.Lector["StockActual"];
+
+                    lista.Add(producto);
+                }
+
+                return lista;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
