@@ -4,11 +4,23 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3>Marcas</h3>
-        <%-- Boton para ir al form (vacio) --%>
-        <asp:HyperLink NavigateUrl="~/FormularioMarca.aspx" runat="server"
-            Text="Agregar Marca" CssClass="btn btn-primary" />
+    <div class="row align-items-center mb-4">
+        <div class="col-auto">
+            <h3 class="mb-0">Marcas</h3>
+        </div>
+        <div class="col-auto">
+            <asp:HyperLink NavigateUrl="~/FormularioMarca.aspx" runat="server" CssClass="btn btn-success" ToolTip="Agregar Marca">
+            <i class="bi bi-plus-lg"></i> Nueva
+            </asp:HyperLink>
+        </div>
+        <div class="col">
+            <div class="input-group">
+                <asp:TextBox ID="txtFiltro" runat="server" CssClass="form-control" placeholder="Buscar marca..." AutoPostBack="true" OnTextChanged="txtFiltro_TextChanged"></asp:TextBox>
+                <div class="input-group-append">
+                    <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-primary" OnClick="btnBuscar_Click" />
+                </div>
+            </div>
+        </div>
     </div>
 
     <%-- Panel de confirmacion (hidden) --%>

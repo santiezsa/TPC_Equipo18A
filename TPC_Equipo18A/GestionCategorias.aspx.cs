@@ -92,5 +92,29 @@ namespace TPC_Equipo18A
             pnlConfirmacion.Visible = false;
             pnlGV.Visible = true;
         }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            filtrar();
+        }
+        protected void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            filtrar();
+        }
+
+        private void filtrar()
+        {
+            CategoriaNegocio negocio = new CategoriaNegocio();
+            try
+            {
+                if (txtFiltro.Text.Length > 1)
+                    gvCategorias.DataSource = negocio.filtrar(txtFiltro.Text);
+                else
+                    gvCategorias.DataSource = negocio.listar();
+
+                gvCategorias.DataBind();
+            }
+            catch (Exception ex) { mostrarToast("Error al filtrar: " + ex.Message, "danger"); }
+        }
     }
 }
