@@ -50,7 +50,21 @@ namespace TPC_Equipo18A
                 string motivo = txtMotivo.Text;
                 bool esIngreso = (ddlTipo.SelectedValue == "SUM"); // lo traigo desde el dropdown
 
-                // Obtengo datos del usuario - TODO: Login
+                // Validacion previa de cantidades de stock
+                if (!esIngreso)
+                {
+                    // Busco el producto para saber su stock actual
+                    Producto producto = productoNegocio.buscarPorId(idProducto);
+
+                    if(producto.StockActual < cantidad)
+                    {
+                        mostrarToast("No se puede realizar el ajuste. La cantidad a restar excede el stock actual.", "warning");
+                        return;
+                    }
+
+                }
+
+                // Obtengo datos del usuario
                 int idUsuario = 1;
                 if (Session["usuario"] != null)
                 {
