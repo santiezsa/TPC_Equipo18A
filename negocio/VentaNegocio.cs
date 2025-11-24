@@ -106,7 +106,7 @@ namespace negocio
                     ORDER BY V.Fecha DESC");
 
                 datos.ejecutarLectura();
-                while(datos.Lector.Read())
+                while (datos.Lector.Read())
                 {
                     Venta aux = new Venta();
                     aux.Id = (int)datos.Lector["Id"];
@@ -130,7 +130,7 @@ namespace negocio
                 }
                 return lista;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -232,6 +232,40 @@ namespace negocio
             finally
             {
                 datos.cerrarConexion();
+            }
+        }
+
+        public List<Venta> listarVentasPorMes(int mes, int anio)
+        {
+            List<Venta> lista = new List<Venta>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                // Fecha y total de las ventas activas del mes solicitado
+                datos.setearConsulta("SELECT Id, Fecha, Total FROM Ventas WHERE MONTH(Fecha) = @Mes AND YEAR(Fecha) = @Anio AND Activo = 1");
+                datos.setearParametro("@Mes", mes);
+                datos.setearParametro("@Anio", anio);
+
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Venta aux = new Venta();
+                    aux.Id = (int)datos.Lector["Id"];
+                    aux.Fecha = (DateTime)datos.Lector["Fecha"];
+                    aux.Total = (decimal)datos.Lector["Total"];
+
+                    lista.Add(aux);
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            { 
+                datos.cerrarConexion(); 
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿<%-- PAGINA DEFAULT DE BIENVENIDA, DESPUES DEL LOGIN --%>
+
 <%@ Page Title="Inicio" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TPC_Equipo18A.WebForm1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -13,14 +14,14 @@
         .chart-container {
             display: flex;
             justify-content: space-around;
-            align-items: flex-end; 
-            height: 150px; 
+            align-items: flex-end;
+            height: 150px;
             padding: 10px 0;
         }
 
         .chart-bar {
             width: 15%;
-            background-color: #e0e0e0; 
+            background-color: #e0e0e0;
             border-radius: 5px 5px 0 0;
             text-align: center;
             font-size: 0.8rem;
@@ -29,10 +30,10 @@
             position: relative;
         }
 
-        .chart-bar.active {
-             background-color: #007bff;
-        }
-        
+            .chart-bar.active {
+                background-color: #007bff;
+            }
+
         .chart-bar-label {
             position: absolute;
             bottom: -20px;
@@ -47,10 +48,12 @@
             background-color: #e6f7ec;
             color: #28a745;
         }
+
         .badge-pendiente {
             background-color: #fff8e6;
             color: #ffc107;
         }
+
         .badge-atrasado {
             background-color: #fdeeee;
             color: #dc3545;
@@ -60,7 +63,7 @@
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    
+
     <h4>Resumen General</h4>
     <p class="text-muted">Este es el resumen del negocio.</p>
     <%-- Mockup hasta traer datos desde la base de datos --%>
@@ -71,24 +74,33 @@
                 <div class="card-body">
                     <h5 class="card-title">Ventas del Mes</h5>
                     <div class="d-flex align-items-center">
-                        <h2 class="mb-0">$15,840</h2>
-                        <span class="text-success ml-3">
-                            <i class="bi bi-arrow-up"></i> +12.5% vs. mes anterior
+                        <%-- Label monto total --%>
+                        <h2 class="mb-0">
+                            <asp:Label ID="lblTotalVentasMes" runat="server" Text="$0.00"></asp:Label>
+                        </h2>
+
+                        <%-- Label porcentaje --%>
+                        <span class="ms-3">
+                            <asp:Label ID="lblPorcentajeCambio" runat="server" CssClass="small"> </asp:Label>
                         </span>
                     </div>
 
                     <div class="chart-container mt-4">
-                        <div class="chart-bar" style="height: 50%;">
+                        <div id="barSemana1" runat="server" class="chart-bar" style="height: 0%;">
                             <span class="chart-bar-label">Semana 1</span>
+                            <asp:Label ID="lblMontoSem1" runat="server" Visible="false"></asp:Label>
                         </div>
-                        <div class="chart-bar" style="height: 60%;">
+
+                        <div id="barSemana2" runat="server" class="chart-bar" style="height: 0%;">
                             <span class="chart-bar-label">Semana 2</span>
                         </div>
-                        <div class="chart-bar active" style="height: 90%;">
-                             <span class="chart-bar-label"><strong>Semana 3</strong></span>
+
+                        <div id="barSemana3" runat="server" class="chart-bar" style="height: 0%;">
+                            <span class="chart-bar-label">Semana 3</span>
                         </div>
-                        <div class="chart-bar" style="height: 35%;">
-                             <span class="chart-bar-label">Semana 4</span>
+
+                        <div id="barSemana4" runat="server" class="chart-bar" style="height: 0%;">
+                            <span class="chart-bar-label">Semana 4+</span>
                         </div>
                     </div>
                 </div>
