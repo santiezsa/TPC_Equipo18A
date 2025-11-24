@@ -1,4 +1,5 @@
-﻿using negocio;
+﻿using dominio;
+using negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace TPC_Equipo18A
         private void cargarStockBajo()
         {
             ProductoNegocio productoNegocio = new ProductoNegocio();
-            var lista = productoNegocio.listarStockBajo();
+            List<Producto> lista = productoNegocio.listarStockBajo();
 
             rptStockBajo.DataSource = lista;
             rptStockBajo.DataBind();
@@ -30,7 +31,7 @@ namespace TPC_Equipo18A
         private void cargarVentasRecientes()
         {
             VentaNegocio negocio = new VentaNegocio();
-            var ventas = negocio.ListarUltimasVentas(5);
+            List<Venta> ventas = negocio.ListarUltimasVentas(5);
 
             repVentasRecientes.DataSource = ventas;
             repVentasRecientes.DataBind();
