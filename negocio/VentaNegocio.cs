@@ -269,5 +269,91 @@ namespace negocio
             }
         }
 
+        // Metodo para generar factura con datos completos
+        public Venta buscarPorIdConDetalles(int idVenta)
+        {
+            Venta venta = new Venta();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                // Consulta: datos de la venta, cliente y vendedor
+                datos.setearConsulta(@"
+                    SELECT V.Id, V.NumeroFactura, V.Fecha, V.Total, V.Activo,
+                    C.Id AS IdCliente, C.Nombre, C.Apellido, C.Email, C.Documento, C.Direccion,
+                    U.Id AS IdUsuario, U.Username
+                    FROM Ventas V
+                    INNER JOIN Clientes C ON V.IdCliente = C.Id
+                    INNER JOIN Usuarios U ON V.IdUsuario = U.Id
+                    WHERE V.Id = @Id");
+
+                datos.setearParametro("@Id", idVenta);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    venta.Id = (int)datos.Lector["Id"];
+                    venta.NumeroFactura = (string)datos.Lector["NumeroFactura"];
+                    venta.Fecha = (DateTime)datos.Lector["Fecha"];
+                    venta.Total = (decimal)datos.Lector["Total"];
+                    venta.Activo = (bool)datos.Lector["Activo"];
+
+                    // Carga cliente para la venta
+                    venta.Cliente = new Cliente();
+                    venta.Cliente.Id = (int)datos.Lector["IdCliente"];
+                    venta.Cliente.Nombre = (string)datos.Lector["Nombre"];
+                    venta.Cliente.Apellido = (string)datos.Lector["Apellido"];
+                    venta.Cliente.Email = (string)datos.Lector["Email"];
+                    venta.Cliente.Documento = (string)datos.Lector["Documento"];
+                    venta.Cliente.Direccion = (string)datos.Lector["Direccion"];
+
+                    // Carga vendedor
+                    venta.Usuario = new Usuario();
+                    venta.Usuario.Id = (int)datos.Lector["IdUsuario"];
+                    venta.Usuario.Username = (string)datos.Lector["Username"];
+                }
+                datos.cerrarConexion();
+
+                // Consulta productos vendidos
+                datos = new AccesoDatos();
+                datos.setearConsulta(@"
+                    SELECT DV.Id, DV.Cantidad, DV.PrecioUnitario,
+                    P.Id AS IdProducto, P.Nombre, P.Codigo
+                    FROM DetalleVenta DV
+                    INNER JOIN Productos P ON DV.IdProducto = P.Id
+                    WHERE DV.IdVenta = @IdVenta");
+
+                datos.setearParametro("@IdVenta", idVenta);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    DetalleVenta detalle = new DetalleVenta();
+                    detalle.Id = (int)datos.Lector["Id"];
+                    detalle.IdVenta = idVenta;
+                    detalle.Cantidad = (int)datos.Lector["Cantidad"];
+                    detalle.PrecioUnitario = (decimal)datos.Lector["PrecioUnitario"];
+
+                    detalle.Producto = new Producto();
+                    detalle.Producto.Id = (int)datos.Lector["IdProducto"];
+                    detalle.Producto.Nombre = (string)datos.Lector["Nombre"];
+                    detalle.Producto.Codigo = (string)datos.Lector["Codigo"];
+
+                    // Agrego a la lista de venta
+                    venta.Detalles.Add(detalle);
+                }
+
+                return venta;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }
