@@ -34,9 +34,10 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <asp:GridView ID="gvUsuarios" runat="server" 
-                        CssClass="table table-hover align-middle" 
+                        CssClass="table table-hover align-middle text-center" 
                         AutoGenerateColumns="false" 
-                        DataKeyNames="Id" 
+                        DataKeyNames="Id"
+                        GridLines="None"
                         OnRowCommand="gvUsuarios_RowCommand"
                         EmptyDataText="No hay usuarios registrados.">
                         <Columns>
