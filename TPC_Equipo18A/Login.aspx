@@ -111,6 +111,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -143,6 +144,11 @@
 
                     <div class="form-group mt-4">
                         <asp:Button ID="btnIngresar" runat="server" Text="Ingresar" CssClass="btn btn-primary btn-block" OnClick="btnIngresar_Click" />
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <a href="RecuperarPass.aspx" class="text-secondary small">¿Olvidaste tu contraseña?
+                        </a>
                     </div>
 
                     <%-- Panel para mostrar errores de login --%>
