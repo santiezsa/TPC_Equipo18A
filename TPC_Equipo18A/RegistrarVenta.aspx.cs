@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using dominio;
 using negocio;
+using System.IO; // memory stream
 
 namespace TPC_Equipo18A
 {
@@ -63,7 +64,7 @@ namespace TPC_Equipo18A
                 Session["DetalleVenta"] = value;
             }
         }
-        
+
         private void cargarDetalle()
         {
             List<DetalleVenta> detalle = DetalleActual;
@@ -78,7 +79,7 @@ namespace TPC_Equipo18A
 
             lblTotalVenta.Text = total.ToString("C2");
         }
-        
+
         protected void gvDetalleVenta_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "Eliminar")
@@ -90,13 +91,13 @@ namespace TPC_Equipo18A
 
                 if (index >= 0 && index < detalle.Count)
                 {
-                    detalle.RemoveAt(index);  
-                    DetalleActual = detalle;     
-                    cargarDetalle();           
+                    detalle.RemoveAt(index);
+                    DetalleActual = detalle;
+                    cargarDetalle();
                 }
             }
         }
-        
+
         protected void btnAgregarProductoVenta_Click(object sender, EventArgs e)
         {
             try
@@ -147,7 +148,7 @@ namespace TPC_Equipo18A
 
                 DetalleActual = detalle; // guardar de nuevo en Session
                 cargarDetalle();
-            } 
+            }
             catch (Exception ex)
             {
                 mostrarToast("Error al agregar producto: " + ex.Message, "danger");
@@ -182,14 +183,47 @@ namespace TPC_Equipo18A
                     mostrarToast("Su sesión expiró. Vuelva a iniciar sesión.", "warning");
                     return;
                 }
-                venta.Usuario = (Usuario)Session["usuario"]; ; 
+                venta.Usuario = (Usuario)Session["usuario"]; ;
 
                 // Calculo total
                 venta.Total = venta.Detalles.Sum(importe => importe.Subtotal);
 
                 // Registro venta en la base
-                VentaNegocio ventaNegocio = new VentaNegocio(); 
-                ventaNegocio.registrar(venta);
+                VentaNegocio ventaNegocio = new VentaNegocio();
+                ventaNegocio.registrar(venta); // genera ID y n~ de factura
+
+                string mensajeFinal = "Venta registrada correctamente.";
+
+                // Armador documento + Email al cliente
+                try
+                {
+                    // Busco datos del cliente
+                    ClienteNegocio clienteNegocio = new ClienteNegocio();
+                    venta.Cliente = clienteNegocio.buscarPorId(venta.Cliente.Id);
+
+                    if (!string.IsNullOrEmpty(venta.Cliente.Email))
+                    {
+                        // Armo el documento
+                        ArmadorDocumentos armador = new ArmadorDocumentos();
+                        System.IO.MemoryStream pdf = armador.GenerarFacturaPDF(venta);
+
+                        // Envio mail
+                        EmailService emailService = new EmailService();
+                        emailService.armarCorreoConAdjunto(venta.Cliente.Email,"Tu Factura de Compra #" + venta.NumeroFactura,"Hola, gracias por elegirnos. Adjuntamos tu comprobante.",pdf,$"Factura-{venta.NumeroFactura}.pdf");
+                        emailService.enviarEmail();
+
+                        mensajeFinal = "Venta registrada y factura enviada al cliente.";
+                    }
+                    else
+                    {
+                        mensajeFinal = "Venta registrada. El cliente no tiene email cargado, no se pudo enviar la factura.";
+                    }
+                }
+                catch(Exception exMail)
+                {
+                    // Falla mail -> Se hace la venta igual
+                    mensajeFinal = "Venta registrada, pero falló el envío de mail.";
+                }
 
                 // Limpio carrito
                 Session["DetalleVenta"] = null;
@@ -197,9 +231,9 @@ namespace TPC_Equipo18A
                 // Seteo mensaje de éxito y redirijo
                 Session["mensajeExito"] = "Venta registrada correctamente.";
                 Response.Redirect("RegistrarVenta.aspx", false);
-                return;
 
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 mostrarToast("Error al registrar venta: " + ex.Message, "danger");
             }
@@ -211,4 +245,4 @@ namespace TPC_Equipo18A
             ScriptManager.RegisterStartupScript(this, this.GetType(), "ToastJS", script, true);
         }
     }
-} 
+}

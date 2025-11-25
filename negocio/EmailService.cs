@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
-using System.Net.Mail;
-using System.Net;
-using System.Configuration;
 
 namespace negocio
 {
@@ -46,6 +47,26 @@ namespace negocio
             {
                 throw ex;
             }
+        }
+
+        public void armarCorreoConAdjunto(string emailDestino, string asunto, string cuerpo, MemoryStream archivoAdjunto, string nombreArchivo)
+        {
+            email = new MailMessage();
+
+            email.From = new MailAddress(emailRemitente, "Comercio Grupo 18A");
+            email.To.Add(emailDestino);
+            email.Subject = asunto;
+            email.IsBodyHtml = true;
+            email.Body = cuerpo;
+
+            // Vuelvo al principio del stream para que el PDF no llegue vacio
+            archivoAdjunto.Position = 0;
+
+            // Creo adjunto, lo defino como pdf
+            Attachment adjunto = new Attachment(archivoAdjunto, nombreArchivo, "application/pdf");
+
+            // Agrego al mail el adjunto
+            email.Attachments.Add(adjunto);
         }
     }
 }
