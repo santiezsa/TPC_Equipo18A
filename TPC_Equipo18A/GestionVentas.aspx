@@ -11,7 +11,8 @@
     <asp:Panel ID="pnlConfirmacion" runat="server" Visible="false" CssClass="alert alert-danger" role="alert">
         <h4 class="alert-heading">¿Anular Venta?</h4>
         <p>
-            <asp:Literal ID="lblConfirmarTexto" runat="server"></asp:Literal></p>
+            <asp:Literal ID="lblConfirmarTexto" runat="server"></asp:Literal>
+        </p>
         <p class="small">Se devolverá el stock de los productos involucrados.</p>
         <hr>
         <div class="d-flex justify-content-end">
@@ -27,7 +28,7 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <asp:GridView ID="gvVentas" runat="server"
-                        CssClass="table table-hover align-middle text-center" 
+                        CssClass="table table-hover align-middle text-center"
                         GridLines="None"
                         AutoGenerateColumns="false"
                         DataKeyNames="Id"
@@ -59,6 +60,19 @@
                                     <span class='<%# (bool)Eval("Activo") ? "badge badge-success" : "badge badge-secondary" %>'>
                                         <%# (bool)Eval("Activo") ? "Completada" : "Anulada" %>
                                     </span>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <%-- Impresora --%>
+                            <asp:TemplateField HeaderText="Comprobante" ItemStyle-HorizontalAlign="Center">
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="btnImprimir" runat="server"
+                                        CommandName="Imprimir"
+                                        CommandArgument='<%# Eval("Id") %>'
+                                        CssClass="btn btn-sm btn-outline-secondary"
+                                        ToolTip="Descargar Factura">
+            <i class="bi bi-printer-fill"></i>
+        </asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField>
 
