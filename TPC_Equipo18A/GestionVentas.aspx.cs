@@ -1,7 +1,10 @@
 ﻿using dominio;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using negocio;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -69,6 +72,82 @@ namespace TPC_Equipo18A
                 pnlGV.Visible = false;
                 pnlConfirmacion.Visible = true;
             }
+
+            if (e.CommandName == "Imprimir")
+            {
+                int idVenta = int.Parse(e.CommandArgument.ToString());
+                generarFacturaPDF(idVenta);
+            }
+        }
+
+        private void generarFacturaPDF(int idVenta)
+        {
+            VentaNegocio ventaNegocio = new VentaNegocio();
+            Venta venta = ventaNegocio.buscarPorIdConDetalles(idVenta);
+
+            if (venta == null)
+            {
+                return;
+            }
+
+            // Config del pdf
+            Document doc = new Document(PageSize.A4, 50, 50, 25, 25);
+            MemoryStream ms = new MemoryStream();
+            PdfWriter writer = PdfWriter.GetInstance(doc, ms);
+
+            doc.Open();
+
+            // --- DISEÑO DEL COMPROBANTE ---
+
+            // TITULO Y LOGO
+            Paragraph titulo = new Paragraph("Comercio Grupo 18A - Comprobante de Venta\n\n", new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD));
+            titulo.Alignment = Element.ALIGN_CENTER;
+            doc.Add(titulo);
+
+            // DATOS DE LA VENTA
+            Paragraph datos = new Paragraph();
+            datos.Font = new Font(Font.FontFamily.HELVETICA, 12);
+            datos.Add($"Factura Nro: {venta.NumeroFactura}\n");
+            datos.Add($"Fecha: {venta.Fecha.ToString("dd/MM/yyyy HH:mm")}\n");
+            datos.Add($"Cliente: {venta.Cliente.Nombre} {venta.Cliente.Apellido}\n");
+            datos.Add($"Documento: {venta.Cliente.Documento}\n"); // Si tenés este campo
+            datos.Add($"Vendedor: {venta.Usuario.Username}\n\n");
+            doc.Add(datos);
+
+            // TABLA PRODUCTOS
+            PdfPTable tabla = new PdfPTable(4); // 4 columnas
+            tabla.WidthPercentage = 100;
+            tabla.SetWidths(new float[] { 40f, 20f, 20f, 20f }); // anchos relativos
+
+            // Encabezados de tabla
+            tabla.AddCell(new PdfPCell(new Phrase("Producto", new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD))) { BackgroundColor = BaseColor.LIGHT_GRAY });
+            tabla.AddCell(new PdfPCell(new Phrase("Cantidad", new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD))) { BackgroundColor = BaseColor.LIGHT_GRAY });
+            tabla.AddCell(new PdfPCell(new Phrase("Precio Unit.", new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD))) { BackgroundColor = BaseColor.LIGHT_GRAY });
+            tabla.AddCell(new PdfPCell(new Phrase("Subtotal", new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD))) { BackgroundColor = BaseColor.LIGHT_GRAY });
+
+            // Filas de productos
+            foreach (var item in venta.Detalles)
+            {
+                tabla.AddCell(new Phrase(item.Producto.Nombre, new Font(Font.FontFamily.HELVETICA, 10)));
+                tabla.AddCell(new Phrase(item.Cantidad.ToString(), new Font(Font.FontFamily.HELVETICA, 10)));
+                tabla.AddCell(new Phrase("$" + item.PrecioUnitario.ToString("0.00"), new Font(Font.FontFamily.HELVETICA, 10)));
+                tabla.AddCell(new Phrase("$" + item.Subtotal.ToString("0.00"), new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10)));
+            }
+            doc.Add(tabla);
+
+            // TOTAL final
+            Paragraph total = new Paragraph($"\nTOTAL: ${venta.Total.ToString("0.00")}", new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD));
+            total.Alignment = Element.ALIGN_RIGHT;
+            doc.Add(total);
+
+            doc.Close();
+
+            // Descargar el archivo
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition", $"attachment;filename=Factura-{venta.NumeroFactura}.pdf");
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.BinaryWrite(ms.ToArray());
+            Response.End();
         }
 
         protected void btnConfirmarAnulacion_Click(object sender, EventArgs e)
