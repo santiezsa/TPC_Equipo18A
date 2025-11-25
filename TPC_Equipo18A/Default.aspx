@@ -122,6 +122,13 @@
                                     </span>
                                 </li>
                             </ItemTemplate>
+                            <FooterTemplate>
+                                <% if (rptStockBajo.Items.Count == 0)
+                                    { %>
+                                <li class="list-group-item text-center text-muted px-0">No hay productos con stock bajo.
+                                </li>
+                                <% } %>
+                            </FooterTemplate>
                         </asp:Repeater>
                     </ul>
                 </div>
