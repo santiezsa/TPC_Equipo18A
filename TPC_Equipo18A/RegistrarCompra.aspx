@@ -7,7 +7,6 @@
     <p>Complete los datos para registrar un ingreso de stock.</p>
 
     <div class="row">
-        <%-- COLUMNA IZQUIERDA: Formulario de Carga --%>
         <div class="col-md-4">
             <%-- Seleccion proveedor --%>
             <div class="card mb-3">
@@ -85,7 +84,7 @@
                         </asp:GridView>
                     </div>
 
-                    <div class="mt-3 text-end">
+                    <div class="mt-3 text-right">
                         <h4>Total:
                             <asp:Label ID="lblTotal" runat="server" Text="$0.00"></asp:Label></h4>
                     </div>
