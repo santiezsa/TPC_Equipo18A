@@ -153,8 +153,6 @@
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                     <i class="bi bi-person-circle" style="font-size: 1.8rem; margin-right: 10px;"></i>
-
-                                    <%-- TODO: cargar desde el back --%>
                                     <div class="user-info">
                                         <strong>
                                             <asp:Label ID="lblNombreUsuario" runat="server" Text="Usuario"></asp:Label>

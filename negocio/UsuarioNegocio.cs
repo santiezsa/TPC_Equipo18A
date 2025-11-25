@@ -169,5 +169,49 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        // Verifica si existe un usuario con ese email
+        public bool existeEmail(string email)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT COUNT(*) FROM Usuarios WHERE Email = @email AND Activo = 1");
+                datos.setearParametro("@email", email);
+
+                int cantidad = (int)datos.ejecutarLecturaScalar();
+
+                return cantidad > 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void actualizarPassword(string email, string nuevaPassword)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("UPDATE Usuarios SET Password = @pass WHERE Email = @email");
+                datos.setearParametro("@pass", nuevaPassword);
+                datos.setearParametro("@email", email);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }

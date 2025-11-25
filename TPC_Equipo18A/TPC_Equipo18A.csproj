@@ -83,6 +83,7 @@
     <Content Include="Global.asax" />
     <Content Include="img\fondo-login.jpg" />
     <Content Include="Login.aspx" />
+    <Content Include="RecuperarPass.aspx" />
     <Content Include="RegistrarCompra.aspx" />
     <Content Include="RegistrarVenta.aspx" />
     <Content Include="Web.config" />
@@ -218,6 +219,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RecuperarPass.aspx.cs">
+      <DependentUpon>RecuperarPass.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RecuperarPass.aspx.designer.cs">
+      <DependentUpon>RecuperarPass.aspx</DependentUpon>
     </Compile>
     <Compile Include="RegistrarCompra.aspx.cs">
       <DependentUpon>RegistrarCompra.aspx</DependentUpon>
