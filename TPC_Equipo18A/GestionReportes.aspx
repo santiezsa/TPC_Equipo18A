@@ -50,15 +50,12 @@
         <asp:Button ID="btnExportar" runat="server" Text="Exportar a Excel"
             CssClass="btn btn-success"
             OnClick="btnExportar_Click" />
-        <asp:Label ID="lblDebug" runat="server" ForeColor="Red"></asp:Label>
-        <br />
-        <br />
-
         <br />
         <br />
 
         <asp:GridView ID="gvReporte" runat="server"
-            CssClass="table table-striped table-hover"
+            CssClass="table table-hover align-middle text-center"
+            GridLines="None"
             AutoGenerateColumns="true">
         </asp:GridView>
 

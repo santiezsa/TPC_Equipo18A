@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dominio;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -19,9 +20,18 @@ namespace negocio
             try
             {
                 string query = @"
-                    SELECT v.Fecha, c.Nombre AS Cliente, v.Total
+                    SELECT 
+                        v.Id,
+                        v.Fecha,
+                        c.Nombre       AS NombreCliente,
+                        c.Apellido     AS ApellidoCliente,
+                        p.Nombre       AS Producto,
+                        dv.Cantidad,
+                        v.Total
                     FROM Ventas v
-                    INNER JOIN Clientes c ON v.IdCliente = c.Id
+                    INNER JOIN Clientes c ON c.Id = v.IdCliente
+                    INNER JOIN DetalleVenta dv on v.Id = dv.IdVenta
+                    INNER JOIN Productos p on p.Id = dv.IdProducto
                     WHERE v.Activo = 1";
 
                 if (desde.HasValue)
@@ -35,10 +45,10 @@ namespace negocio
                 datos.setearConsulta(query);
 
                 if (desde.HasValue)
-                    datos.setearParametro("@desde", desde.Value.Date);   // solo fecha
+                    datos.setearParametro("@desde", desde.Value.Date);   
 
                 if (hasta.HasValue)
-                    datos.setearParametro("@hasta", hasta.Value.Date);   // solo fecha
+                    datos.setearParametro("@hasta", hasta.Value.Date);   
 
                 datos.ejecutarLectura();
 
@@ -47,7 +57,10 @@ namespace negocio
                     lista.Add(new
                     {
                         Fecha = (DateTime)datos.Lector["Fecha"],
-                        Cliente = (string)datos.Lector["Cliente"],
+                        ClienteNombre = (string)datos.Lector["NombreCliente"],
+                        ClienteApellido = (string)datos.Lector["ApellidoCliente"],
+                        Producto = (string)datos.Lector["Producto"],
+                        Cantidad = (int)datos.Lector["Cantidad"],
                         Total = (decimal)datos.Lector["Total"]
                     });
                 }
@@ -69,14 +82,14 @@ namespace negocio
             try
             {
                 string query = @"
-            SELECT p.Codigo,
-                   p.Nombre AS Producto,
-                   SUM(dv.Cantidad) AS CantidadVendida,
-                   SUM(dv.Cantidad * dv.PrecioUnitario) AS TotalFacturado
-            FROM DetalleVenta dv
-            INNER JOIN Ventas v ON dv.IdVenta = v.Id
-            INNER JOIN Productos p ON dv.IdProducto = p.Id
-            WHERE v.Activo = 1";
+                    SELECT p.Codigo,
+                           p.Nombre AS Producto,
+                           SUM(dv.Cantidad) AS CantidadVendida,
+                           SUM(dv.Cantidad * dv.PrecioUnitario) AS TotalFacturado
+                    FROM DetalleVenta dv
+                    INNER JOIN Ventas v ON dv.IdVenta = v.Id
+                    INNER JOIN Productos p ON dv.IdProducto = p.Id
+                    WHERE v.Activo = 1";
 
                 if (desde.HasValue)
                     query += " AND CONVERT(date, v.Fecha) >= @desde";
@@ -85,8 +98,8 @@ namespace negocio
                     query += " AND CONVERT(date, v.Fecha) <= @hasta";
 
                 query += @"
-            GROUP BY p.Codigo, p.Nombre
-            ORDER BY CantidadVendida DESC";
+                    GROUP BY p.Codigo, p.Nombre
+                    ORDER BY CantidadVendida DESC";
 
                 datos.setearConsulta(query);
 
@@ -126,12 +139,12 @@ namespace negocio
             try
             {
                 string query = @"
-            SELECT c.Nombre AS Cliente,
-                   COUNT(v.Id) AS CantidadVentas,
-                   SUM(v.Total) AS MontoTotal
-            FROM Ventas v
-            INNER JOIN Clientes c ON v.IdCliente = c.Id
-            WHERE v.Activo = 1";
+                    SELECT c.Nombre AS Cliente,
+                           COUNT(v.Id) AS CantidadVentas,
+                           SUM(v.Total) AS MontoTotal
+                    FROM Ventas v
+                    INNER JOIN Clientes c ON v.IdCliente = c.Id
+                    WHERE v.Activo = 1";
 
                 if (desde.HasValue)
                     query += " AND CONVERT(date, v.Fecha) >= @desde";
@@ -140,8 +153,8 @@ namespace negocio
                     query += " AND CONVERT(date, v.Fecha) <= @hasta";
 
                 query += @"
-            GROUP BY c.Nombre
-            ORDER BY MontoTotal DESC";
+                    GROUP BY c.Nombre
+                    ORDER BY MontoTotal DESC";
 
                 datos.setearConsulta(query);
 
@@ -180,12 +193,12 @@ namespace negocio
             try
             {
                 string query = @"
-            SELECT p.Nombre AS Proveedor,
-                   COUNT(c.Id) AS CantidadCompras,
-                   SUM(c.Total) AS MontoTotal
-            FROM Compras c
-            INNER JOIN Proveedores p ON c.IdProveedor = p.Id
-            WHERE c.Activo = 1";
+                    SELECT p.Nombre AS Proveedor,
+                           COUNT(c.Id) AS CantidadCompras,
+                           SUM(c.Total) AS MontoTotal
+                    FROM Compras c
+                    INNER JOIN Proveedores p ON c.IdProveedor = p.Id
+                    WHERE c.Activo = 1";
 
                 if (desde.HasValue)
                     query += " AND CONVERT(date, c.Fecha) >= @desde";
@@ -194,8 +207,8 @@ namespace negocio
                     query += " AND CONVERT(date, c.Fecha) <= @hasta";
 
                 query += @"
-            GROUP BY p.Nombre
-            ORDER BY MontoTotal DESC";
+                    GROUP BY p.Nombre
+                    ORDER BY MontoTotal DESC";
 
                 datos.setearConsulta(query);
 
@@ -234,12 +247,12 @@ namespace negocio
             try
             {
                 string query = @"
-            SELECT p.Codigo,
-                   p.Nombre AS Producto,
-                   p.StockActual
-            FROM Productos p
-            WHERE p.StockActual <= @minimo
-            ORDER BY p.StockActual ASC";
+                    SELECT p.Codigo,
+                           p.Nombre AS Producto,
+                           p.StockActual
+                    FROM Productos p
+                    WHERE p.StockActual <= @minimo
+                    ORDER BY p.StockActual ASC";
 
                 datos.setearConsulta(query);
                 datos.setearParametro("@minimo", stockMinimo);

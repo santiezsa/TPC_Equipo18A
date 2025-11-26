@@ -69,15 +69,6 @@ namespace TPC_Equipo18A
         protected global::System.Web.UI.WebControls.Button btnExportar;
 
         /// <summary>
-        /// Control lblDebug.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDebug;
-
-        /// <summary>
         /// Control gvReporte.
         /// </summary>
         /// <remarks>
