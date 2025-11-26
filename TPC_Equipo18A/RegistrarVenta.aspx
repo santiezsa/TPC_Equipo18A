@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="RegistrarVenta.aspx.cs" Inherits="TPC_Equipo18A.RegistrarVenta" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -33,11 +34,11 @@
                 </div>
                 <div class="card-body" style="padding: 0;">
                     <div class="table-responsive">
-                        <asp:GridView ID="gvDetalleVenta" runat="server" 
-                            CssClass="table table-hover align-middle text-center" 
+                        <asp:GridView ID="gvDetalleVenta" runat="server"
+                            CssClass="table table-hover align-middle text-center"
                             OnRowCommand="gvDetalleVenta_RowCommand"
-                            AutoGenerateColumns="false" 
-                            ShowHeaderWhenEmpty="true" 
+                            AutoGenerateColumns="false"
+                            ShowHeaderWhenEmpty="true"
                             GridLines="None"
                             EmptyDataText="Agregue productos al carrito.">
                             <Columns>
@@ -71,10 +72,25 @@
 
             <div class="card">
                 <div class="card-body text-right">
-                    <h4 class="mb-3">Total: <asp:Label ID="lblTotalVenta" runat="server" Text="$0.00" CssClass="font-weight-bold"></asp:Label></h4>
+                    <h4 class="mb-3">Total:
+                        <asp:Label ID="lblTotalVenta" runat="server" Text="$0.00" CssClass="font-weight-bold"></asp:Label></h4>
                     <asp:Button ID="btnConfirmarVenta" runat="server" Text="Confirmar Venta" OnClick="btnConfirmarVenta_Click" CssClass="btn btn-success btn-lg btn-block" />
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#<%= ddlClienteVenta.ClientID %>').select2({
+            placeholder: "Escribí para buscar...",
+            allowClear: true
+        });
+
+        $('#<%= ddlProductoVenta.ClientID %>').select2({
+            placeholder: "Buscá producto...",
+            allowClear: true
+        });
+    });
+    </script>
 </asp:Content>

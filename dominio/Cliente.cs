@@ -20,7 +20,7 @@ namespace dominio
 
         public string NombreCompleto
         {
-            get { return $"{Id} - {Nombre} {Apellido} ({Documento})"; }
+            get { return $"{Nombre} {Apellido} ({Documento})"; }
         }
     }
 }
