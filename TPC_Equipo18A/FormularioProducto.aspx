@@ -27,12 +27,12 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label class="font-weight-bold">Código</label>
-                            <asp:TextBox ID="txtCodigo" runat="server" CssClass="form-control" placeholder="Ej: P-001"></asp:TextBox>
+                            <asp:TextBox ID="txtCodigo" runat="server" CssClass="form-control" placeholder="Ej: P-001" MaxLength="100"></asp:TextBox>
                             <asp:RequiredFieldValidator ErrorMessage="Requerido" ControlToValidate="txtCodigo" CssClass="text-danger small" Display="Dynamic" runat="server" />
                         </div>
                         <div class="form-group col-md-8">
                             <label class="font-weight-bold">Nombre</label>
-                            <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" placeholder="Nombre del producto"></asp:TextBox>
+                            <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" placeholder="Nombre del producto" MaxLength="100"></asp:TextBox>
                             <asp:RequiredFieldValidator ErrorMessage="Requerido" ControlToValidate="txtNombre" CssClass="text-danger small" Display="Dynamic" runat="server" />
                         </div>
                     </div>

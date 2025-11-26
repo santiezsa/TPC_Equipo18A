@@ -21,13 +21,18 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Razón Social</label>
-                            <asp:TextBox ID="txtRazonSocial" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="txtRazonSocial" runat="server" CssClass="form-control" MaxLength="100"></asp:TextBox>
                             <asp:RequiredFieldValidator ErrorMessage="La razón social es obligatoria." ControlToValidate="txtRazonSocial" CssClass="text-danger small" Display="Dynamic" runat="server" />
                         </div>
                         <div class="form-group col-md-6">
                             <label>CUIT</label>
-                            <asp:TextBox ID="txtCUIT" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="txtCUIT" runat="server" CssClass="form-control" MaxLength="11"></asp:TextBox>
                             <asp:RequiredFieldValidator ErrorMessage="El CUIT es obligatorio." ControlToValidate="txtCUIT" CssClass="text-danger small" Display="Dynamic" runat="server" />
+                            <asp:RegularExpressionValidator
+                                ErrorMessage="Debe tener 11 números sin guiones."
+                                ControlToValidate="txtCUIT"
+                                ValidationExpression="^\d{11}$"
+                                CssClass="text-danger small" Display="Dynamic" runat="server" />
                         </div>
                     </div>
 
@@ -35,14 +40,14 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label>Teléfono</label>
-                            <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" MaxLength="100"></asp:TextBox>
                         </div>
                     </div>
 
                     <%-- Email --%>
                     <div class="form-group">
                         <label>Email</label>
-                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" TextMode="Email"></asp:TextBox>
+                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" TextMode="Email" MaxLength="100"></asp:TextBox>
                     </div>
 
                     <hr />

@@ -42,11 +42,23 @@
                             <asp:TextBox ID="txtCantidad" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
                             <asp:RequiredFieldValidator ErrorMessage="Requerido" ControlToValidate="txtCantidad" CssClass="text-danger small" Display="Dynamic" ValidationGroup="Agregar" runat="server" />
                             <asp:RangeValidator ErrorMessage="Mínimo 1" ControlToValidate="txtCantidad" MinimumValue="1" MaximumValue="10000" Type="Integer" CssClass="text-danger small" Display="Dynamic" ValidationGroup="Agregar" runat="server" />
+                            <asp:RangeValidator
+                                ErrorMessage="Mínimo 1"
+                                ControlToValidate="txtCantidad"
+                                MinimumValue="1" MaximumValue="10000" Type="Integer"
+                                ValidationGroup="Agregar"
+                                CssClass="text-danger small" Display="Dynamic" runat="server" />
                         </div>
                         <div class="col-6 mb-3">
                             <label class="form-label">Costo Unit. ($)</label>
                             <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control" TextMode="Number" step="0.01"></asp:TextBox>
                             <asp:RequiredFieldValidator ErrorMessage="Requerido" ControlToValidate="txtPrecio" CssClass="text-danger small" Display="Dynamic" ValidationGroup="Agregar" runat="server" />
+                            <asp:RangeValidator
+                                ErrorMessage="Debe ser positivo"
+                                ControlToValidate="txtPrecio"
+                                MinimumValue="0.01" MaximumValue="9999999" Type="Double"
+                                ValidationGroup="Agregar"
+                                CssClass="text-danger small" Display="Dynamic" runat="server" />
                         </div>
                     </div>
 
