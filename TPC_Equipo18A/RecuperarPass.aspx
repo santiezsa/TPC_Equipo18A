@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head runat="server">
-    <title>Recuperar Contraseña</title>
+    <title>Recuperar contraseña</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
@@ -68,7 +68,7 @@
         <div class="card-container p-3">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="mb-0"><i class="bi bi-shield-lock-fill"></i> Recuperar Acceso</h3>
+                    <h3 class="mb-0"><i class="bi bi-shield-lock-fill"></i> Recuperar acceso</h3>
                     <p class="text-muted mb-0 small">Te enviaremos una nueva contraseña a tu mail.</p>
                 </div>
                 
@@ -85,7 +85,7 @@
                         <asp:RequiredFieldValidator ErrorMessage="Ingresá tu email para continuar." ControlToValidate="txtEmail" CssClass="text-danger small mt-1" Display="Dynamic" runat="server" />
                     </div>
 
-                    <asp:Button ID="btnRecuperar" runat="server" Text="Restablecer Contraseña" CssClass="btn btn-primary btn-block font-weight-bold" OnClick="btnRecuperar_Click" />
+                    <asp:Button ID="btnRecuperar" runat="server" Text="Restablecer contraseña" CssClass="btn btn-primary btn-block font-weight-bold" OnClick="btnRecuperar_Click" />
 
                     <div class="text-center mt-4">
                         <a href="Login.aspx" class="text-secondary"><i class="bi bi-arrow-left"></i> Volver al Login</a>

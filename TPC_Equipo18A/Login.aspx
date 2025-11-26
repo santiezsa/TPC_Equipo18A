@@ -124,9 +124,9 @@
             <div class="card login-card">
                 <div class="card-header">
                     <h3 class="mb-0">
-                        <i class="bi bi-box-seam"></i>Mi Negocio
+                        <i class="bi bi-box-seam"></i> Comercio Grupo 18 A
                     </h3>
-                    <p class="mb-0 small">Sistema de Gestión</p>
+                    <p class="mb-0 small">Sistema de gestión</p>
                 </div>
                 <div class="card-body p-4">
 
