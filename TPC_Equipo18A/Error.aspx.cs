@@ -11,6 +11,7 @@ namespace TPC_Equipo18A
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            /*
             if (Session["error"] != null)
             {
                 lblMensajeError.Text = Session["error"].ToString();
@@ -22,6 +23,12 @@ namespace TPC_Equipo18A
             {
                 lblMensajeError.Text = Request.QueryString["msg"];
             }
+             */
+
+            var ex = Session["error"] as Exception;
+            if (ex != null)
+                lblMensajeError.Text = ex.ToString();   // un Label que pongas en Error.aspx
         }
+    
     }
 }

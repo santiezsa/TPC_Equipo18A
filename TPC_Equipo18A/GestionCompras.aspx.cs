@@ -19,7 +19,6 @@ namespace TPC_Equipo18A
                 pnlConfirmacion.Visible = false;
                 cargarGv();
             }
-
         }
 
         private void cargarGv()
