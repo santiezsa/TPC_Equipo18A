@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Gestión de ventas" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="GestionVentas.aspx.cs" Inherits="TPC_Equipo18A.GestionVentas" %>
+﻿<%@ Page Title="Gestión de ventas" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="GestionVentas.aspx.cs" Inherits="TPC_Equipo18A.GestionVentas" EnableEventValidation="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -27,6 +27,11 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <div class="table-responsive">
+                    <asp:Button ID="btnExportarExcel"
+                        runat="server"
+                        Text="Exportar a Excel"
+                        CssClass="btn btn-success mb-3"
+                        OnClick="btnExportarExcel_Click"/>
                     <asp:GridView ID="gvVentas" runat="server"
                         CssClass="table table-hover align-middle text-center"
                         GridLines="None"

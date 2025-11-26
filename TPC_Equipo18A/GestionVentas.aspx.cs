@@ -184,6 +184,36 @@ namespace TPC_Equipo18A
             pnlGV.Visible = true;
         }
 
+        protected void btnExportarExcel_Click(object sender, EventArgs e)
+        {
+            // Desactivo paginación si la tuviera
+            gvVentas.AllowPaging = false;
+
+            // Vuelvo a cargar los datos completos
+            VentaNegocio negocio = new VentaNegocio();
+            List<Venta> ventas = negocio.listar();  
+            gvVentas.DataSource = ventas;
+            gvVentas.DataBind();
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment;filename=HistorialVentas.xls");
+            Response.Charset = "";
+            Response.ContentType = "application/vnd.ms-excel";
+
+            using (StringWriter sw = new StringWriter())
+            using (HtmlTextWriter hw = new HtmlTextWriter(sw))
+            {
+                gvVentas.RenderControl(hw);
+                Response.Output.Write(sw.ToString());
+                Response.Flush();
+                Response.End();
+            }
+        }
+
+        public override void VerifyRenderingInServerForm(Control control)
+        {
+        }
         private void mostrarToast(string mensaje, string tipo)
         {
             string script = $"mostrarToast('{mensaje}', '{tipo}');";
