@@ -56,7 +56,7 @@
                             <asp:RangeValidator
                                 ErrorMessage="Debe ser positivo"
                                 ControlToValidate="txtPrecio"
-                                MinimumValue="0,01" MaximumValue="9999999" Type="Double"
+                                MinimumValue="1" MaximumValue="9999999" Type="Double"
                                 ValidationGroup="Agregar"
                                 CssClass="text-danger small" Display="Dynamic" runat="server" />
                         </div>
