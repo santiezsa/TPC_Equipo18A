@@ -171,19 +171,20 @@ namespace TPC_Equipo18A
                     return;
                 }
 
+                if (Session["usuario"] == null)
+                {
+                    mostrarToast("Su sesión expiró. Vuelva a iniciar sesión.", "warning");
+                    return;
+                }
+
+
                 Venta venta = new Venta();
                 venta.Cliente = new Cliente();
                 venta.Cliente.Id = int.Parse(ddlClienteVenta.SelectedValue);
                 venta.Fecha = DateTime.Now;
                 venta.Activo = true;
                 venta.Detalles = DetalleActual;
-
-                if (Session["usuario"] == null)
-                {
-                    mostrarToast("Su sesión expiró. Vuelva a iniciar sesión.", "warning");
-                    return;
-                }
-                venta.Usuario = (Usuario)Session["usuario"]; ;
+                venta.Usuario = (Usuario)Session["usuario"];
 
                 // Calculo total
                 venta.Total = venta.Detalles.Sum(importe => importe.Subtotal);
@@ -227,9 +228,10 @@ namespace TPC_Equipo18A
 
                 // Limpio carrito
                 Session["DetalleVenta"] = null;
+                DetalleActual.Clear();
 
                 // Seteo mensaje de éxito y redirijo
-                Session["mensajeExito"] = "Venta registrada correctamente.";
+                Session["mensajeExito"] = mensajeFinal;
                 Response.Redirect("RegistrarVenta.aspx", false);
 
             }

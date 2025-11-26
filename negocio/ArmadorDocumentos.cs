@@ -73,9 +73,9 @@ namespace negocio
             Paragraph total = new Paragraph($"\nTOTAL: ${venta.Total.ToString("0.00")}", new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD));
             total.Alignment = Element.ALIGN_RIGHT;
             doc.Add(total);
-
             doc.Close();
-            return ms;
+
+            return new MemoryStream(ms.ToArray()); // nuevo stream con datos copiados
         }
     }
 }
