@@ -15,7 +15,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT Id, Username, Password, IdPerfil, Activo FROM USUARIOS WHERE Activo = 1");
+                datos.setearConsulta("SELECT Id, Username, Password, Email, IdPerfil, Activo FROM Usuarios WHERE Activo = 1");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -23,6 +23,10 @@ namespace negocio
                     aux.Id = (int)datos.Lector["Id"];
                     aux.Username = (string)datos.Lector["Username"];
                     aux.Password = (string)datos.Lector["Password"];
+                    if (!(datos.Lector["Email"] is DBNull))
+                    {
+                        aux.Email = (string)datos.Lector["Email"];)
+                    }
                     aux.Perfil = (Perfil)(int)datos.Lector["IdPerfil"];
                     aux.Activo = (bool)datos.Lector["Activo"];
                     lista.Add(aux);
@@ -45,7 +49,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT Id, Username, Password, IdPerfil, Activo FROM Usuarios WHERE Id = @Id");
+                datos.setearConsulta("SELECT Id, Username, Password, Email, IdPerfil, Activo FROM Usuarios WHERE Id = @Id");
                 datos.setearParametro("@Id", id);
                 datos.ejecutarLectura();
                 if (datos.Lector.Read())
@@ -54,6 +58,10 @@ namespace negocio
                     usuario.Id = (int)datos.Lector["Id"];
                     usuario.Username = (string)datos.Lector["Username"];
                     usuario.Password = (string)datos.Lector["Password"];
+                    if (!(datos.Lector["Email"] is DBNull))
+                    {
+                        usuario.Email = (string)datos.Lector["Email"];)
+                    }
                     usuario.Perfil = (Perfil)(int)datos.Lector["IdPerfil"];
                     usuario.Activo = (bool)datos.Lector["Activo"];
                 }
@@ -74,9 +82,10 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("INSERT INTO Usuarios (Username, Password, IdPerfil, Activo) VALUES (@Username, @Password, @IdPerfil, 1)");
+                datos.setearConsulta("INSERT INTO Usuarios (Username, Password, Email, IdPerfil, Activo) VALUES (@Username, @Password, @Email, @IdPerfil, 1)");
                 datos.setearParametro("@Username", nuevo.Username);
                 datos.setearParametro("@Password", nuevo.Password);
+                datos.setearParametro("@Email", (object)nuevo.Email ?? DBNull.Value);
                 datos.setearParametro("@IdPerfil", (int)nuevo.Perfil);
                 datos.ejecutarAccion();
             }
@@ -95,9 +104,10 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("UPDATE Usuarios SET Username = @Username, Password = @Password, IdPerfil = @IdPerfil WHERE Id = @Id");
+                datos.setearConsulta("UPDATE Usuarios SET Username = @Username, Password = @Password, Email = @Email, IdPerfil = @IdPerfil WHERE Id = @Id");
                 datos.setearParametro("@Username", usuario.Username);
                 datos.setearParametro("@Password", usuario.Password);
+                datos.setearParametro("@Email", (object)usuario.Email ?? DBNull.Value);
                 datos.setearParametro("@IdPerfil", (int)usuario.Perfil);
                 datos.setearParametro("@Id", usuario.Id);
                 datos.ejecutarAccion();

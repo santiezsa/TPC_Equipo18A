@@ -18,7 +18,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT P.Id, P.Codigo, P.Nombre, P.Descripcion, P.PorcentajeGanancia, P.StockActual, P.StockMinimo, P.IdMarca, M.Descripcion AS MarcaDescripcion, P.IdCategoria, C.Descripcion AS CategoriaDescripcion, P.Activo FROM Productos AS P JOIN Marcas AS M ON P.IdMarca = M.Id JOIN Categorias AS C ON P.IdCategoria = C.Id WHERE P.Activo = 1");
+                datos.setearConsulta("SELECT P.Id, P.Codigo, P.Nombre, P.Descripcion, P.PorcentajeGanancia, P.StockActual, P.StockMinimo, P.IdMarca, M.Descripcion AS MarcaDescripcion, P.IdCategoria, C.Descripcion AS CategoriaDescripcion, P.Activo FROM Productos AS P JOIN Marcas AS M ON P.IdMarca = M.Id JOIN Categorias AS C ON P.IdCategoria = C.Id WHERE P.Activo = 1 ORDER BY P.StockActual DESC");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {

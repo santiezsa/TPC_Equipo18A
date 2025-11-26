@@ -33,6 +33,7 @@ namespace TPC_Equipo18A
                             hfId.Value = seleccionado.Id.ToString();
                             txtUsername.Text = seleccionado.Username;
                             txtPassword.Text = seleccionado.Password;
+                            txtEmail.Text = seleccionado.Email;
 
                             // Selecciono perfil con dropdown
                             // enum a int y luego a string para que coincida con el value del listItem
@@ -67,6 +68,7 @@ namespace TPC_Equipo18A
             {
                 usuario.Username = txtUsername.Text;
                 usuario.Password = txtPassword.Text;
+                usuario.Email = txtEmail.Text;
                 // string del dropdown al Enum Perfil
                 usuario.Perfil = (Perfil)int.Parse(ddlPerfil.SelectedValue);
 

@@ -29,6 +29,14 @@
                         <asp:RequiredFieldValidator ErrorMessage="Requerido" ControlToValidate="txtPassword" CssClass="text-danger small" Display="Dynamic" runat="server" />
                     </div>
 
+                    <%-- NUEVO: Email --%>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" TextMode="Email" placeholder="nombre@ejemplo.com"></asp:TextBox>
+                        <asp:RequiredFieldValidator ErrorMessage="Requerido para recuperación" ControlToValidate="txtEmail" CssClass="text-danger small" Display="Dynamic" runat="server" />
+                        <asp:RegularExpressionValidator ErrorMessage="Formato inválido" ControlToValidate="txtEmail" ValidationExpression="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" CssClass="text-danger small" Display="Dynamic" runat="server" />
+                    </div>
+
                     <%-- Perfil --%>
                     <div class="mb-3">
                         <label class="form-label">Perfil</label>
