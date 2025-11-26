@@ -24,23 +24,16 @@ namespace negocio
                     aux.Username = (string)datos.Lector["Username"];
                     aux.Password = (string)datos.Lector["Password"];
                     if (!(datos.Lector["Email"] is DBNull))
-                    {
-                        aux.Email = (string)datos.Lector["Email"];)
-                    }
+                        aux.Email = (string)datos.Lector["Email"];
+
                     aux.Perfil = (Perfil)(int)datos.Lector["IdPerfil"];
                     aux.Activo = (bool)datos.Lector["Activo"];
                     lista.Add(aux);
                 }
                 return lista;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
+            catch (Exception ex) { throw ex; }
+            finally { datos.cerrarConexion(); }
         }
 
         public Usuario buscarPorId(int id)
@@ -59,22 +52,15 @@ namespace negocio
                     usuario.Username = (string)datos.Lector["Username"];
                     usuario.Password = (string)datos.Lector["Password"];
                     if (!(datos.Lector["Email"] is DBNull))
-                    {
-                        usuario.Email = (string)datos.Lector["Email"];)
-                    }
+                        usuario.Email = (string)datos.Lector["Email"];
+
                     usuario.Perfil = (Perfil)(int)datos.Lector["IdPerfil"];
                     usuario.Activo = (bool)datos.Lector["Activo"];
                 }
                 return usuario;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
+            catch (Exception ex) { throw ex; }
+            finally { datos.cerrarConexion(); }
         }
 
         public void agregar(Usuario nuevo)
@@ -89,14 +75,8 @@ namespace negocio
                 datos.setearParametro("@IdPerfil", (int)nuevo.Perfil);
                 datos.ejecutarAccion();
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
+            catch (Exception ex) { throw ex; }
+            finally { datos.cerrarConexion(); }
         }
 
         public void modificar(Usuario usuario)
@@ -112,14 +92,8 @@ namespace negocio
                 datos.setearParametro("@Id", usuario.Id);
                 datos.ejecutarAccion();
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
+            catch (Exception ex) { throw ex; }
+            finally { datos.cerrarConexion(); }
         }
 
         public void eliminar(int id)
@@ -127,20 +101,12 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                // Baja logica
                 datos.setearConsulta("UPDATE Usuarios SET Activo = 0 WHERE Id = @Id");
-
                 datos.setearParametro("@Id", id);
                 datos.ejecutarAccion();
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
+            catch (Exception ex) { throw ex; }
+            finally { datos.cerrarConexion(); }
         }
 
         public Usuario loguear(Usuario usuario)
@@ -148,39 +114,35 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                // Busco usuario que coincida con el username y password y activo = 1
-                datos.setearConsulta("SELECT Id, IdPerfil, Username, Activo FROM Usuarios WHERE Username = @user AND Password = @pass AND Activo = 1");
+                datos.setearConsulta("SELECT Id, IdPerfil, Username, Email, Activo FROM Usuarios WHERE Username = @user AND Password = @pass AND Activo = 1");
                 datos.setearParametro("@user", usuario.Username);
                 datos.setearParametro("@pass", usuario.Password);
 
                 datos.ejecutarLectura();
 
-                // Si el lector encuentra una fila, login exitoso
                 if (datos.Lector.Read())
                 {
                     Usuario usuarioLogueado = new Usuario();
                     usuarioLogueado.Id = (int)datos.Lector["Id"];
                     usuarioLogueado.Username = (string)datos.Lector["Username"];
+
+                    if (!(datos.Lector["Email"] is DBNull))
+                        usuarioLogueado.Email = (string)datos.Lector["Email"];
+
                     usuarioLogueado.Perfil = (Perfil)(int)datos.Lector["IdPerfil"];
                     usuarioLogueado.Activo = (bool)datos.Lector["Activo"];
+
                     return usuarioLogueado;
                 }
                 else
                 {
-                    return null; // Login fallido
+                    return null;
                 }
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
+            catch (Exception ex) { throw ex; }
+            finally { datos.cerrarConexion(); }
         }
 
-        // Verifica si existe un usuario con ese email
         public bool existeEmail(string email)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -190,17 +152,10 @@ namespace negocio
                 datos.setearParametro("@email", email);
 
                 int cantidad = (int)datos.ejecutarLecturaScalar();
-
                 return cantidad > 0;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
+            catch (Exception ex) { throw ex; }
+            finally { datos.cerrarConexion(); }
         }
 
         public void actualizarPassword(string email, string nuevaPassword)
@@ -213,15 +168,8 @@ namespace negocio
                 datos.setearParametro("@email", email);
                 datos.ejecutarAccion();
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
+            catch (Exception ex) { throw ex; }
+            finally { datos.cerrarConexion(); }
         }
-
     }
 }
