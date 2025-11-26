@@ -32,30 +32,38 @@ namespace TPC_Equipo18A
                 Page.Validate();
                 if (!Page.IsValid) return;
 
-                // Obtiene usuario actual de la sesion
+                // Obtengo ID usuario logeado
                 Usuario userSesion = (Usuario)Session["usuario"];
 
-                // Valido que la pass actual sea correcta
-                if (txtPassActual.Text != userSesion.Password)
+                // Busco datos de la DB
+                UsuarioNegocio negocio = new UsuarioNegocio();
+                Usuario userBaseDatos = negocio.buscarPorId(userSesion.Id);
+
+                // Valido pass actual
+                if (txtPassActual.Text.Trim() != userBaseDatos.Password.Trim())
                 {
                     mostrarToast("La contraseña actual es incorrecta.", "warning");
                     return;
                 }
 
-                // Actualiza datos en objeto
+                // Actualizo datos
                 if (!string.IsNullOrEmpty(txtPassNueva.Text))
                 {
-                    userSesion.Password = txtPassNueva.Text;
+                    userBaseDatos.Password = txtPassNueva.Text;
                 }
 
-                userSesion.Email = txtEmail.Text;
+                userBaseDatos.Email = txtEmail.Text;
 
-                // Guarda en DB
-                UsuarioNegocio negocio = new UsuarioNegocio();
-                negocio.modificar(userSesion);
+                // Guardo en DB
+                negocio.modificar(userBaseDatos);
 
-                // Actualiza session
-                Session["usuario"] = userSesion;
+                // Actualizo datos en session
+                Session["usuario"] = userBaseDatos;
+
+                // Limpio los campos de password
+                txtPassActual.Text = "";
+                txtPassNueva.Text = "";
+                txtPassRepetir.Text = "";
 
                 mostrarToast("Perfil actualizado correctamente.", "success");
             }
