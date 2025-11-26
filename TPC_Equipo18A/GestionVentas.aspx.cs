@@ -37,6 +37,12 @@ namespace TPC_Equipo18A
             }
         }
 
+        protected void gvVentas_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvVentas.PageIndex = e.NewPageIndex;
+            cargarGv(); 
+        }
+
         protected void gvVentas_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -186,7 +192,7 @@ namespace TPC_Equipo18A
 
         protected void btnExportarExcel_Click(object sender, EventArgs e)
         {
-            // Desactivo paginación si la tuviera
+            // Desactivo paginación
             gvVentas.AllowPaging = false;
 
             // Vuelvo a cargar los datos completos

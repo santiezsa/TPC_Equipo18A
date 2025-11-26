@@ -1,7 +1,53 @@
 ﻿<%@ Page Title="Gestión de ventas" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="GestionVentas.aspx.cs" Inherits="TPC_Equipo18A.GestionVentas" EnableEventValidation="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        .table-hover > tbody > tr > td.gv-pager,
+        .table-hover > tbody > tr:hover > td.gv-pager {
+            background-color: transparent !important;
+            border: none !important;
+        }
+
+        /* Quitar hover dentro de la mini-tabla del pager */
+        .gv-pager table,
+        .gv-pager tr,
+        .gv-pager td,
+        .gv-pager tr:hover,
+        .gv-pager td:hover {
+            background-color: transparent !important;
+            border: none !important;
+        }
+        .gv-pager {
+            text-align: center;
+            padding: 10px 0 !important;
+        }
+
+            .gv-pager a,
+            .gv-pager span {
+                display: inline-block;
+                min-width: 22px;
+                margin: 0 4px;
+                text-align: center;
+                text-decoration: none;
+                background: none;
+                border: none;
+                padding: 0;
+                color: #0d6efd;
+                font-weight: 500;
+            }
+
+            .gv-pager span {
+                font-weight: 700;
+                text-decoration: underline;
+            }
+
+            .gv-pager a:hover {
+                text-decoration: underline;
+            }
+
+    </style>
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <h3>Historial de ventas</h3>
@@ -39,6 +85,10 @@
                         DataKeyNames="Id"
                         OnRowCommand="gvVentas_RowCommand"
                         OnRowDataBound="gvVentas_RowDataBound"
+                        AllowPaging="true"
+                        PageSize="15"
+                        OnPageIndexChanging="gvVentas_PageIndexChanging"
+                        PagerStyle-CssClass="gv-pager"
                         EmptyDataText="No hay ventas registradas.">
                         <Columns>
                             <asp:BoundField HeaderText="Nro. Factura" DataField="NumeroFactura" />
