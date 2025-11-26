@@ -96,6 +96,12 @@ namespace TPC_Equipo18A
                         return;
                     }
 
+                    if (porcentaje < 0 || stockMinimo < 0)
+                    {
+                        mostrarToast("El stock mínimo y la ganancia no pueden ser negativos.", "warning");
+                        return;
+                    }
+
                     producto.PorcentajeGanancia = porcentaje;
                     producto.StockMinimo = stockMinimo;
 

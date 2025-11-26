@@ -74,6 +74,7 @@
                                 <div class="input-group-append"><span class="input-group-text">un.</span></div>
                             </div>
                             <asp:RequiredFieldValidator ErrorMessage="Requerido" ControlToValidate="txtStockMinimo" CssClass="text-danger small" Display="Dynamic" runat="server" />
+                            <asp:RangeValidator ErrorMessage="No puede ser negativo" ControlToValidate="txtStockMinimo" MinimumValue="0" MaximumValue="1000000" Type="Integer" CssClass="text-danger small" Display="Dynamic" runat="server" />
                         </div>
 
                         <%-- Ganancia --%>
@@ -84,6 +85,7 @@
                                 <div class="input-group-append"><span class="input-group-text">%</span></div>
                             </div>
                             <asp:RequiredFieldValidator ErrorMessage="Requerido" ControlToValidate="txtPorcentajeGanancia" CssClass="text-danger small" Display="Dynamic" runat="server" />
+                            <asp:RangeValidator ErrorMessage="No puede ser negativo" ControlToValidate="txtPorcentajeGanancia" MinimumValue="0" MaximumValue="10000" Type="Double" CssClass="text-danger small" Display="Dynamic" runat="server" />
                         </div>
                     </div>
                 </div>
