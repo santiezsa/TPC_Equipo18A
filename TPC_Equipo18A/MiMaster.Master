@@ -39,7 +39,6 @@
                     margin-right: 10px;
                 }
 
-        /* Contenido principal */
         .main-content {
             margin-left: 16.666667%;
             padding: 20px;
@@ -82,53 +81,53 @@
 
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <%-- Este link lo ven todos --%>
                                 <asp:HyperLink CssClass="nav-link" NavigateUrl="~/Default.aspx" runat="server">
-            <i class="bi bi-house-door-fill"></i> Inicio
+                                    <i class="bi bi-house-door-fill"></i> Inicio
                                 </asp:HyperLink>
                             </li>
                             <li class="nav-item">
-                                <%-- ID para ocultar al Vendedor --%>
                                 <asp:HyperLink ID="lnkProductos" CssClass="nav-link" NavigateUrl="~/GestionProductos.aspx" runat="server">
-            <i class="bi bi-box-seam"></i> Productos
+                                    <i class="bi bi-box-seam"></i> Productos
                                 </asp:HyperLink>
                             </li>
                             <li class="nav-item">
-                                <%-- ID para ocultar al Vendedor --%>
                                 <asp:HyperLink ID="lnkClientes" CssClass="nav-link" NavigateUrl="~/GestionClientes.aspx" runat="server">
-            <i class="bi bi-people"></i> Clientes
+                                    <i class="bi bi-people"></i> Clientes
                                 </asp:HyperLink>
                             </li>
                             <li class="nav-item">
-                                <%-- ID para ocultar al Vendedor --%>
                                 <asp:HyperLink ID="lnkProveedores" CssClass="nav-link" NavigateUrl="~/GestionProveedores.aspx" runat="server">
-            <i class="bi bi-truck"></i> Proveedores
+                                    <i class="bi bi-truck"></i> Proveedores
                                 </asp:HyperLink>
                             </li>
                             <li class="nav-item">
-                                <%-- Este link lo ven todos --%>
                                 <asp:HyperLink ID="lnkRegistrarVenta" CssClass="nav-link" NavigateUrl="~/RegistrarVenta.aspx" runat="server">
-            <i class="bi bi-receipt"></i> Registrar Venta
+                                    <i class="bi bi-receipt"></i> Registrar Venta
                                 </asp:HyperLink>
                             </li>
                             <li class="nav-item">
-                                <%-- ID para ocultar al Vendedor --%>
                                 <asp:HyperLink ID="lnkRegistrarCompra" CssClass="nav-link" NavigateUrl="~/RegistrarCompra.aspx" runat="server">
-            <i class="bi bi-cart"></i> Registrar Compra
-                                </asp:HyperLink>
-                                <%-- ID para ocultar al vendedor --%>
-                                <asp:HyperLink ID="lnkMarcas" CssClass="nav-link" NavigateUrl="~/GestionMarcas.aspx" runat="server">
-            <i class="bi bi-tag"></i> Marcas
-                                </asp:HyperLink>
-                                <%-- ID para ocultar al vendedor --%>
-                                <asp:HyperLink ID="lnkCategorias" CssClass="nav-link" NavigateUrl="~/GestionCategorias.aspx" runat="server">
-            <i class="bi bi-folder"></i> Categorías
+                                    <i class="bi bi-cart"></i> Registrar Compra
                                 </asp:HyperLink>
                             </li>
-                            <%-- ID para ocultar al vendedor --%>
                             <li class="nav-item">
                                 <asp:HyperLink ID="lnkGestionVentas" CssClass="nav-link" NavigateUrl="~/GestionVentas.aspx" runat="server">
-            <i class="bi bi-receipt-cutoff"></i> Historial Ventas
+                                    <i class="bi bi-receipt-cutoff"></i> Historial Ventas
+                                </asp:HyperLink>
+                            </li>
+                            <li class="nav-item">
+                                <asp:HyperLink ID="lnkMarcas" CssClass="nav-link" NavigateUrl="~/GestionMarcas.aspx" runat="server">
+                                    <i class="bi bi-tag"></i> Marcas
+                                </asp:HyperLink>
+                            </li>
+                            <li class="nav-item">
+                                <asp:HyperLink ID="lnkCategorias" CssClass="nav-link" NavigateUrl="~/GestionCategorias.aspx" runat="server">
+                                    <i class="bi bi-folder"></i> Categorías
+                                </asp:HyperLink>
+                            </li>
+                            <li class="nav-item">
+                                <asp:HyperLink ID="lnkReportes" CssClass="nav-link" NavigateUrl="~/Reportes.aspx" runat="server">
+                                    <i class="bi bi-bar-chart-line"></i> Reportes
                                 </asp:HyperLink>
                             </li>
                         </ul>
@@ -138,20 +137,58 @@
                 <main role="main" class="col-md-10 ml-sm-auto main-content">
                     <div class="topbar">
                         <div>
-                            <%-- Dashboard --%>
                             <h2>
-                                <asp:Label ID="lblTituloPagina" runat="server" Text="Dashboard"></asp:Label></h2>
+                                <asp:Label ID="lblTituloPagina" runat="server" Text="Dashboard"></asp:Label>
+                            </h2>
                         </div>
 
-                        <%-- Bloque para gestionar user --%>
                         <div class="d-flex align-items-center">
-                            <a href="#" class="text-secondary"><i class="bi bi-bell-fill" style="font-size: 1.2rem;"></i></a>
+
+                            <div class="dropdown mr-3">
+                                <a href="#" class="text-secondary position-relative" id="ddlNotificaciones" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="bi bi-bell-fill" style="font-size: 1.4rem;"></i>
+                                    <asp:Label ID="lblCantNotificaciones" runat="server"
+                                        CssClass="badge badge-danger badge-pill position-absolute"
+                                        Style="top: -5px; right: -5px; font-size: 0.6rem;"
+                                        Visible="false"></asp:Label>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right shadow border-0" aria-labelledby="ddlNotificaciones" style="width: 300px;">
+                                    <h6 class="dropdown-header bg-warning text-dark font-weight-bold">
+                                        <i class="bi bi-exclamation-triangle-fill mr-1"></i>Stock Bajo
+                                    </h6>
+                                    <div style="max-height: 300px; overflow-y: auto;">
+                                        <asp:Repeater ID="rptNotificaciones" runat="server">
+                                            <ItemTemplate>
+                                                <a class="dropdown-item d-flex align-items-center justify-content-between px-3 py-2 border-bottom"
+                                                    href='<%# ResolveUrl("~/FormularioProducto.aspx?id=" + Eval("Id")) %>'>
+                                                    <div style="overflow: hidden;">
+                                                        <strong class="d-block text-truncate" style="max-width: 180px; font-size: 0.9rem;">
+                                                            <%# Eval("Nombre") %>
+                                                        </strong>
+                                                        <small class="text-muted">Stock: <%# Eval("StockActual") %> (Min: <%# Eval("StockMinimo") %>)</small>
+                                                    </div>
+                                                    <i class="bi bi-pencil-square text-primary"></i>
+                                                </a>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+
+                                        <asp:Panel ID="pnlSinNotificaciones" runat="server" Visible="false">
+                                            <div class="dropdown-item text-center text-muted py-3">
+                                                <i class="bi bi-check-circle-fill text-success" style="font-size: 1.5rem;"></i>
+                                                <p class="mb-0 mt-1 small">Todo en orden</p>
+                                            </div>
+                                        </asp:Panel>
+                                    </div>
+                                    <div class="dropdown-divider my-0"></div>
+                                    <a class="dropdown-item text-center small text-primary py-2" href="GestionProductos.aspx">Ver inventario completo
+                                    </a>
+                                </div>
+                            </div>
 
                             <div class="dropdown ml-3">
-
                                 <a href="#" class="d-flex align-items-center text-dark text-decoration-none"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
                                     <i class="bi bi-person-circle" style="font-size: 1.8rem; margin-right: 10px;"></i>
                                     <div class="user-info">
                                         <strong>
@@ -164,31 +201,28 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-
                                     <h6 class="dropdown-header">
                                         <asp:Label ID="lblDropdownHeader" runat="server"></asp:Label>
                                     </h6>
 
                                     <asp:HyperLink ID="lnkMiPerfil" NavigateUrl="~/MiPerfil.aspx" CssClass="dropdown-item" runat="server">
-                    <i class="bi bi-person-fill mr-2"></i> Mi Perfil
+                                        <i class="bi bi-person-fill mr-2"></i> Mi Perfil
                                     </asp:HyperLink>
 
-                                    <%-- ABM de usuarios --%>
                                     <asp:HyperLink ID="lnkGestionUsuarios" NavigateUrl="~/GestionUsuarios.aspx" CssClass="dropdown-item" runat="server">
-                    <i class="bi bi-person-gear mr-2"></i> Gestionar Usuarios
+                                        <i class="bi bi-person-gear mr-2"></i> Gestionar Usuarios
                                     </asp:HyperLink>
 
                                     <div class="dropdown-divider"></div>
 
-                                    <%-- LinkButton cerrar sesion 
-                                        TODO: backend --%>
                                     <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="dropdown-item">
-                     <i class="bi bi-box-arrow-right mr-2"></i> Cerrar sesión
+                                        <i class="bi bi-box-arrow-right mr-2"></i> Cerrar sesión
                                     </asp:LinkButton>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                     </asp:ContentPlaceHolder>
                 </main>
@@ -199,7 +233,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 
         <div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; pointer-events: none;">
-            <div id="appToast" class="toast hide" role="alert" aria-live="assertive" style="pointer-events: auto" aria-atomic="true" data-delay="10000">
+            <div id="appToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000" style="pointer-events: auto;">
                 <div id="toastHeader" class="toast-header text-white">
                     <strong id="toastTitle" class="mr-auto">Notificación</strong>
                     <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
@@ -213,12 +247,8 @@
 
         <script>
             function mostrarToast(mensaje, tipo) {
-                // tipo puede ser success danger warning o info
-
-                // Reseteo clases del header
                 $('#toastHeader').removeClass('bg-success bg-danger bg-warning bg-info');
 
-                // Asigno color y titulo segun tipo
                 if (tipo === 'success') {
                     $('#toastHeader').addClass('bg-success');
                     $('#toastTitle').text('¡Éxito!');
@@ -230,14 +260,10 @@
                     $('#toastTitle').text('Atención');
                 }
 
-                // Cargo el mensaje
                 $('#toastBody').text(mensaje);
-
-                // Muestro toast
                 $('#appToast').toast('show');
             }
-    </script>
+        </script>
     </form>
-
 </body>
 </html>

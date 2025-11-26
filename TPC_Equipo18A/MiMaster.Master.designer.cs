@@ -78,6 +78,15 @@ namespace TPC_Equipo18A
         protected global::System.Web.UI.WebControls.HyperLink lnkRegistrarCompra;
 
         /// <summary>
+        /// lnkGestionVentas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkGestionVentas;
+
+        /// <summary>
         /// lnkMarcas control.
         /// </summary>
         /// <remarks>
@@ -96,13 +105,13 @@ namespace TPC_Equipo18A
         protected global::System.Web.UI.WebControls.HyperLink lnkCategorias;
 
         /// <summary>
-        /// lnkGestionVentas control.
+        /// lnkReportes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkGestionVentas;
+        protected global::System.Web.UI.WebControls.HyperLink lnkReportes;
 
         /// <summary>
         /// lblTituloPagina control.
@@ -112,6 +121,33 @@ namespace TPC_Equipo18A
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTituloPagina;
+
+        /// <summary>
+        /// lblCantNotificaciones control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCantNotificaciones;
+
+        /// <summary>
+        /// rptNotificaciones control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptNotificaciones;
+
+        /// <summary>
+        /// pnlSinNotificaciones control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlSinNotificaciones;
 
         /// <summary>
         /// lblNombreUsuario control.
