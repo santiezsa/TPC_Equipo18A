@@ -119,6 +119,11 @@
                                 </asp:HyperLink>
                             </li>
                             <li class="nav-item">
+                                <asp:HyperLink ID="HyperLink1" CssClass="nav-link" NavigateUrl="~/GestionCompras.aspx" runat="server">
+                                    <i class="bi bi-receipt-cutoff"></i> Listado de Compras
+                                </asp:HyperLink>
+                            </li>
+                            <li class="nav-item">
                                 <asp:HyperLink ID="lnkMarcas" CssClass="nav-link" NavigateUrl="~/GestionMarcas.aspx" runat="server">
                                     <i class="bi bi-tag"></i> Marcas
                                 </asp:HyperLink>

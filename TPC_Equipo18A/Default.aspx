@@ -66,7 +66,6 @@
 
     <h4>Resumen General</h4>
     <p class="text-muted">Este es el resumen del negocio.</p>
-    <%-- Mockup hasta traer datos desde la base de datos --%>
     <div class="row">
 
         <div class="col-lg-8 mb-4">

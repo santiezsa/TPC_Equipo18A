@@ -71,5 +71,103 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+        public List<Compra> listar()
+        {
+            List<Compra> lista = new List<Compra>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                // Traigo datos para mostrar nombres
+                datos.setearConsulta(@"select C.Id, C.Fecha, C.Total, C.Activo, P.Id as idProveedor, P.Nombre, 
+                    P.RazonSocial, U.Id as idUsuario, U.Username
+                    from Compras C 
+                    inner join Proveedores P on C.IdProveedor = P.Id
+                    inner join Usuarios U on C.IdUsuario = U.Id
+                    order by C.Fecha DESC;");
+
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Compra aux = new Compra();
+                    aux.Id = (int)datos.Lector["Id"];
+                    aux.Fecha = (DateTime)datos.Lector["Fecha"];
+                    aux.Total = (decimal)datos.Lector["Total"];
+                    aux.Activo = (bool)datos.Lector["Activo"];
+
+                    // Proveedor
+                    aux.Proveedor = new Proveedor();
+                    aux.Proveedor.Id = (int)datos.Lector["IdProveedor"];
+                    aux.Proveedor.Nombre = (string)datos.Lector["Nombre"];
+                    aux.Proveedor.RazonSocial = (string)datos.Lector["RazonSocial"];
+
+                    // Usuario
+                    aux.Usuario = new Usuario();
+                    aux.Usuario.Id = (int)datos.Lector["IdUsuario"];
+                    aux.Usuario.Username = (string)datos.Lector["Username"];
+
+                    lista.Add(aux);
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void anular(int idCompra, int idUsuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                // 1 Traigo items de la compra para devolver stock
+                List<DetalleCompra> detalles = new List<DetalleCompra>();
+
+                // Obtengo detalles (id prod y cantidad)
+                datos.setearConsulta("SELECT IdProducto, Cantidad FROM DetalleCompra WHERE IdCompra = @IdCompra");
+                datos.setearParametro("@IdCompra", idCompra);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    DetalleCompra detalle = new DetalleCompra();
+                    detalle.Producto = new Producto { Id = (int)datos.Lector["IdProducto"] };
+                    detalle.Cantidad = (int)datos.Lector["Cantidad"];
+                    detalles.Add(detalle);
+                }
+                datos.cerrarConexion();
+
+                // 2 Devuelvo stock
+                ProductoNegocio productoNegocio = new ProductoNegocio();
+                foreach (var item in detalles)
+                {
+                    // Actualizo stock 
+                    productoNegocio.ajustarStock(item.Producto.Id, item.Cantidad, "Anulación Compra #" + idCompra, idUsuario, false);
+                }
+
+                // 3 Anulo la compra
+                datos = new AccesoDatos();
+                datos.setearConsulta("UPDATE Compras SET Activo = 0 WHERE Id = @Id");
+                datos.setearParametro("@Id", idCompra);
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
+
 }

@@ -81,6 +81,7 @@
     <Content Include="FormularioUsuario.aspx" />
     <Content Include="GestionCategorias.aspx" />
     <Content Include="GestionClientes.aspx" />
+    <Content Include="GestionCompras.aspx" />
     <Content Include="GestionMarcas.aspx" />
     <Content Include="GestionProductos.aspx" />
     <Content Include="GestionProveedores.aspx" />
@@ -165,6 +166,13 @@
     </Compile>
     <Compile Include="GestionClientes.aspx.designer.cs">
       <DependentUpon>GestionClientes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GestionCompras.aspx.cs">
+      <DependentUpon>GestionCompras.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestionCompras.aspx.designer.cs">
+      <DependentUpon>GestionCompras.aspx</DependentUpon>
     </Compile>
     <Compile Include="GestionMarcas.aspx.cs">
       <DependentUpon>GestionMarcas.aspx</DependentUpon>
