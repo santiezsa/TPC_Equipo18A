@@ -41,6 +41,13 @@
                         <div class="form-group col-md-12">
                             <label>Teléfono</label>
                             <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" MaxLength="100"></asp:TextBox>
+                            <asp:RegularExpressionValidator
+                                ErrorMessage="Solo se permiten números."
+                                ControlToValidate="txtTelefono"
+                                ValidationExpression="^\d+$"
+                                CssClass="text-danger small"
+                                Display="Dynamic"
+                                runat="server" />
                         </div>
                     </div>
 

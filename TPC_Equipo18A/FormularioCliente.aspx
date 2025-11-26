@@ -49,7 +49,13 @@
                             <label>Teléfono</label>
                             <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" MaxLength="100"></asp:TextBox>
                             <asp:RequiredFieldValidator ErrorMessage="El telefono es obligatorio." ControlToValidate="txtTelefono" CssClass="text-danger small" Display="Dynamic" runat="server"></asp:RequiredFieldValidator>
-
+                            <asp:RegularExpressionValidator
+                                ErrorMessage="Solo se permiten números (sin guiones)."
+                                ControlToValidate="txtTelefono"
+                                ValidationExpression="^\d+$"
+                                CssClass="text-danger small"
+                                Display="Dynamic"
+                                runat="server" />
                         </div>
                     </div>
 
