@@ -417,15 +417,15 @@ namespace negocio
             }
         }
 
-        public List<Producto> listarStockBajo(int limite = 15)
+        public List<Producto> listarStockBajo()
         {
             List<Producto> lista = new List<Producto>();
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setearConsulta("SELECT Id, Nombre, StockActual FROM Productos WHERE StockActual <= @limite ORDER BY StockActual ASC");
-                datos.setearParametro("@limite", limite);
+                datos.setearConsulta("SELECT Id, Nombre, StockActual, StockMinimo FROM Productos WHERE StockActual <= StockMinimo AND Activo = 1 ORDER BY StockActual ASC");
+
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -434,11 +434,17 @@ namespace negocio
                     producto.Id = (int)datos.Lector["Id"];
                     producto.Nombre = (string)datos.Lector["Nombre"];
                     producto.StockActual = (int)datos.Lector["StockActual"];
+                    // Parametro para mostrar notificaciones
+                    producto.StockMinimo = (int)datos.Lector["StockMinimo"];
 
                     lista.Add(producto);
                 }
 
                 return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
             finally
             {
