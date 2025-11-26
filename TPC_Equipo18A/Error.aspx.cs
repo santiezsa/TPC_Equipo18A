@@ -15,8 +15,13 @@ namespace TPC_Equipo18A
             {
                 lblMensajeError.Text = Session["error"].ToString();
                 Session.Remove("error");
+                return;
             }
 
+            if (Request.QueryString["msg"] != null)
+            {
+                lblMensajeError.Text = Request.QueryString["msg"];
+            }
         }
     }
 }

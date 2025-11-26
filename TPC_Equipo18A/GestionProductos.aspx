@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="GestionProductos.aspx.cs" Inherits="TPC_Equipo18A.GestionProductos" %>
+﻿<%@ Page Title="Productos" Language="C#" MasterPageFile="~/MiMaster.Master" AutoEventWireup="true" CodeBehind="GestionProductos.aspx.cs" Inherits="TPC_Equipo18A.GestionProductos" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

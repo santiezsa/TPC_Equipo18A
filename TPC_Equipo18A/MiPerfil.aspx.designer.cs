@@ -11,79 +11,70 @@ namespace TPC_Equipo18A
 {
 
 
-    public partial class GestionCompras
+    public partial class MiPerfil
     {
 
         /// <summary>
-        /// pnlConfirmacion control.
+        /// txtUser control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlConfirmacion;
+        protected global::System.Web.UI.WebControls.TextBox txtUser;
 
         /// <summary>
-        /// lblConfirmarTexto control.
+        /// txtPerfil control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal lblConfirmarTexto;
+        protected global::System.Web.UI.WebControls.TextBox txtPerfil;
 
         /// <summary>
-        /// hfIdParaAnular control.
+        /// txtEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfIdParaAnular;
+        protected global::System.Web.UI.WebControls.TextBox txtEmail;
 
         /// <summary>
-        /// btnConfirmarAnulacion control.
+        /// txtPassActual control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnConfirmarAnulacion;
+        protected global::System.Web.UI.WebControls.TextBox txtPassActual;
 
         /// <summary>
-        /// btnCancelarAnulacion control.
+        /// txtPassNueva control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancelarAnulacion;
+        protected global::System.Web.UI.WebControls.TextBox txtPassNueva;
 
         /// <summary>
-        /// pnlGV control.
+        /// txtPassRepetir control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlGV;
+        protected global::System.Web.UI.WebControls.TextBox txtPassRepetir;
 
         /// <summary>
-        /// btnExportarExcel control.
+        /// btnGuardar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExportarExcel;
-
-        /// <summary>
-        /// gvCompras control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvCompras;
+        protected global::System.Web.UI.WebControls.Button btnGuardar;
     }
 }
